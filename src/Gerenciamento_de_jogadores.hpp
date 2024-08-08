@@ -1,12 +1,12 @@
 //
-//  Gerenciamento_de_jogadores.hpp
+//  Cadastro_de_jogadores.hpp
 //  tp
 //
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#ifndef Gerenciamento_de_jogadores_hpp
-#define Gerenciamento_de_jogadores_hpp
+#ifndef Cadastro_de_jogadores_hpp
+#define Cadastro_de_jogadores_hpp
 
 #include <iostream>
 #include <vector>
@@ -14,7 +14,7 @@
 #include <string>
 #include "Jogador.hpp"
 
-class Gerenciamento_de_jogadores{
+class Cadastro_de_jogadores{
 private:
     std::vector<Jogador> jogadores;
     
@@ -31,4 +31,4 @@ public:
     
 };
 
-#endif /* Gerenciamento_de_jogadores_hpp */
+#endif /* Cadastro_de_jogadores_hpp */
