@@ -4,7 +4,10 @@ project(TP-jogosTabuleiro-cpp)
 
 set(CMAKE_CXX_STANDARD 17)
 
-file(GLOB SOURCES "src/*.cpp")
-file(GLOB HEADERS "src/*.hpp")
 
-add_executable(TP-jogosTabuleiro-cpp ${SOURCES} ${HEADERS})
+file(GLOB SOURCES "src/*.cpp")
+
+
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+add_executable(TP-jogosTabuleiro-cpp ${SOURCES})
