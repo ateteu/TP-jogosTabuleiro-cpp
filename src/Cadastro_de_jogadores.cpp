@@ -29,7 +29,7 @@ void Cadastro_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jogador)
     
     carregar_jogadores_de_arquivo("jogadores.txt");
     
-    // Verifica se o jogador já existe na lista
+   
     bool jogador_existe = std::any_of(jogadores.begin(), jogadores.end(),
         [&jogador](const Jogador& j) { return j.get_nome() == jogador.get_nome(); });
     
@@ -152,7 +152,7 @@ void Cadastro_de_jogadores::remover_jogador_do_arquivo(const std::string &nome){
 }
 void Cadastro_de_jogadores::atualizar_arquivo() const {
     std::string nome_arquivo = "jogadores.txt";
-    std::ofstream arquivo(nome_arquivo, std::ios::trunc);  // Abre o arquivo para escrita, truncando o conteúdo existente
+    std::ofstream arquivo(nome_arquivo, std::ios::trunc);  
     if (arquivo.is_open()) {
         for (const auto& jogador : jogadores) {
             arquivo << std::quoted(jogador.get_nome()) << std::endl;
