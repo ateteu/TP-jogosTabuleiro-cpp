@@ -1,14 +1,14 @@
 //
-//  Gerenciamento_de_jogadores.cpp
+//  Cadastro_de_jogadores.cpp
 //  tp
 //
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#include "Gerenciamento_de_jogadores.hpp"
+#include "Cadastro_de_jogadores.hpp"
 #include <iostream>
 
-void Gerenciamento_de_jogadores::criar_arquivo_jogadores()const{
+void Cadastro_de_jogadores::criar_arquivo_jogadores()const{
     const std::string nome_arquivo = "jogadores.txt";
     
     if (std::filesystem::exists(nome_arquivo)){
@@ -24,7 +24,7 @@ void Gerenciamento_de_jogadores::criar_arquivo_jogadores()const{
     
 };
 
-void Gerenciamento_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jogador) {
+void Cadastro_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jogador) {
     criar_arquivo_jogadores();
     
     carregar_jogadores_de_arquivo("jogadores.txt");
@@ -45,7 +45,7 @@ void Gerenciamento_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jog
     std::cout << "Jogador " << jogador.get_nome() << " adicionado ao arquivo." << std::endl;
 }
 
-void Gerenciamento_de_jogadores::carregar_jogadores_de_arquivo(const std::string& nome_arquivo) {
+void Cadastro_de_jogadores::carregar_jogadores_de_arquivo(const std::string& nome_arquivo) {
     std::ifstream arquivo(nome_arquivo);
     
     if(arquivo.is_open()){
@@ -63,7 +63,7 @@ void Gerenciamento_de_jogadores::carregar_jogadores_de_arquivo(const std::string
     }
 }
 
-void Gerenciamento_de_jogadores::limpar_arquivo(){
+void Cadastro_de_jogadores::limpar_arquivo(){
     
     
     std::string nome_arquivo = "jogadores.txt";
@@ -81,7 +81,7 @@ void Gerenciamento_de_jogadores::limpar_arquivo(){
     std::cout <<"Arquivo limpo com sucesso." << std::endl;
 }
 
-void Gerenciamento_de_jogadores::listar_jogadores_do_arquivo() {
+void Cadastro_de_jogadores::listar_jogadores_do_arquivo() {
     std::string nome_arquivo = "jogadores.txt";
         
     std::ifstream arquivo(nome_arquivo);
@@ -116,7 +116,7 @@ void Gerenciamento_de_jogadores::listar_jogadores_do_arquivo() {
     
 }
 
-bool Gerenciamento_de_jogadores::buscar_jogador_no_arquivo(const std::string &nome) {
+bool Cadastro_de_jogadores::buscar_jogador_no_arquivo(const std::string &nome) {
     const std::string nome_arquivo = "jogadores.txt";
     carregar_jogadores_de_arquivo(nome_arquivo);
     
@@ -130,7 +130,7 @@ bool Gerenciamento_de_jogadores::buscar_jogador_no_arquivo(const std::string &no
     return false;
 }
 
-void Gerenciamento_de_jogadores::remover_jogador_do_arquivo(const std::string &nome){
+void Cadastro_de_jogadores::remover_jogador_do_arquivo(const std::string &nome){
     const std::string nome_arquivo = "jogadores.txt";
     carregar_jogadores_de_arquivo(nome_arquivo);
     
@@ -150,7 +150,7 @@ void Gerenciamento_de_jogadores::remover_jogador_do_arquivo(const std::string &n
         std::cout << "Jogador com nome " << nome << " não encontrado no arquivo." << std::endl;
     }
 }
-void Gerenciamento_de_jogadores::atualizar_arquivo() const {
+void Cadastro_de_jogadores::atualizar_arquivo() const {
     std::string nome_arquivo = "jogadores.txt";
     std::ofstream arquivo(nome_arquivo, std::ios::trunc);  // Abre o arquivo para escrita, truncando o conteúdo existente
     if (arquivo.is_open()) {
