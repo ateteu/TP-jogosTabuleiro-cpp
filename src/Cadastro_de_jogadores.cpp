@@ -163,3 +163,50 @@ void Cadastro_de_jogadores::atualizar_arquivo() const {
         std::cout << "Não foi possível abrir o arquivo " << nome_arquivo << " para atualizar." << std::endl;
     }
 }
+
+void Cadastro_de_jogadores::atualizar_nome_do_jogador(const std::string &nome_atual, const std::string &novo_nome) {
+    std::string nome_arquivo = "jogadores.txt";
+
+    std::ifstream arquivo(nome_arquivo);
+
+    if (!arquivo) {
+        std::cerr << "Erro ao abrir o arquivo " << nome_arquivo << " para leitura." << std::endl;
+        return;
+    }
+
+    std::string conteudo_atualizado;
+    std::string linha;
+
+    bool encontrado = false;
+
+    while (std::getline(arquivo, linha)) {
+
+        if (!linha.empty() && linha.front() == '\"' && linha.back() == '\"') {
+            linha = linha.substr(1, linha.length() - 2);
+        }
+
+        if (linha == nome_atual) {
+            conteudo_atualizado = novo_nome ;
+            encontrado = true;
+        } else {
+            conteudo_atualizado = linha;
+        }
+    }
+    arquivo.close();
+
+    if (!encontrado) {
+        std::cout << "Nome atual não encontrado no arquivo." << std::endl;
+        return;
+    }
+
+    std::ofstream arquivo_atualizado(nome_arquivo, std::ios::trunc);
+    if (!arquivo_atualizado) {
+        std::cerr << "Erro ao abrir o arquivo " << nome_arquivo << " para escrita." << std::endl;
+        return;
+    }
+
+    arquivo_atualizado << conteudo_atualizado;
+    arquivo_atualizado.close();
+
+    std::cout << "Nome do jogador atualizado com sucesso." << std::endl;
+}
