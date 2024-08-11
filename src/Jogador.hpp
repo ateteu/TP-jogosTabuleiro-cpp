@@ -22,13 +22,13 @@ public:
     ~Jogador();
  
 
-    std::string get_nome() const;
-    void set_nome(const std:: string& nome);
+    std::string getNome() const;
+    void setNome(const std:: string& nome);
     
-    int get_pontos() const;
-    void set_pontos(int pontos);
+    int getPontos() const;
+    void setPontos(int pontos);
     
-    void imprimir_jogador() const;
+    void imprimirJogador() const;
 };
 
 #endif /* Jogador_hpp */
