@@ -14,23 +14,23 @@ Jogador::Jogador( const std::string& nome_jogador, int ponto)
 
 Jogador::~Jogador(){};
 
-std::string Jogador:: get_nome() const{
+std::string Jogador:: getNome() const{
     return nome_jogador;
 }
 
-void Jogador::set_nome(const std::string &nome){
+void Jogador::setNome(const std::string &nome){
     nome_jogador = nome;
 }
 
-int Jogador::get_pontos()const{
+int Jogador::getPontos()const{
     return ponto;
 }
 
-void Jogador::set_pontos(int pontos){
+void Jogador::setPontos(int pontos){
     ponto = pontos;
 }
 
-void Jogador:: imprimir_jogador() const{
+void Jogador::imprimirJogador() const{
     std::cout<<"Nome: " << nome_jogador << std::endl;
     std::cout<<"Pontos: " << ponto << std::endl;
 }
