@@ -1,0 +1,3 @@
+Esse arquivo foi criado apenas para poder enviar a pasta "testes" para o repositório.
+
+Apagar isso posteriormente.

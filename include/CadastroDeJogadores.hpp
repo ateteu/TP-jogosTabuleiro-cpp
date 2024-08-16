@@ -14,7 +14,7 @@
 #include <string>
 #include "../src/Jogador.cpp"
 
-class CadastroDeJogadores{
+class CadastroDeJogadores {
 private:
     std::vector<Jogador> jogadores;
     
@@ -32,4 +32,4 @@ public:
     
 };
 
-#endif /* CadastroDeJogadores_hpp */
+#endif // CadastroDeJogadores_hpp

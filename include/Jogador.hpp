@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string>
+
 class Jogador{
 private:
     std::string nome_jogador;
@@ -21,7 +22,6 @@ public:
     Jogador( const std::string& nome_jogador= "", int ponto = 0);
     ~Jogador();
  
-
     std::string get_nome() const;
     void set_nome(const std:: string& nome);
     
@@ -31,4 +31,4 @@ public:
     void imprimir_jogador() const;
 };
 
-#endif /* Jogador_hpp */
+#endif // Jogador_hpp
