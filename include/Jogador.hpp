@@ -48,25 +48,25 @@ public:
 
     /** @brief
      *  Retorna o nome do jogador.
-     *  @return O nome do jogador.
+     *  @return Nome do jogador.
      */
     std::string get_nome() const;
 
     /** @brief
      *  Define o nome do jogador.
-     *  @param nome O novo nome a ser atribuído ao jogador.
+     *  @param nome Novo nome a ser atribuído ao jogador.
      */
     void set_nome(const std::string& nome);
 
     /** @brief
      *  Retorna a quantidade de pontos do jogador.
-     *  @return A quantidade de pontos do jogador.
+     *  @return Quantidade de pontos do jogador.
      */
     int get_pontos() const;
 
     /** @brief
      *  Define a quantidade de pontos do jogador.
-     *  @param pontos A nova quantidade de pontos a ser atribuída ao jogador.
+     *  @param pontos Nova quantidade de pontos a ser atribuída ao jogador.
      */
     void set_pontos(int pontos);
 
