@@ -1,20 +1,20 @@
 //
-//  Cadastro_de_jogadores.hpp
+//  CadastroDeJogadores.hpp
 //  tp
 //
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#ifndef Cadastro_de_jogadores_hpp
-#define Cadastro_de_jogadores_hpp
+#ifndef CadastroDeJogadores_hpp
+#define CadastroDeJogadores_hpp
 
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <string>
-#include "Jogador.hpp"
+#include "../src/Jogador.cpp"
 
-class Cadastro_de_jogadores{
+class CadastroDeJogadores{
 private:
     std::vector<Jogador> jogadores;
     
@@ -32,4 +32,4 @@ public:
     
 };
 
-#endif /* Cadastro_de_jogadores_hpp */
+#endif /* CadastroDeJogadores_hpp */

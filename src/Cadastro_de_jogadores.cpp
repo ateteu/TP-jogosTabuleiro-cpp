@@ -1,14 +1,14 @@
 //
-//  Cadastro_de_jogadores.cpp
+//  CadastroDeJogadores.cpp
 //  tp
 //
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#include "Cadastro_de_jogadores.hpp"
+#include "CadastroDeJogadores.hpp"
 #include <iostream>
 
-void Cadastro_de_jogadores::criar_arquivo_jogadores()const{
+void CadastroDeJogadores::criar_arquivo_jogadores()const{
     const std::string nome_arquivo = "jogadores.txt";
     
     if (std::filesystem::exists(nome_arquivo)){
@@ -24,7 +24,7 @@ void Cadastro_de_jogadores::criar_arquivo_jogadores()const{
     
 };
 
-void Cadastro_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jogador) {
+void CadastroDeJogadores::adicionar_jogador_no_arquivo(const Jogador &jogador) {
     criar_arquivo_jogadores();
     
     carregar_jogadores_de_arquivo("jogadores.txt");
@@ -45,7 +45,7 @@ void Cadastro_de_jogadores::adicionar_jogador_no_arquivo(const Jogador &jogador)
     std::cout << "Jogador " << jogador.get_nome() << " adicionado ao arquivo." << std::endl;
 }
 
-void Cadastro_de_jogadores::carregar_jogadores_de_arquivo(const std::string& nome_arquivo) {
+void CadastroDeJogadores::carregar_jogadores_de_arquivo(const std::string& nome_arquivo) {
     std::ifstream arquivo(nome_arquivo);
     
     if(arquivo.is_open()){
@@ -63,7 +63,7 @@ void Cadastro_de_jogadores::carregar_jogadores_de_arquivo(const std::string& nom
     }
 }
 
-void Cadastro_de_jogadores::limpar_arquivo(){
+void CadastroDeJogadores::limpar_arquivo(){
     
     
     std::string nome_arquivo = "jogadores.txt";
@@ -81,7 +81,7 @@ void Cadastro_de_jogadores::limpar_arquivo(){
     std::cout <<"Arquivo limpo com sucesso." << std::endl;
 }
 
-void Cadastro_de_jogadores::listar_jogadores_do_arquivo() {
+void CadastroDeJogadores::listar_jogadores_do_arquivo() {
     std::string nome_arquivo = "jogadores.txt";
         
     std::ifstream arquivo(nome_arquivo);
@@ -116,7 +116,7 @@ void Cadastro_de_jogadores::listar_jogadores_do_arquivo() {
     
 }
 
-bool Cadastro_de_jogadores::buscar_jogador_no_arquivo(const std::string &nome) {
+bool CadastroDeJogadores::buscar_jogador_no_arquivo(const std::string &nome) {
     const std::string nome_arquivo = "jogadores.txt";
     carregar_jogadores_de_arquivo(nome_arquivo);
     
@@ -130,7 +130,7 @@ bool Cadastro_de_jogadores::buscar_jogador_no_arquivo(const std::string &nome) {
     return false;
 }
 
-void Cadastro_de_jogadores::remover_jogador_do_arquivo(const std::string &nome){
+void CadastroDeJogadores::remover_jogador_do_arquivo(const std::string &nome){
     const std::string nome_arquivo = "jogadores.txt";
     carregar_jogadores_de_arquivo(nome_arquivo);
     
@@ -150,7 +150,7 @@ void Cadastro_de_jogadores::remover_jogador_do_arquivo(const std::string &nome){
         std::cout << "Jogador com nome " << nome << " não encontrado no arquivo." << std::endl;
     }
 }
-void Cadastro_de_jogadores::atualizar_arquivo() const {
+void CadastroDeJogadores::atualizar_arquivo() const {
     std::string nome_arquivo = "jogadores.txt";
     std::ofstream arquivo(nome_arquivo, std::ios::trunc);  
     if (arquivo.is_open()) {
@@ -164,7 +164,7 @@ void Cadastro_de_jogadores::atualizar_arquivo() const {
     }
 }
 
-void Cadastro_de_jogadores::atualizar_nome_do_jogador(const std::string &nome_atual, const std::string &novo_nome) {
+void CadastroDeJogadores::atualizar_nome_do_jogador(const std::string &nome_atual, const std::string &novo_nome) {
     std::string nome_arquivo = "jogadores.txt";
 
     std::ifstream arquivo(nome_arquivo);
