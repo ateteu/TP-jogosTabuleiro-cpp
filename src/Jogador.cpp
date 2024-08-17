@@ -5,7 +5,7 @@
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#include "Jogador.hpp"
+#include "../include/Jogador.hpp"
 
 Jogador::Jogador(): nome_jogador(""), ponto(0) {};
 
