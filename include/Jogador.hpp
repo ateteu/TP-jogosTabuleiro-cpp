@@ -1,10 +1,3 @@
-//
-//  Jogador.hpp
-//  tp
-//
-//  Created by Ian Godoi on 06/08/24.
-//
-
 #ifndef Jogador_hpp
 #define Jogador_hpp
 
@@ -19,27 +12,31 @@ private:
     std::string nome_jogador;
 
     /** @brief
-     * Quantidade de pontos do jogador. Este atributo armazena o total de pontos acumulados pelo jogador ao longo do jogo.
+     *  Contabiliza o número de vitórias do jogador.
      */
-    int ponto;
+    int vitorias;
 
     /** @brief
-     *  Identificador único do jogador. Este atributo pode ser utilizado para identificar de forma única cada jogador em um sistema.
+     *  Contabiliza o número de empates do jogador.
      */
-    int id;
+    int empates;
+
+    /** @brief
+     *  Contabiliza o número de derrotas do jogador.
+     */
+    int derrotas;
 
 public:
     /** @brief
-     *  Construtor padrão da classe Jogador. Inicializa um objeto Jogador com um nome vazio e zero pontos.
+     *  Construtor padrão da classe Jogador. Inicializa um objeto Jogador com um nome vazio e contadores zerados.
      */
     Jogador();
 
     /** @brief
-     *  Construtor que inicializa um objeto Jogador com um nome específico e uma quantidade inicial de pontos.
+     *  Construtor que inicializa um objeto Jogador com um nome específico e contadores de vitórias, empates e derrotas zerados.
      *  @param nome_jogador Nome do jogador.
-     *  @param ponto Quantidade inicial de pontos do jogador.
      */
-    Jogador(const std::string& nome_jogador = "", int ponto = 0);
+    Jogador(const std::string& nome_jogador);
 
     /** @brief
      *  Destrutor da classe Jogador.
@@ -59,19 +56,40 @@ public:
     void setNome(const std::string& nome);
 
     /** @brief
-     *  Retorna a quantidade de pontos do jogador.
-     *  @return Quantidade de pontos do jogador.
+     *  Retorna o número de vitórias do jogador.
+     *  @return Número de vitórias.
      */
-    int getPontos() const;
+    int getVitorias() const;
 
     /** @brief
-     *  Define a quantidade de pontos do jogador.
-     *  @param pontos Nova quantidade de pontos a ser atribuída ao jogador.
+     *  Retorna o número de empates do jogador.
+     *  @return Número de empates.
      */
-    void setPontos(int pontos);
+    int getEmpates() const;
 
     /** @brief
-     *  Imprime o nome e a quantidade de pontos do jogador no console.
+     *  Retorna o número de derrotas do jogador.
+     *  @return Número de derrotas.
+     */
+    int getDerrotas() const;
+
+    /** @brief
+     *  Registra uma vitória, incrementando o contador de vitórias.
+     */
+    void registrarVitoria();
+
+    /** @brief
+     *  Registra um empate, incrementando o contador de empates.
+     */
+    void registrarEmpate();
+
+    /** @brief
+     *  Registra uma derrota, incrementando o contador de derrotas.
+     */
+    void registrarDerrota();
+
+    /** @brief
+     *  Imprime o nome do jogador e o número de vitórias, empates e derrotas no console.
      */
     void imprimirJogador() const;
 };
