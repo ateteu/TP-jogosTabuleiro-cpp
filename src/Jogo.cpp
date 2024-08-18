@@ -7,10 +7,7 @@ void Jogo::inicializarTabuleiro() {
 
 }
 
-void Jogo::validarJogada(int _x, int _y) {
-    if(tabuleiro -> posicaoValida(_x, _y)){
-        // colocar como essa jogada será validada para cada jogo
-    }
+bool Jogo::validarJogada(int _coluna) {
 }
 
 

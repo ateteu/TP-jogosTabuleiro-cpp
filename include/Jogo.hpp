@@ -39,7 +39,7 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do jogo.
      */
-    virtual void validarJogada(int _linha, int _coluna);
+    virtual bool validarJogada( int _coluna);
 
     /**
      * @brief Verifica a condição de vitória.
