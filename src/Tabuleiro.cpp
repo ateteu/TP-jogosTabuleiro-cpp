@@ -53,7 +53,6 @@ Tabuleiro::~Tabuleiro() {
     if (matrizTabuleiro) {
         for (int i = 0; i < linhas; i++) {
             delete[] matrizTabuleiro[i];
-            /* code */
         }
         delete[] matrizTabuleiro;
     }
