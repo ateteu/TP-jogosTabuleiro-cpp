@@ -11,7 +11,7 @@ bool Jogo::validarJogada(int _linha, int _coluna, Jogador jogador) {
     return false;
 }
 
-void Jogo::verificarCondicaoVitoria() {
+bool Jogo::verificarCondicaoVitoria() {
     // implementar nas subclasses
 }
 

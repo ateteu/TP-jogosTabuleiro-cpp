@@ -46,9 +46,10 @@ public:
      * @brief Verifica a condição de vitória.
      *
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
+     * @return true se algum jogador venceu, false caso contrário.
      */
-    virtual void verificarCondicaoVitoria();
-
+    virtual bool verificarCondicaoVitoria();
+    
     /**
      * @brief Imprime o estado atual do jogo.
      *
