@@ -52,7 +52,7 @@ public:
      *
      * Este é um método virtual puro que deve ser implementado pelas classes derivadas.
      */
-    virtual void imprimir() = 0;
+    void imprimir();
 
     /**
      * @brief Destrutor da classe Tabuleiro.
