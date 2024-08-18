@@ -50,32 +50,30 @@ public:
      *  Retorna o nome do jogador.
      *  @return Nome do jogador.
      */
-    std::string get_nome() const;
+    std::string getNome() const;
 
     /** @brief
      *  Define o nome do jogador.
      *  @param nome Novo nome a ser atribuído ao jogador.
      */
-    void set_nome(const std::string& nome);
+    void setNome(const std::string& nome);
 
     /** @brief
      *  Retorna a quantidade de pontos do jogador.
      *  @return Quantidade de pontos do jogador.
      */
-    int get_pontos() const;
+    int getPontos() const;
 
     /** @brief
      *  Define a quantidade de pontos do jogador.
      *  @param pontos Nova quantidade de pontos a ser atribuída ao jogador.
      */
-    void set_pontos(int pontos);
+    void setPontos(int pontos);
 
     /** @brief
      *  Imprime o nome e a quantidade de pontos do jogador no console.
      */
-    void imprimir_jogador() const;
-};
-
+    void imprimirJogador() const;
 };
 
 #endif // Jogador_hpp

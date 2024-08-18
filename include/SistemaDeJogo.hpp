@@ -2,13 +2,14 @@
 #define SISTEMA_DE_JOGO_HPP
 
 #include "CadastroDeJogadores.hpp"
-#include "Jogador.hpp"
-#include "Jogo.hpp" //precisa criar a classe, ela não existe ainda
+#include "../include/Jogador.hpp"
+#include "../include/Jogo.hpp" //precisa criar a classe, ela não existe ainda
 
 class SistemaDeJogo {
 private:
     CadastroDeJogadores cadastro;
     Jogo jogo;
+    Jogador jogador;
 
 public:
     SistemaDeJogo();

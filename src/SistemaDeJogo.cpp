@@ -1,4 +1,5 @@
 #include "../include/SistemaDeJogo.hpp"
+#include "../include/Jogador.hpp"
 #include <iostream>
 
 SistemaDeJogo::SistemaDeJogo() {
@@ -13,16 +14,16 @@ void SistemaDeJogo::inicializar() {
     std::cout << "Entre com o nome do Jogador 1: ";
     std::getline(std::cin, nome_jogador_1);
 
-    Jogador* jogador_1 = cadastro.buscarJogador(nome_jogador_1);
+    bool jogador_1 = cadastro.buscarJogadorNoArquivo(nome_jogador_1);
     if (!jogador_1) {
         char opcao;
-        std::cout << "Jogador não encontrado. Deseja criar um novo jogador com esse nome? (s/n): ";
+        std::cout << "Deseja criar um novo jogador com esse nome? (s/n): ";
         std::cin >> opcao;
         std::cin.ignore(); // Limpa o buffer de entrada
 
         if (opcao == 's' || opcao == 'S') {
-            cadastro.adicionar_jogador_no_arquivo(nome_jogador_1);
-            jogador_1 = cadastro.buscar_jogador_no_arquivo(nome_jogador_1);
+            cadastro.adicionarJogadorNoArquivo(nome_jogador_1);
+            jogador_1 = cadastro.buscarJogadorNoArquivo(nome_jogador_1);
         } else {
             std::cout << "Operação cancelada. O jogo não pode prosseguir sem o Jogador 1." << std::endl;
             return;
@@ -33,16 +34,16 @@ void SistemaDeJogo::inicializar() {
     std::cout << "Entre com o nome do Jogador 2: ";
     std::getline(std::cin, nome_jogador_2);
 
-    Jogador* jogador_2 = cadastro.buscarJogador(nome_jogador_2);
+    bool jogador_2 = cadastro.buscarJogadorNoArquivo(nome_jogador_2);
     if (!jogador_2) {
         char opcao;
-        std::cout << "Jogador não encontrado. Deseja criar um novo jogador com esse nome? (s/n): ";
+        std::cout << "Deseja criar um novo jogador com esse nome? (s/n): ";
         std::cin >> opcao;
         std::cin.ignore(); // Limpa o buffer de entrada
 
         if (opcao == 's' || opcao == 'S') {
-            cadastro.adicionar_jogador_no_arquivo(nome_jogador_2);
-            jogador_2 = cadastro.buscar_jogador_no_arquivo(nome_jogador_2);
+            cadastro.adicionarJogadorNoArquivo(nome_jogador_2);
+            jogador_2 = cadastro.buscarJogadorNoArquivo(nome_jogador_2);
         } else {
             std::cout << "Operação cancelada. O jogo não pode prosseguir sem o Jogador 2." << std::endl;
             return;
@@ -70,11 +71,11 @@ void SistemaDeJogo::executarPartida() {
     switch (opcao_jogo) {
         case 1:
             std::cout << "Você escolheu o Reversi.\n";
-            jogo.imprimirTabuleiro();
+            jogo.inicializarTabuleiro();
             break;
         case 2:
             std::cout << "Você escolheu o Lig4.\n";
-            jogo.imprimirTabuleiro();
+            jogo.inicializarTabuleiro();
             break;
         default:
             std::cout << "Opção inválida. O jogo será encerrado.\n";
@@ -82,13 +83,13 @@ void SistemaDeJogo::executarPartida() {
     }
 
     // Jogadores alternam após cada jogada
-    Jogador* jogador_atual = cadastro.buscar_jogador_no_arquivo(1);  // Começa com o primeiro jogador
-    Jogador* outro_jogador = cadastro.buscar_jogador_no_arquivo(2);
+    Jogador* jogador_atual = cadastro.getJogadorPorNome("jogador_1");  // Começa com o primeiro jogador
+    Jogador* outro_jogador = cadastro.getJogadorPorNome("jogador_2");
 
     // Lógica para executar uma partida
     while (!jogo.verificarCondicaoVitoria()) {
-        jogo.realizarJogada(*jogador_atual);
-        jogo.imprimirTabuleiro();
+        jogo.realizarJogada();
+        jogo.imprimir();
 
         // Verificar se a partida terminou em empate
         if (jogo.verificarCondicaoEmpate()) {
@@ -121,5 +122,5 @@ void SistemaDeJogo::registrarEmpate(Jogador& jogador_1, Jogador& jogador_2) {
 }
 
 void SistemaDeJogo::listarJogadores() {
-    cadastro.listarJogadores();
+    cadastro.listarJogadoresDoArquivo();
 }
