@@ -1,5 +1,5 @@
-#ifndef LIG4_H
-#define LIG4_H
+#ifndef LIG4_HPP
+#define LIG4_HPP
 
 #include "Jogo.hpp"
 
@@ -10,9 +10,8 @@ public:
 
     // Sobrescrições dos métodos virtuais da classe base Jogo
     void inicializarTabuleiro() override;
-    bool validarJogada(int coluna) override;
+    bool validarJogada(int linha, int coluna, Jogador jogador) override; 
     bool verificarCondicaoVitoria() override;
-    void imprimirTabuleiro() override;
     void realizarJogada(int coluna) override;
 
 private:
@@ -20,4 +19,4 @@ private:
     static const int altura = 6;   // Altura do tabuleiro para Lig4
 };
 
-#endif // LIG4_H
+#endif // LIG4_HPP
