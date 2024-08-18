@@ -13,6 +13,7 @@ void Jogo::validarJogada(int _x, int _y) {
     }
 }
 
+
 void Jogo::verificarCondicaoVitoria(Tabuleiro* _tabuleiro) {
     // colocar como será dada a vitória para cada jogo
 }

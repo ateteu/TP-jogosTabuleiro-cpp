@@ -53,7 +53,9 @@ public:
      *
      * Sobrescreve o método de impressão para mostrar o tabuleiro e as jogadas.
      */
+
     void imprimirTabuleiro();
+
 
     /**
      * @brief Realiza a jogada de um jogador.
