@@ -5,7 +5,7 @@ Tabuleiro::Tabuleiro() {
 
 }
 
-void Tabuleiro::inicializar(int _linhas, int _colunas) {
+void Tabuleiro::configurarTabuleiro(int _linhas, int _colunas) {
     this -> linhas = _linhas;
     this -> colunas = _colunas;
     // Aloca matriz para o tabuleiro

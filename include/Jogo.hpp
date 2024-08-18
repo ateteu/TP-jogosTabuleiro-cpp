@@ -12,9 +12,9 @@
  * como inicializar o tabuleiro, validar jogadas, verificar condições de vitória, 
  * e realizar jogadas.
  */
-class Jogo : public Tabuleiro, public Jogador {
+class Jogo {
 private:
-    Tabuleiro* tabuleiro; /**< Ponteiro para o tabuleiro do jogo. */
+    Tabuleiro* tabuleiro = new Tabuleiro(); /**< Ponteiro para o tabuleiro do jogo. */
     Jogador* JogogadorAtual; /**< Ponteiro para o jogador atual. */
 
 public:
@@ -39,28 +39,28 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do jogo.
      */
-    void validarJogada(int _linha, int _coluna);
+    virtual void validarJogada(int _linha, int _coluna);
 
     /**
      * @brief Verifica a condição de vitória.
      *
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
      */
-    void verificarCondicaoVitoria();
+    virtual void verificarCondicaoVitoria(Tabuleiro * _tabuleiro);
 
     /**
      * @brief Imprime o estado atual do jogo.
      *
      * Sobrescreve o método de impressão para mostrar o tabuleiro e as jogadas.
      */
-    void imprimir() override;
+    void imprimirTabuleiro();
 
     /**
      * @brief Realiza a jogada de um jogador.
      *
      * Garante que o jogador atual execute sua jogada conforme as regras do jogo.
      */
-    void realizarJogada();
+    virtual void realizarJogada();
 
     /**
      * @brief Destrutor da classe Jogo.

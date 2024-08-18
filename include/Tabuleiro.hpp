@@ -33,7 +33,7 @@ public:
      *
      * Configura o tabuleiro para ter as dimensões especificadas.
      */
-    void inicializar(int linha, int col);
+    void configurarTabuleiro(int linha, int col);
 
     /**
      * @brief Define uma posição específica no tabuleiro.
@@ -52,7 +52,7 @@ public:
      *
      * Este é um método virtual puro que deve ser implementado pelas classes derivadas.
      */
-    virtual void imprimir() = 0;
+    void imprimir();
 
     /**
      * @brief Destrutor da classe Tabuleiro.
