@@ -16,6 +16,7 @@ class Tabuleiro {
 private:
     int linhas;  /**< Número de linhas do tabuleiro. */
     int colunas; /**< Número de colunas do tabuleiro. */
+    char **matrizTabuleiro;
 
 public:
     /**
@@ -39,7 +40,12 @@ public:
      *
      * Implementa a lógica necessária para configurar uma posição no tabuleiro.
      */
-    void definirPosicao();
+    void definirPosicao(int _x, int _y, char _peca);
+
+    char obterPeca(int _x, int _y);
+
+    bool posicaoValida(int _x, int _y);
+
 
     /**
      * @brief Imprime o estado atual do tabuleiro.
