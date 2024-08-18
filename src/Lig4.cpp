@@ -90,6 +90,7 @@ int Lig4::verificarCondicaoVitoria() {
 }
 
 void Lig4::realizarJogada(int coluna) {
+    
     if (!validarJogada(0, coluna, getJogadorAtual())) {
         return;
     }
