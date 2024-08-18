@@ -11,7 +11,7 @@ public:
     // Sobrescrições dos métodos virtuais da classe base Jogo
     void inicializarTabuleiro() override;
     bool validarJogada(int linha, int coluna, Jogador jogador) override; 
-    bool verificarCondicaoVitoria() override;
+    int verificarCondicaoVitoria() override;
     void realizarJogada(int coluna) override;
 
 private:
