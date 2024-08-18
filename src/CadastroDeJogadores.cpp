@@ -5,24 +5,26 @@
 //  Created by Ian Godoi on 06/08/24.
 //
 
-#include "CadastroDeJogadores.hpp"
+#include "../include/CadastroDeJogadores.hpp"
 #include <iostream>
+#include <algorithm>
+#include <iomanip>
 
 void CadastroDeJogadores::criarArquivoJogadores()const{
     const std::string nome_arquivo = "jogadores.txt";
-    
-    if (std::filesystem::exists(nome_arquivo)){
-        std::cout << "O arquivo "<< nome_arquivo << " já existe."<< std::endl;
-    } else{
+
+    std::ifstream ifile(nome_arquivo.c_str());
+    if (ifile) {
+        std::cout << "O arquivo " << nome_arquivo << " já existe." << std::endl;
+    } else {
         std::ofstream arquivo(nome_arquivo);
         if(!arquivo){
             std::cerr <<"Erro ao criar o arquivo: "<< nome_arquivo <<std::endl;
         } else {
-            std::cout << "Arquivo "<< nome_arquivo<< " criado com sucesso." << std::endl;
+            std::cout << "Arquivo " << nome_arquivo << " criado com sucesso." << std::endl;
         }
     }
-    
-};
+}
 
 void CadastroDeJogadores::adicionarJogadorNoArquivo(const Jogador &jogador) {
     criarArquivoJogadores();
@@ -31,10 +33,10 @@ void CadastroDeJogadores::adicionarJogadorNoArquivo(const Jogador &jogador) {
     
    
     bool jogador_existe = std::any_of(jogadores.begin(), jogadores.end(),
-        [&jogador](const Jogador& j) { return j.get_nome() == jogador.get_nome(); });
+        [&jogador](const Jogador& j) { return j.getNome() == jogador.getNome(); });
     
     if (jogador_existe) {
-        std::cout << "O jogador " << jogador.get_nome() << " já existe." << std::endl;
+        std::cout << "O jogador " << jogador.getNome() << " já existe." << std::endl;
         return;
     }
     
@@ -42,7 +44,7 @@ void CadastroDeJogadores::adicionarJogadorNoArquivo(const Jogador &jogador) {
     jogadores.push_back(jogador);
     atualizarArquivo();
     
-    std::cout << "Jogador " << jogador.get_nome() << " adicionado ao arquivo." << std::endl;
+    std::cout << "Jogador " << jogador.getNome() << " adicionado ao arquivo." << std::endl;
 }
 
 void CadastroDeJogadores::carregarJogadoresDeArquivo(const std::string& nome_arquivo) {
@@ -121,8 +123,8 @@ bool CadastroDeJogadores::buscarJogadorNoArquivo(const std::string &nome) {
     carregarJogadoresDeArquivo(nome_arquivo);
     
     for(const auto& jogador : jogadores){
-        if(jogador.get_nome()==nome){
-            std::cout <<"Jogador "<< nome<<"encontrado no arquivo." <<std::endl;
+        if(jogador.getNome()==nome){
+            std::cout << "Jogador "<< nome <<"encontrado no arquivo." <<std::endl;
             return true;
         }
     }
@@ -136,7 +138,7 @@ void CadastroDeJogadores::removerJogadorDoArquivo(const std::string &nome){
     
     auto it = std::remove_if(jogadores.begin(), jogadores.end(),
                                  [&nome](const Jogador& jogador) {
-                                     return jogador.get_nome() == nome;
+                                     return jogador.getNome() == nome;
                                  });
         
     if (it != jogadores.end()) {
@@ -155,7 +157,7 @@ void CadastroDeJogadores::atualizarArquivo() const {
     std::ofstream arquivo(nome_arquivo, std::ios::trunc);  
     if (arquivo.is_open()) {
         for (const auto& jogador : jogadores) {
-            arquivo << std::quoted(jogador.get_nome()) << std::endl;
+            arquivo << std::quoted(jogador.getNome()) << std::endl;
         }
         arquivo.close();
         std::cout << "Arquivo " << nome_arquivo << " atualizado com sucesso." << std::endl;
@@ -209,4 +211,13 @@ void CadastroDeJogadores::atualizarNomeDoJogador(const std::string &nome_atual, 
     arquivo_atualizado.close();
 
     std::cout << "Nome do jogador atualizado com sucesso." << std::endl;
+}
+
+Jogador* CadastroDeJogadores::getJogadorPorNome(const std::string &nome) {
+    for (auto& jogador : jogadores) {
+        if (jogador.getNome() == nome) {
+            return &jogador;
+        }
+    }
+    return nullptr;
 }

@@ -29,7 +29,7 @@ public:
      *  Se o arquivo existir, uma mensagem informando que ele já existe é exibida. Caso contrário, um novo arquivo é criado.
      *  Se houver algum erro ao criar o arquivo, uma mensagem de erro será exibida.
      */
-    void criar_arquivo_jogadores() const;
+    void criarArquivoJogadores() const;
 
     /** @brief
      *  Essa função adiciona um novo jogador ao arquivo jogadores.txt. Ela primeiro garante que o arquivo existe chamando criar_arquivo_jogadores().
@@ -38,7 +38,7 @@ public:
      *
      *  @param jogador Objeto do tipo Jogador que será adicionado ao arquivo.
      */
-    void adicionar_jogador_no_arquivo(const Jogador& jogador);
+    void adicionarJogadorNoArquivo(const Jogador& jogador);
 
     /** @brief
      *  Essa função carrega a lista de jogadores a partir do arquivo "jogadores.txt".
@@ -47,7 +47,7 @@ public:
      *
      *  @param nome_arquivo Nome do arquivo de onde os jogadores serão carregados.
      */
-    void carregar_jogadores_de_arquivo(const std::string& nome_arquivo);
+    void carregarJogadoresDeArquivo(const std::string& nome_arquivo);
 
     /** @brief
      *  Essa função verifica se um jogador específico está presente no arquivo jogadores.txt.
@@ -57,7 +57,7 @@ public:
      *  @retval TRUE Exibe uma mensagem confirmando que o jogador foi encontrado.
      *  @retval FALSE Exibe uma mensagem informando que o jogador não foi encontrado.
      */
-    bool buscar_jogador_no_arquivo(const std::string& nome);
+    bool buscarJogadorNoArquivo(const std::string& nome);
 
     /** @brief
      *  Essa função remove um jogador específico do arquivo "jogadores.txt".
@@ -66,7 +66,7 @@ public:
      *
      *  @param nome Nome do jogador a ser removido do arquivo.
      */
-    void remover_jogador_do_arquivo(const std::string& nome);
+    void removerJogadorDoArquivo(const std::string& nome);
 
     /** @brief
      *  Essa função atualiza o nome de um jogador específico no arquivo jogadores.txt.
@@ -76,7 +76,7 @@ public:
      *  @param nome_atual Nome atual do jogador que será atualizado.
      *  @param novo_nome Novo nome que substituirá o nome atual do jogador.
      */
-    void atualizar_nome_do_jogador(const std::string& nome_atual, const std::string& novo_nome);
+    void atualizarNomeDoJogador(const std::string& nome_atual, const std::string& novo_nome);
 
     /** @brief
      *  Essa função lista todos os jogadores presentes no arquivo jogadores.txt.
@@ -84,21 +84,31 @@ public:
      *  Se o arquivo estiver vazio, uma mensagem informando que a lista está vazia é exibida.
      *  Se o arquivo não puder ser aberto, uma mensagem de erro será exibida.
      */
-    void listar_jogadores_do_arquivo();
+    void listarJogadoresDoArquivo();
 
     /** @brief
      *  Essa função atualiza o conteúdo do arquivo jogadores.txt com a lista atual de jogadores.
      *  Ela sobrescreve o arquivo existente, escrevendo cada nome de jogador na lista.
      *  Se o arquivo não puder ser aberto para escrita, uma mensagem de erro será exibida.
      */
-    void atualizar_arquivo() const;
+    void atualizarArquivo() const;
 
     /** @brief
      *  Essa função limpa o conteúdo do arquivo "jogadores.txt".
      *  Após limpar o arquivo, ele é atualizado chamando a função atualizar_arquivo().
      *  Se houver um erro ao abrir o arquivo, uma mensagem de erro será exibida.
      */
-    void limpar_arquivo();
+    void limparArquivo();
+
+    /** @brief
+     *  Essa função retorna um ponteiro para um objeto Jogador com base no nome fornecido.
+     *  Ela carrega a lista de jogadores do arquivo e procura um jogador com o nome especificado.
+     *  Se o jogador for encontrado, um ponteiro para esse jogador é retornado. Caso contrário, um ponteiro nulo é retornado.
+     *
+     *  @param nome Nome do jogador a ser buscado.
+     *  @return Ponteiro para o objeto Jogador encontrado ou nulo se o jogador não for encontrado.
+     */
+    Jogador* getJogadorPorNome(const std::string& nome);
     
 };
 
