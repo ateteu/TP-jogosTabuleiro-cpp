@@ -9,7 +9,9 @@ void Jogo::validarJogada(int _linha, int _coluna){}
 
 void Jogo::verificarCondicaoVitoria(){}
 
-void Jogo::imprimir(){}
+void Jogo::imprimirTabuleiro(){
+    imprimir();
+}
 
 void Jogo::realizarJogada(){}
 
