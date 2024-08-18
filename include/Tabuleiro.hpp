@@ -39,7 +39,9 @@ public:
      *
      * Implementa a lógica necessária para configurar uma posição no tabuleiro.
      */
-    void definirPosicao();
+    void definirPosicao(int _x, int  _y, char _peca);
+
+    bool posicaoValida(int _x, int _y);
 
     /**
      * @brief Imprime o estado atual do tabuleiro.

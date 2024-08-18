@@ -10,7 +10,15 @@ void Tabuleiro::inicializar(int _linhas, int _colunas) {
     this -> colunas = _colunas;
 }
 
-void Tabuleiro::definirPosicao() {
+bool Tabuleiro::posicaoValida(int _x, int _y) {
+
+}
+
+
+void Tabuleiro::definirPosicao(int _x, int  _y, char _peca) {
+    if(posicaoValida(_x, _y)) {
+        //tabuleiro[_x][_y] = _peca;
+    }
     
 }
 
