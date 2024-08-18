@@ -1,10 +1,3 @@
-//
-//  Reversi.hpp
-//  tp
-//
-//  Created by Mateus on 16/08/2024.
-//
-
 #ifndef REVERSI_HPP
 #define REVERSI_HPP
 
@@ -16,6 +9,9 @@
  * @brief Classe que implementa o jogo Reversi, derivada da classe base Jogo.
  */
 class Reversi : public Jogo {
+private:
+    Tabuleiro tabuleiro;  // Declaração do tabuleiro como membro da classe Reversi
+
 public:
     /** 
      * @brief Inicializa o tabuleiro do jogo Reversi, colocando as peças iniciais.
