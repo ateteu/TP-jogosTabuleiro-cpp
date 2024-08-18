@@ -33,7 +33,7 @@ public:
      *
      * Configura o tabuleiro para ter as dimensões especificadas.
      */
-    void inicializar(int linha, int col);
+    void configurarTabuleiro(int linha, int col);
 
     /**
      * @brief Define uma posição específica no tabuleiro.
