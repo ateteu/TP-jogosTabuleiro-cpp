@@ -26,7 +26,6 @@ void Tabuleiro::definirPosicao(int _x, int _y, char _peca) {
     }
 }
 
-
 char Tabuleiro::obterPeca(int _x, int _y) {
     if(_x >= 0 && _x < linhas && _y >= 0 && _y < colunas) {
         return matrizTabuleiro[_x][_y];
