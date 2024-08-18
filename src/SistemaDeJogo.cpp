@@ -15,10 +15,10 @@ void SistemaDeJogo::escolherJogo() {
 
     switch (escolha) {
         case 1:
-            jogo = std::make_unique<Jogo>(); // Inicializa o Reversi
+            jogo = std::make_unique<Reversi>(); // Inicializa o Reversi
             break;
         case 2:
-            jogo = std::make_unique<Jogo>(); // Inicializa o Lig4
+            jogo = std::make_unique<Lig4>(); // Inicializa o Lig4
             break;
         default:
             std::cout << "Opção inválida!" << std::endl;
@@ -67,8 +67,9 @@ void SistemaDeJogo::executarPartida() {
         jogo->inicializarTabuleiro();
         bool turnoJogador1 = true; // Inicia com o jogador 1
         int coluna;
+        int condicaoVitoria = 0;
 
-        while (!jogo->verificarCondicaoVitoria()) {
+        while (condicaoVitoria == 0) {
             jogo->imprimirTabuleiro();
 
             if (turnoJogador1) {
@@ -84,10 +85,27 @@ void SistemaDeJogo::executarPartida() {
             }
 
             turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores
+            condicaoVitoria = jogo->verificarCondicaoVitoria();
         }
 
         jogo->imprimirTabuleiro();
         std::cout << "Fim de jogo!" << std::endl;
+
+        if (condicaoVitoria == -1) {
+            std::cout << "O jogo terminou em empate!" << std::endl;
+            jogador1->registrarEmpate();
+            jogador2->registrarEmpate();
+        } else if (condicaoVitoria == 1) {
+            if (turnoJogador1) {
+                std::cout << "O jogador " << nomeJogador2 << " é o campeão!" << std::endl;
+                jogador1->registrarDerrota();
+                jogador2->registrarVitoria();
+            } else {
+                std::cout << "O jogador " << nomeJogador1 << " é o campeão!" << std::endl;
+                jogador1->registrarVitoria();
+                jogador2->registrarDerrota();
+            }
+        }
     }
 }
 

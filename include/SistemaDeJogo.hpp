@@ -3,6 +3,9 @@
 
 #include "Jogo.hpp"
 #include "CadastroDeJogadores.hpp"
+#include "Reversi.hpp"
+#include "Lig4.hpp"
+#include "Jogador.hpp"
 #include <memory>
 
 /**
