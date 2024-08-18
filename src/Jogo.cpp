@@ -6,12 +6,12 @@ void Jogo::inicializarTabuleiro() {
     // método virtual que deve ser implementado nas subclasses
 }
 
-bool Jogo::validarJogada(int _linha, int _coluna, Jogador jogador) {
+bool Jogo::validarJogada(int _linha, int _coluna, Jogador* jogador) {
     // método puramente virtual: deve ser implementado nas subclasses
     return false;
 }
 
-bool Jogo::verificarCondicaoVitoria() {
+int Jogo::verificarCondicaoVitoria() {
     // implementar nas subclasses
 }
 
@@ -19,8 +19,12 @@ void Jogo::imprimirTabuleiro() {
     tabuleiro->imprimir();
 }
 
-void Jogo::realizarJogada() {
+void Jogo::realizarJogada(int _coluna) {
     // implementar nas subclasses
+}
+
+Jogador* Jogo::getJogadorAtual(){
+    return jogadorAtual;
 }
 
 Jogo::~Jogo() {

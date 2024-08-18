@@ -10,7 +10,7 @@ void Lig4::inicializarTabuleiro() {
     tabuleiro->configurarTabuleiro(altura, largura);
 }
 
-bool Lig4::validarJogada(int linha, int coluna, Jogador jogador) {
+bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador) {
     if (coluna < 0 || coluna >= largura) {
         std::cout << "Coluna inválida!" << std::endl;
         return false;
@@ -23,8 +23,8 @@ bool Lig4::validarJogada(int linha, int coluna, Jogador jogador) {
 }
 
 int Lig4::verificarCondicaoVitoria() {
-    char jogador = jogadorAtual->getSimbolo();
-
+    
+    char jogador = getJogadorAtual() -> minhaPeca();
     // Verifica horizontalmente
     for (int i = 0; i < altura; i++) {
         for (int j = 0; j < largura - 3; j++) {
@@ -90,14 +90,14 @@ int Lig4::verificarCondicaoVitoria() {
 }
 
 void Lig4::realizarJogada(int coluna) {
-    if (!validarJogada(0, coluna, *jogadorAtual)) {
+    if (!validarJogada(0, coluna, getJogadorAtual())) {
         return;
     }
 
     // Realiza a jogada, ou seja, coloca a peça na posição correta na coluna especificada
     for (int i = altura - 1; i >= 0; i--) {
         if (tabuleiro->obterPeca(i, coluna) == '.') {
-            tabuleiro->definirPosicao(i, coluna, jogadorAtual->getSimbolo());
+            tabuleiro->definirPosicao(i, coluna, getJogadorAtual()-> minhaPeca());
             break;
         }
     }
