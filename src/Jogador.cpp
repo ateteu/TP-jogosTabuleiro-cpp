@@ -5,6 +5,8 @@ Jogador::Jogador() : nome_jogador(""), vitorias(0), empates(0), derrotas(0) {}
 Jogador::Jogador(const std::string& nome_jogador)
     : nome_jogador(nome_jogador), vitorias(0), empates(0), derrotas(0) {}
 
+Jogador::Jogador(char _peca) : peca(_peca) {} // construtor para inicializar a peça do jogador
+
 Jogador::~Jogador() {}
 
 std::string Jogador::getNome() const {
@@ -13,6 +15,10 @@ std::string Jogador::getNome() const {
 
 void Jogador::setNome(const std::string& nome) {
     nome_jogador = nome;
+}
+
+char Jogador::minhaPeca() const {
+    return peca;
 }
 
 int Jogador::getVitorias() const {

@@ -11,6 +11,13 @@ private:
      */
     std::string nome_jogador;
 
+    /**
+     * @brief Armazena a peça do jogador. 
+     *        Pode ser 'W' (branco) ou 'B' (preto) para Reversi, 
+     *        ou 'X' ou 'O' para Lig4.
+     */
+    char peca;
+
     /** @brief
      *  Contabiliza o número de vitórias do jogador.
      */
@@ -38,6 +45,12 @@ public:
      */
     Jogador(const std::string& nome_jogador);
 
+    /**
+     * @brief Construtor para inicializar a peça do jogador.
+     * @param _peca A peça associada ao jogador ('W', 'B', 'X', ou 'O').
+     */
+    Jogador(char _peca);
+
     /** @brief
      *  Destrutor da classe Jogador.
      */
@@ -54,6 +67,12 @@ public:
      *  @param nome Novo nome a ser atribuído ao jogador.
      */
     void setNome(const std::string& nome);
+
+    /**
+     * @brief Retorna a peça associada ao jogador.
+     * @return A peça do jogador ('W', 'B', 'X', ou 'O').
+     */
+    char minhaPeca() const;
 
     /** @brief
      *  Retorna o número de vitórias do jogador.
