@@ -1,29 +1,55 @@
 #include "../include/Tabuleiro.hpp"
 #include <iostream>
 
-Tabuleiro::Tabuleiro() {
-
+Tabuleiro::Tabuleiro() : linhas(0), colunas(0), matrizTabuleiro(nullptr) {
+    // Inicializa o número de linhas e colunas e a matrizTabuleiro
 }
 
-void Tabuleiro::inicializar(int _linhas, int _colunas) {
-    this -> linhas = _linhas;
-    this -> colunas = _colunas;
-}
+void Tabuleiro::configurarTabuleiro(int _linhas, int _colunas) {
+    linhas = _linhas;
+    colunas = _colunas;
 
-void Tabuleiro::definirPosicao() {
-    
-}
-
-void Tabuleiro::imprimir() {
-    // desenha a quantidade de linhas do tabuleiro
-    for(int i = 0; i < this -> linhas; i ++) {
-        // desenha as colunnas do tabuleiro
-        for(int i = 0; i < this -> colunas; i++) {
-            std::cout << "|" << std::endl;
+    // Aloca matriz para o tabuleiro
+    matrizTabuleiro = new char*[linhas];
+    for (int i = 0; i < linhas; i++) {
+        matrizTabuleiro[i] = new char[colunas];
+        for (int j = 0; j < colunas; j++) {
+            matrizTabuleiro[i][j] = '.'; // inicializa as posições com ponto
         }
     }
 }
 
-Tabuleiro::~Tabuleiro() {
+void Tabuleiro::definirPosicao(int _x, int _y, char _peca) {
+    if (posicaoValida(_x, _y)) {
+        matrizTabuleiro[_x][_y] = _peca;
+    }
 }
 
+char Tabuleiro::obterPeca(int _x, int _y) {
+    if (posicaoValida(_x, _y)) {
+        return matrizTabuleiro[_x][_y];
+    }
+    return '.'; // retorna um '.' se a posição for inválida
+}
+
+bool Tabuleiro::posicaoValida(int _x, int _y) {
+    return (_x >= 0 && _x < linhas && _y >= 0 && _y < colunas);
+}
+
+void Tabuleiro::imprimir() {
+    for (int i = 0; i < linhas; i++) {
+        for (int j = 0; j < colunas; j++) {
+            std::cout << matrizTabuleiro[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+Tabuleiro::~Tabuleiro() {
+    if (matrizTabuleiro) {
+        for (int i = 0; i < linhas; i++) {
+            delete[] matrizTabuleiro[i];
+        }
+        delete[] matrizTabuleiro;
+    }
+}

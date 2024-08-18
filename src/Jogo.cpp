@@ -1,16 +1,29 @@
 #include "../include/Jogo.hpp"
 
-// Classe Jogo possui mais de um construtor padão
-//Jogo::Jogo(){}
+Jogo::Jogo() : jogadorAtual(nullptr) {}
 
-void Jogo::inicializarTabuleiro() {}
+void Jogo::inicializarTabuleiro() {
+    // método virtual que deve ser implementado nas subclasses
+}
 
-void Jogo::validarJogada(int _linha, int _coluna){}
+bool Jogo::validarJogada(int _linha, int _coluna, Jogador jogador) {
+    // método puramente virtual: deve ser implementado nas subclasses
+    return false;
+}
 
-void Jogo::verificarCondicaoVitoria(){}
+bool Jogo::verificarCondicaoVitoria() {
+    // implementar nas subclasses
+}
 
-void Jogo::imprimir(){}
+void Jogo::imprimirTabuleiro() {
+    tabuleiro->imprimir();
+}
 
-void Jogo::realizarJogada(){}
+void Jogo::realizarJogada() {
+    // implementar nas subclasses
+}
 
-Jogo::~Jogo(){}
+Jogo::~Jogo() {
+    delete tabuleiro;
+    // supondo que jogadorAtual não precisa ser deletado aqui
+}

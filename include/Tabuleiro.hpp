@@ -9,13 +9,14 @@
  *
  * A classe Tabuleiro gerencia a estrutura do tabuleiro, incluindo o número de linhas e colunas,
  * e fornece métodos para inicializar e definir posições no tabuleiro. Ela também possui um
- * método virtual puro para imprimir o estado atual do tabuleiro.
+ * método para imprimir o estado atual do tabuleiro.
  */
 class Tabuleiro {
 
 private:
     int linhas;  /**< Número de linhas do tabuleiro. */
     int colunas; /**< Número de colunas do tabuleiro. */
+    char **matrizTabuleiro; /**< Matriz que representa o estado do tabuleiro. */
 
 public:
     /**
@@ -26,27 +27,39 @@ public:
     Tabuleiro();
 
     /**
-     * @brief Inicializa o tabuleiro com o número de linhas e colunas especificadas.
+     * @brief Configura o tamanho do tabuleiro com o número de linhas e colunas especificadas.
      * @param linha Número de linhas do tabuleiro.
      * @param col Número de colunas do tabuleiro.
      *
      * Configura o tabuleiro para ter as dimensões especificadas.
      */
-    void inicializar(int linha, int col);
+    void configurarTabuleiro(int linha, int col);
+
+    // que diabos isso faz?
+    void definirPosicao(int _x, int _y, char _peca);
 
     /**
-     * @brief Define uma posição específica no tabuleiro.
-     *
-     * Implementa a lógica necessária para configurar uma posição no tabuleiro.
+     * @brief Obtém o conteúdo da célula na posição especificada do tabuleiro.
+     * @param _x Coordenada x da posição no tabuleiro.
+     * @param _y Coordenada y da posição no tabuleiro.
+     * @return Caracter que representa o conteúdo da célula na posição especificada.
      */
-    void definirPosicao();
+    char obterPeca(int _x, int _y);
+
+    /**
+     * @brief Verifica se a posição especificada está dentro dos limites do tabuleiro.
+     * @param _x Coordenada x da posição no tabuleiro.
+     * @param _y Coordenada y da posição no tabuleiro.
+     * @return Verdadeiro se a posição estiver dentro dos limites, falso caso contrário.
+     */
+    bool posicaoValida(int _x, int _y);
 
     /**
      * @brief Imprime o estado atual do tabuleiro.
      *
-     * Este é um método virtual puro que deve ser implementado pelas classes derivadas.
+     * Imprime o tabuleiro no estado atual.
      */
-    virtual void imprimir() = 0;
+    void imprimir();
 
     /**
      * @brief Destrutor da classe Tabuleiro.

@@ -1,36 +1,53 @@
-//
-//  Jogador.cpp
-//  tp
-//
-//  Created by Ian Godoi on 06/08/24.
-//
-
 #include "../include/Jogador.hpp"
 
-Jogador::Jogador(): nome_jogador(""), ponto(0) {};
+Jogador::Jogador() : nome_jogador(""), vitorias(0), empates(0), derrotas(0) {}
 
-Jogador::Jogador( const std::string& nome_jogador, int ponto)
-: nome_jogador(nome_jogador), ponto(ponto) {};
+Jogador::Jogador(const std::string& nome_jogador)
+    : nome_jogador(nome_jogador), vitorias(0), empates(0), derrotas(0) {}
 
-Jogador::~Jogador(){};
+Jogador::Jogador(char _peca) : peca(_peca) {} // construtor para inicializar a peça do jogador
 
-std::string Jogador:: getNome() const{
+Jogador::~Jogador() {}
+
+std::string Jogador::getNome() const {
     return nome_jogador;
 }
 
-void Jogador::setNome(const std::string &nome){
+void Jogador::setNome(const std::string& nome) {
     nome_jogador = nome;
 }
 
-int Jogador::getPontos()const{
-    return ponto;
+char Jogador::minhaPeca() const {
+    return peca;
 }
 
-void Jogador::setPontos(int pontos){
-    ponto = pontos;
+int Jogador::getVitorias() const {
+    return vitorias;
 }
 
-void Jogador::imprimirJogador() const{
-    std::cout<<"Nome: " << nome_jogador << std::endl;
-    std::cout<<"Pontos: " << ponto << std::endl;
+int Jogador::getEmpates() const {
+    return empates;
+}
+
+int Jogador::getDerrotas() const {
+    return derrotas;
+}
+
+void Jogador::registrarVitoria() {
+    vitorias++;
+}
+
+void Jogador::registrarEmpate() {
+    empates++;
+}
+
+void Jogador::registrarDerrota() {
+    derrotas++;
+}
+
+void Jogador::imprimirJogador() const {
+    std::cout << "Nome: " << nome_jogador << std::endl;
+    std::cout << "Vitórias: " << vitorias << std::endl;
+    std::cout << "Empates: " << empates << std::endl;
+    std::cout << "Derrotas: " << derrotas << std::endl;
 }

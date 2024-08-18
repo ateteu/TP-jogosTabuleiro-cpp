@@ -1,10 +1,3 @@
-//
-//  Reversi.hpp
-//  tp
-//
-//  Created by Mateus on 16/08/2024.
-//
-
 #ifndef REVERSI_HPP
 #define REVERSI_HPP
 
@@ -16,6 +9,9 @@
  * @brief Classe que implementa o jogo Reversi, derivada da classe base Jogo.
  */
 class Reversi : public Jogo {
+private:
+    Tabuleiro tabuleiro;  // Declaração do tabuleiro como membro da classe Reversi
+
 public:
     /** 
      * @brief Inicializa o tabuleiro do jogo Reversi, colocando as peças iniciais.
@@ -31,11 +27,13 @@ public:
      */
     bool validarJogada(int x, int y, Jogador jogador) override;
 
-    /** 
-     * @brief Verifica se a condição de vitória foi atingida.
-     * @return true se houver um vencedor, false caso contrário.
+    /**
+     * @brief Verifica a condição de vitória.
+     *
+     * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
+     * @return true se algum jogador venceu, false caso contrário.
      */
-    bool verificarCondicaoVitoria() override;
+    virtual bool verificarCondicaoVitoria();
 
     /** 
      * @brief Imprime o estado atual do tabuleiro no terminal.
