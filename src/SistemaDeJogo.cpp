@@ -61,12 +61,11 @@ void SistemaDeJogo::executarPartida() {
         }
     }
 
-    escolherJogo();
+    escolherJogo(); //main ?
 
     if (jogo) {
         jogo->inicializarTabuleiro();
         bool turnoJogador1 = true; // Inicia com o jogador 1
-        int coluna;
         int condicaoVitoria = 0;
 
         while (condicaoVitoria == 0) {
@@ -74,14 +73,10 @@ void SistemaDeJogo::executarPartida() {
 
             if (turnoJogador1) {
                 std::cout << "Vez de " << nomeJogador1 << std::endl;
-                std::cout << "Digite a coluna a ser jogada" << std::endl;
-                std::cin >> coluna;
-                jogo->realizarJogada(coluna); 
+                jogo->realizarJogada(); 
             } else {
                 std::cout << "Vez de " << nomeJogador2 << std::endl;
-                std::cout << "Digite a coluna a ser jogada" << std::endl;
-                std::cin >> coluna;
-                jogo->realizarJogada(coluna);
+                jogo->realizarJogada();
             }
 
             turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores

@@ -45,8 +45,9 @@ public:
     /**
      * @brief Verifica a condição de vitória.
      *
-     * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
-     * @return true se algum jogador venceu, false caso contrário.
+     * Analisa o tabuleiro para determinar o estado atual do jogo.
+     * 
+     * @return int Retorna `1` se algum jogador venceu, `-1` em caso de empate, ou `0` se o jogo deve continuar.
      */
     virtual int verificarCondicaoVitoria();
     
@@ -58,13 +59,32 @@ public:
     void imprimirTabuleiro();
 
     /**
-     * @brief Realiza a jogada de um jogador.
-     *
-     * Garante que o jogador atual execute sua jogada conforme as regras do jogo.
+     * @brief Realiza a jogada de um jogador em uma coluna (usado por Lig4).
+     * 
+     * Este método deve ser implementado pelas classes derivadas que usam apenas a coluna para realizar a jogada.
+     * 
+     * @param coluna A coluna onde o jogador deseja realizar a jogada.
      */
-    virtual void realizarJogada();
+    virtual void realizarJogada() = 0;
 
-    Jogador* getJogadorAtual(){}
+    /**
+     * @brief Realiza uma jogada no tabuleiro (usado por Reversi).
+     * 
+     * Este método deve ser implementado pelas classes derivadas que usam coordenadas x e y, 
+     * e a referência ao jogador para realizar a jogada.
+     * 
+     * @param x Posição X no tabuleiro.
+     * @param y Posição Y no tabuleiro.
+     * @param jogador Referência ao jogador que está fazendo a jogada.
+     */
+    //virtual void realizarJogada(int x, int y, Jogador *jogador) = 0;
+
+    /**
+     * @brief Obtém o jogador atual.
+     * 
+     * @return Jogador* Ponteiro para o jogador atual.
+     */
+    Jogador* getJogadorAtual();
 
     /**
      * @brief Destrutor da classe Jogo.
@@ -74,4 +94,4 @@ public:
     ~Jogo();
 };
 
-#endif
+#endif // JOGO_HPP

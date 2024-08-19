@@ -1,4 +1,5 @@
-#include "Lig4.hpp"
+#include "../include/Lig4.hpp"
+#include "../include/Tabuleiro.hpp"
 #include <iostream>
 
 // Construtor
@@ -91,8 +92,10 @@ int Lig4::verificarCondicaoVitoria() {
     return 0;  // O jogo deve continuar
 }
 
-void Lig4::realizarJogada(int coluna) {
-    
+void Lig4::realizarJogada() {
+    int coluna;
+    std::cout << "Digite a coluna a ser jogada" << std::endl;
+    std::cin >> coluna;
     if (!validarJogada(0, coluna, getJogadorAtual())) {
         return;
     }
@@ -105,6 +108,4 @@ void Lig4::realizarJogada(int coluna) {
         }
     }
 
-    // Imprime o estado atual do tabuleiro após a jogada
-    tabuleiro->imprimir();
 }
