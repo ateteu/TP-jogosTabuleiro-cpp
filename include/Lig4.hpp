@@ -17,7 +17,7 @@ public:
     bool validarJogada(int linha, int coluna, Jogador* jogador) override; 
 >>>>>>> 85fd9e014f264f928575d997787a8f646cf3e746
     int verificarCondicaoVitoria() override;
-    void realizarJogada(int coluna) override;
+    void realizarJogada() override;
 
 private:
     static const int largura = 7;  // Largura do tabuleiro para Lig4
