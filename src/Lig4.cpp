@@ -106,7 +106,4 @@ void Lig4::realizarJogada() {
             break;
         }
     }
-
-    // Imprime o estado atual do tabuleiro após a jogada
-    tabuleiro->imprimir();
 }
