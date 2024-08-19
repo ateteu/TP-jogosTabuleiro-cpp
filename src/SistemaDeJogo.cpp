@@ -1,126 +1,114 @@
 #include "../include/SistemaDeJogo.hpp"
-#include "../include/Jogador.hpp"
 #include <iostream>
 
 SistemaDeJogo::SistemaDeJogo() {
-    // Inicializa o tabuleiro e o cadastro de jogadores
-    jogo.inicializarTabuleiro();
+    cadastroDeJogadores.criarArquivoJogadores();
+    cadastroDeJogadores.carregarJogadoresDeArquivo("jogadores.txt");
 }
 
-void SistemaDeJogo::inicializar() {
-    std::string nome_jogador_1, nome_jogador_2;
+void SistemaDeJogo::escolherJogo() {
+    int escolha;
+    std::cout << "Escolha o jogo: " << std::endl;
+    std::cout << "1. Reversi" << std::endl;
+    std::cout << "2. Lig4" << std::endl;
+    std::cin >> escolha;
 
-    // Entrar com o nome do primeiro jogador
-    std::cout << "Entre com o nome do Jogador 1: ";
-    std::getline(std::cin, nome_jogador_1);
-
-    bool jogador_1 = cadastro.buscarJogadorNoArquivo(nome_jogador_1);
-    if (!jogador_1) {
-        char opcao;
-        std::cout << "Deseja criar um novo jogador com esse nome? (s/n): ";
-        std::cin >> opcao;
-        std::cin.ignore(); // Limpa o buffer de entrada
-
-        if (opcao == 's' || opcao == 'S') {
-            cadastro.adicionarJogadorNoArquivo(nome_jogador_1);
-            jogador_1 = cadastro.buscarJogadorNoArquivo(nome_jogador_1);
-        } else {
-            std::cout << "Operação cancelada. O jogo não pode prosseguir sem o Jogador 1." << std::endl;
-            return;
-        }
+    switch (escolha) {
+        case 1:
+            jogo = std::make_unique<Reversi>(); // Inicializa o Reversi
+            break;
+        case 2:
+            jogo = std::make_unique<Lig4>(); // Inicializa o Lig4
+            break;
+        default:
+            std::cout << "Opção inválida!" << std::endl;
+            break;
     }
-
-    // Entrar com o nome do segundo jogador
-    std::cout << "Entre com o nome do Jogador 2: ";
-    std::getline(std::cin, nome_jogador_2);
-
-    bool jogador_2 = cadastro.buscarJogadorNoArquivo(nome_jogador_2);
-    if (!jogador_2) {
-        char opcao;
-        std::cout << "Deseja criar um novo jogador com esse nome? (s/n): ";
-        std::cin >> opcao;
-        std::cin.ignore(); // Limpa o buffer de entrada
-
-        if (opcao == 's' || opcao == 'S') {
-            cadastro.adicionarJogadorNoArquivo(nome_jogador_2);
-            jogador_2 = cadastro.buscarJogadorNoArquivo(nome_jogador_2);
-        } else {
-            std::cout << "Operação cancelada. O jogo não pode prosseguir sem o Jogador 2." << std::endl;
-            return;
-        }
-    }
-
-    // Inicializa o tabuleiro para a partida
-    jogo.inicializarTabuleiro();
-
-    std::cout << "Jogadores prontos! O jogo pode começar." << std::endl;
 }
 
 void SistemaDeJogo::executarPartida() {
-    int opcao_jogo;
+    std::string nomeJogador1, nomeJogador2;
+    
+    std::cout << "Digite o nome do primeiro jogador: ";
+    std::cin >> nomeJogador1;
+    Jogador* jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
 
-    // Pergunta ao usuário qual jogo ele deseja jogar
-    std::cout << "Escolha o jogo que deseja jogar:\n";
-    std::cout << "1. Reversi\n";
-    std::cout << "2. Lig4\n";
-    std::cout << "Digite o número correspondente ao jogo: ";
-    std::cin >> opcao_jogo;
-    std::cin.ignore(); // Limpa o buffer de entrada
-
-    // Configura o tabuleiro de acordo com a escolha
-    switch (opcao_jogo) {
-        case 1:
-            std::cout << "Você escolheu o Reversi.\n";
-            jogo.inicializarTabuleiro();
-            break;
-        case 2:
-            std::cout << "Você escolheu o Lig4.\n";
-            jogo.inicializarTabuleiro();
-            break;
-        default:
-            std::cout << "Opção inválida. O jogo será encerrado.\n";
-            return;
-    }
-
-    // Jogadores alternam após cada jogada
-    Jogador* jogador_atual = cadastro.getJogadorPorNome("jogador_1");  // Começa com o primeiro jogador
-    Jogador* outro_jogador = cadastro.getJogadorPorNome("jogador_2");
-
-    // Lógica para executar uma partida
-    while (!jogo.verificarCondicaoVitoria()) {
-        jogo.realizarJogada();
-        jogo.imprimir();
-
-        // Verificar se a partida terminou em empate
-        if (jogo.verificarCondicaoEmpate()) {
-            registrarEmpate(*jogador_atual, *outro_jogador);
+    if (jogador1 == nullptr) {
+        char opcao;
+        std::cout << "Jogador " << nomeJogador1 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
+        std::cin >> opcao;
+        if (opcao == 's' || opcao == 'S') {
+            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador1);
+            jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
+        } else {
             return;
         }
-
-        // Troca de jogadores
-        std::swap(jogador_atual, outro_jogador);
     }
-    
-    // Registro da vitória
-    registrarVitoria(*jogador_atual);
+
+    std::cout << "Digite o nome do segundo jogador: ";
+    std::cin >> nomeJogador2;
+    Jogador* jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
+
+    if (jogador2 == nullptr) {
+        char opcao;
+        std::cout << "Jogador " << nomeJogador2 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
+        std::cin >> opcao;
+        if (opcao == 's' || opcao == 'S') {
+            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador2);
+            jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
+        } else {
+            return;
+        }
+    }
+
+    escolherJogo();
+
+    if (jogo) {
+        jogo->inicializarTabuleiro();
+        bool turnoJogador1 = true; // Inicia com o jogador 1
+        int coluna;
+        int condicaoVitoria = 0;
+
+        while (condicaoVitoria == 0) {
+            jogo->imprimirTabuleiro();
+
+            if (turnoJogador1) {
+                std::cout << "Vez de " << nomeJogador1 << std::endl;
+                std::cout << "Digite a coluna a ser jogada" << std::endl;
+                std::cin >> coluna;
+                jogo->realizarJogada(coluna); 
+            } else {
+                std::cout << "Vez de " << nomeJogador2 << std::endl;
+                std::cout << "Digite a coluna a ser jogada" << std::endl;
+                std::cin >> coluna;
+                jogo->realizarJogada(coluna);
+            }
+
+            turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores
+            condicaoVitoria = jogo->verificarCondicaoVitoria();
+        }
+
+        jogo->imprimirTabuleiro();
+        std::cout << "Fim de jogo!" << std::endl;
+
+        if (condicaoVitoria == -1) {
+            std::cout << "O jogo terminou em empate!" << std::endl;
+            jogador1->registrarEmpate();
+            jogador2->registrarEmpate();
+        } else if (condicaoVitoria == 1) {
+            if (turnoJogador1) {
+                std::cout << "O jogador " << nomeJogador2 << " é o campeão!" << std::endl;
+                jogador1->registrarDerrota();
+                jogador2->registrarVitoria();
+            } else {
+                std::cout << "O jogador " << nomeJogador1 << " é o campeão!" << std::endl;
+                jogador1->registrarVitoria();
+                jogador2->registrarDerrota();
+            }
+        }
+    }
 }
 
-void SistemaDeJogo::registrarVitoria(Jogador& vencedor) {
-    vencedor.registrarVitoria();
-    // Outra lógica associada ao registro da vitória
-}
-
-void SistemaDeJogo::registrarDerrota(Jogador& perdedor) {
-    perdedor.registrarDerrota();
-    // Outra lógica associada ao registro da derrota
-}
-
-void SistemaDeJogo::registrarEmpate(Jogador& jogador_1, Jogador& jogador_2) {
-    jogador_1.registrarEmpate();
-    jogador_2.registrarEmpate();
-    // Outra lógica associada ao registro do empate
-}
-
-void SistemaDeJogo::listarJogadores() {
-    cadastro.listarJogadoresDoArquivo();
+SistemaDeJogo::~SistemaDeJogo() {
+    // Os recursos são automaticamente liberados por causa dos smart pointers
 }
