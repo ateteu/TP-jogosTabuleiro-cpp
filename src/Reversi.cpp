@@ -3,6 +3,10 @@
 #include <vector>
 #include <utility>
 
+void Reversi::imprimirTabuleiro() {
+    tabuleiro.imprimir();
+}
+
 void Reversi::inicializarTabuleiro() {
     tabuleiro.configurarTabuleiro(8, 8); // configura pra ter 8 linhas e 8 colunas
     tabuleiro.definirPosicao(3, 3, 'B');
@@ -110,8 +114,6 @@ int Reversi::verificarCondicaoVitoria() {
 
     return 0; // O jogo continua
 }
-
-void imprimirTabuleiro() {}
 
 void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY) {
     int i = x + deltaX;
