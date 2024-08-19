@@ -19,6 +19,8 @@ private:
     static const int largura = 7;  // Largura do tabuleiro para Lig4
     static const int altura = 6;   // Altura do tabuleiro para Lig4
     Tabuleiro* tabuleiro = new Tabuleiro();
+    char jogador1Peca = 'X'; // Peça do jogador 1
+    char jogador2Peca = 'O'; // Peça do jogador 2
 };
 
 #endif // LIG4_HPP

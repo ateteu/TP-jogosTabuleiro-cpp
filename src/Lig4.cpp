@@ -25,6 +25,8 @@ bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador) {
 int Lig4::verificarCondicaoVitoria() {
     
     char jogador = getJogadorAtual() -> minhaPeca();
+    char oponente = (jogador == jogador1Peca) ? jogador2Peca : jogador1Peca;
+
     // Verifica horizontalmente
     for (int i = 0; i < altura; i++) {
         for (int j = 0; j < largura - 3; j++) {
