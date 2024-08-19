@@ -73,12 +73,9 @@ void SistemaDeJogo::executarPartida() {
 
             if (turnoJogador1) {
                 std::cout << "Vez de " << nomeJogador1 << std::endl;
-                std::cout << "Digite a coluna a ser jogada" << std::endl;
-                
                 jogo->realizarJogada(); 
             } else {
                 std::cout << "Vez de " << nomeJogador2 << std::endl;
-                std::cout << "Digite a coluna a ser jogada" << std::endl;
                 jogo->realizarJogada();
             }
 
