@@ -1,4 +1,5 @@
-#include "Lig4.hpp"
+#include "../include/Lig4.hpp"
+#include "../include/Tabuleiro.hpp"
 #include <iostream>
 
 // Construtor
@@ -106,4 +107,5 @@ void Lig4::realizarJogada() {
             break;
         }
     }
+
 }
