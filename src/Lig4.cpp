@@ -91,8 +91,9 @@ int Lig4::verificarCondicaoVitoria() {
     return 0;  // O jogo deve continuar
 }
 
-void Lig4::realizarJogada(int coluna) {
-    
+void Lig4::realizarJogada() {
+    int coluna;
+    std::cin >> coluna;
     if (!validarJogada(0, coluna, getJogadorAtual())) {
         return;
     }
