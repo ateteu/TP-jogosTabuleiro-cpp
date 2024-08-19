@@ -40,7 +40,7 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do jogo.
      */
-    virtual bool validarJogada(int _linha, int _coluna, Jogador jogador) = 0;
+    virtual bool validarJogada(int _linha, int _coluna, Jogador* jogador) = 0;
 
     /**
      * @brief Verifica a condição de vitória.
@@ -48,7 +48,7 @@ public:
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
      * @return true se algum jogador venceu, false caso contrário.
      */
-    virtual bool verificarCondicaoVitoria();
+    virtual int verificarCondicaoVitoria();
     
     /**
      * @brief Imprime o estado atual do jogo.
@@ -63,6 +63,8 @@ public:
      * Garante que o jogador atual execute sua jogada conforme as regras do jogo.
      */
     virtual void realizarJogada();
+
+    Jogador* getJogadorAtual(){}
 
     /**
      * @brief Destrutor da classe Jogo.

@@ -1,62 +1,53 @@
-#ifndef SISTEMA_DE_JOGO_HPP
-#define SISTEMA_DE_JOGO_HPP
+#ifndef SISTEMADEJOGO_HPP
+#define SISTEMADEJOGO_HPP
 
+#include "Jogo.hpp"
 #include "CadastroDeJogadores.hpp"
-#include "../include/Jogador.hpp"
-#include "../include/Jogo.hpp" //precisa criar a classe, ela não existe ainda
+#include "Reversi.hpp"
+#include "Lig4.hpp"
+#include "Jogador.hpp"
+#include <memory>
 
 /**
- * @brief Classe que gerencia o sistema de jogo, incluindo cadastro de jogadores, 
- *        registro de partidas e atualização dos resultados dos jogadores.
+ * @class SistemaDeJogo
+ * @brief Classe responsável pela gestão e execução das partidas.
+ *
+ * A classe SistemaDeJogo gerencia a interação entre o jogo e o cadastro de jogadores,
+ * permitindo a escolha de jogadores e o controle do fluxo da partida.
  */
 class SistemaDeJogo {
 private:
-    CadastroDeJogadores cadastro; ///< Objeto responsável pelo cadastro dos jogadores.
-    Jogo jogo; ///< Objeto responsável pela lógica do jogo.
-    Jogador jogador; ///< Objeto para manipulação de dados dos jogadores.
-
+    std::unique_ptr<Jogo> jogo; /**< Ponteiro único para o objeto Jogo. */
+    CadastroDeJogadores cadastroDeJogadores; /**< Objeto para gerenciamento de jogadores. */
+    
 public:
     /**
-     * @brief Construtor padrão da classe SistemaDeJogo.
+     * @brief Construtor da classe SistemaDeJogo.
+     *
+     * Inicializa o sistema de jogo e carrega os jogadores.
      */
     SistemaDeJogo();
 
     /**
-     * @brief Inicializa o sistema de jogo, preparando-o para a execução.
-     */
-    void inicializar();
-
-    /**
-     * @brief Executa uma partida de jogo entre os jogadores cadastrados.
+     * @brief Método para executar a partida.
+     *
+     * Permite ao usuário escolher os jogadores, inicializa o tabuleiro e controla o fluxo do jogo.
      */
     void executarPartida();
 
     /**
-     * @brief Registra a vitória de um jogador.
-     * 
-     * @param vencedor Referência para o jogador que venceu a partida.
+     * @brief Método para escolher o jogo.
+     *
+     * Permite ao usuário selecionar o tipo de jogo que deseja jogar.
      */
-    void registrarVitoria(Jogador& vencedor);
-
+    void escolherJogo();
+    
     /**
-     * @brief Registra a derrota de um jogador.
-     * 
-     * @param perdedor Referência para o jogador que perdeu a partida.
+     * @brief Destrutor da classe SistemaDeJogo.
+     *
+     * Libera os recursos alocados.
      */
-    void registrarDerrota(Jogador& perdedor);
-
-    /**
-     * @brief Registra um empate entre dois jogadores.
-     * 
-     * @param jogador1 Referência para o primeiro jogador envolvido no empate.
-     * @param jogador2 Referência para o segundo jogador envolvido no empate.
-     */
-    void registrarEmpate(Jogador& jogador1, Jogador& jogador2); 
-
-    /**
-     * @brief Lista todos os jogadores cadastrados no sistema.
-     */
-    void listarJogadores();
+    ~SistemaDeJogo(); 
 };
 
-#endif
+#endif // SISTEMADEJOGO_HPP
