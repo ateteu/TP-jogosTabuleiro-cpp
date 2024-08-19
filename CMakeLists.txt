@@ -9,4 +9,4 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB HEADERS "include/*.hpp")
 
-add_executable(TP-jogosTabuleiro-cpp ${SOURCES} ${HEADERS})
+add_executable(TP-jogosTabuleiro-cpp ${SOURCES})
