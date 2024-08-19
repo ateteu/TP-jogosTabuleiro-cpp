@@ -79,7 +79,12 @@ public:
      */
     virtual void realizarJogada(int x, int y, Jogador *jogador) = 0;
 
-    Jogador* getJogadorAtual(){}
+    /**
+     * @brief Obtém o jogador atual.
+     * 
+     * @return Jogador* Ponteiro para o jogador atual.
+     */
+    Jogador* getJogadorAtual();
 
     /**
      * @brief Destrutor da classe Jogo.
@@ -89,4 +94,4 @@ public:
     ~Jogo();
 };
 
-#endif
+#endif // JOGO_HPP
