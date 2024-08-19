@@ -93,6 +93,7 @@ int Lig4::verificarCondicaoVitoria() {
 
 void Lig4::realizarJogada() {
     int coluna;
+    std::cout << "Digite a coluna a ser jogada" << std::endl;
     std::cin >> coluna;
     if (!validarJogada(0, coluna, getJogadorAtual())) {
         return;

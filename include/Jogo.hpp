@@ -65,7 +65,7 @@ public:
      * 
      * @param coluna A coluna onde o jogador deseja realizar a jogada.
      */
-    virtual void realizarJogada(int coluna) = 0;
+    virtual void realizarJogada() = 0;
 
     /**
      * @brief Realiza uma jogada no tabuleiro (usado por Reversi).
@@ -77,7 +77,7 @@ public:
      * @param y Posição Y no tabuleiro.
      * @param jogador Referência ao jogador que está fazendo a jogada.
      */
-    virtual void realizarJogada(int x, int y, Jogador *jogador) = 0;
+    //virtual void realizarJogada(int x, int y, Jogador *jogador) = 0;
 
     /**
      * @brief Obtém o jogador atual.
