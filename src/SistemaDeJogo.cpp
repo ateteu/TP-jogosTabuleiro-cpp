@@ -61,7 +61,7 @@ void SistemaDeJogo::executarPartida() {
         }
     }
 
-    escolherJogo();
+    escolherJogo(); //main ?
 
     if (jogo) {
         jogo->inicializarTabuleiro();
