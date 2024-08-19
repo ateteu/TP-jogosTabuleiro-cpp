@@ -62,7 +62,7 @@ public:
      *
      * Garante que o jogador atual execute sua jogada conforme as regras do jogo.
      */
-    virtual void realizarJogada(int _coluna);
+    virtual void realizarJogada();
 
     Jogador* getJogadorAtual(){}
 

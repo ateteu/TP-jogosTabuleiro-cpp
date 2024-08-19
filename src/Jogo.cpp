@@ -19,7 +19,7 @@ void Jogo::imprimirTabuleiro() {
     tabuleiro->imprimir();
 }
 
-void Jogo::realizarJogada(int _coluna) {
+void Jogo::realizarJogada() {
     // implementar nas subclasses
 }
 
