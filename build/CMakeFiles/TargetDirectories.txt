@@ -1,0 +1,3 @@
+/home/joao-linux/TP-jogosTabuleiro-cpp/build/CMakeFiles/TP-jogosTabuleiro-cpp.dir
+/home/joao-linux/TP-jogosTabuleiro-cpp/build/CMakeFiles/edit_cache.dir
+/home/joao-linux/TP-jogosTabuleiro-cpp/build/CMakeFiles/rebuild_cache.dir
