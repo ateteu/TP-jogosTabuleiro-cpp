@@ -2,6 +2,7 @@
 #include "../include/Reversi.hpp"
 #include <vector>
 #include <utility>
+#include <limits>
 
 void Reversi::imprimirTabuleiro() {
     tabuleiro.imprimir();
@@ -66,7 +67,7 @@ bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
 }
 
 Reversi::Reversi(Jogador* _jogador1, Jogador* _jogador2)
-    : jogador1(_jogador1), jogador2(_jogador2) {}
+    : jogador1(_jogador1), jogador2(_jogador2), vezJogador1(true) {}  // Inicializa vezJogador1 como true
 
 int Reversi::verificarCondicaoVitoria() {
     bool temMovimentoParaJogador1 = false;
@@ -135,32 +136,59 @@ void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int de
     }
 }
 
-void Reversi::realizarJogada(int x, int y, Jogador* jogador) {
+void Reversi::realizarJogada() {
+    Jogador* jogadorAtual = (vezJogador1) ? jogador1 : jogador2; // alterna entre jogador1 e jogador2
+    int x, y;
+
+    while (true) {
+        std::cout << jogadorAtual->getNome() << ", digite a linha a ser jogada (0-7): ";
+        std::cin >> x;
+
+        if (std::cin.fail() || x < 0 || x > 7) {
+            std::cin.clear(); // limpa o estado de erro
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
+            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            continue;
+        }
+
+        std::cout << jogadorAtual->getNome() << ", digite a coluna a ser jogada (0-7): ";
+        std::cin >> y;
+
+        if (std::cin.fail() || y < 0 || y > 7) {
+            std::cin.clear(); // limpa o estado de erro
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
+            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            continue;
+        }
+
+        // se ambas as entradas forem válidas, sai do loop
+        break;
+    }
+
     // verifica se a jogada é válida
-    if (!validarJogada(x, y, jogador)) {
+    if (!validarJogada(x, y, jogadorAtual)) {
         std::cout << "Jogada inválida. Tente novamente." << std::endl;
         return;
     }
 
     // coloca a peça do jogador no tabuleiro
-    tabuleiro.definirPosicao(x, y, jogador->minhaPeca());
+    tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
 
     // lógica para capturar as peças do oponente
-    capturarPecas(x, y, jogador);
+    capturarPecas(x, y, jogadorAtual);
 
-    // imprime o tabuleiro atualizado
-    imprimirTabuleiro();
+    // alterna a vez do jogador
+    vezJogador1 = !vezJogador1;
 }
 
 void Reversi::capturarPecas(int x, int y, Jogador* jogador) {
     // chama o método para capturar peças em todas as direções
-    
     capturarDirecao(x, y, jogador, 0, 1);  // direita
     capturarDirecao(x, y, jogador, 0, -1); // esquerda
     capturarDirecao(x, y, jogador, 1, 0);  // baixo
     capturarDirecao(x, y, jogador, -1, 0); // cima
     capturarDirecao(x, y, jogador, -1, -1); // diagonal superior esquerda
     capturarDirecao(x, y, jogador, 1, 1);   // diagonal inferior direita
-    capturarDirecao(x, y, jogador, -1, 1); // diagonal superior direita
-    capturarDirecao(x, y, jogador, 1, -1); // diagonal inferior esquerda
+    capturarDirecao(x, y, jogador, -1, 1);  // diagonal superior direita
+    capturarDirecao(x, y, jogador, 1, -1);  // diagonal inferior esquerda
 }

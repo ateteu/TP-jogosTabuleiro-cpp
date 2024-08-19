@@ -16,6 +16,7 @@
  */
 class Reversi : public Jogo {
 private:
+    bool vezJogador1; ///< Indica se é a vez do jogador 1
     Jogador* jogador1; ///< Ponteiro para o primeiro jogador
     Jogador* jogador2; ///< Ponteiro para o segundo jogador
     Tabuleiro tabuleiro; ///< Objeto que representa o tabuleiro do jogo Reversi.
@@ -45,9 +46,9 @@ public:
 
     /**
      * @brief Verifica a condição de vitória.
-     *
+     * 
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
-     * @return true se algum jogador venceu, false caso contrário.
+     * @return 1 se um jogador venceu, -1 em caso de empate, 0 se o jogo continua.
      */
     virtual int verificarCondicaoVitoria();
 
@@ -58,11 +59,8 @@ public:
 
     /** 
      * @brief Realiza uma jogada no tabuleiro.
-     * @param x A coordenada x da peça a ser colocada.
-     * @param y A coordenada y da peça a ser colocada.
-     * @param jogador O jogador que está realizando a jogada.
      */
-    void realizarJogada(int x, int y, Jogador* jogador) override;
+    void realizarJogada() override;
 
     /**
      * @brief Captura as peças do oponente em todas as direções possíveis (horizontal, vertical e diagonal).
@@ -72,9 +70,9 @@ public:
      * entre a peça recém-colocada e outra peça do jogador atual.
      * 
      * @param x A coordenada x da peça que foi colocada.
-    * @param y A coordenada y da peça que foi colocada.
-    * @param jogador Ponteiro para o jogador que realizou a jogada.
-    */
+     * @param y A coordenada y da peça que foi colocada.
+     * @param jogador Ponteiro para o jogador que realizou a jogada.
+     */
     void capturarPecas(int x, int y, Jogador* jogador);
 
     /**
