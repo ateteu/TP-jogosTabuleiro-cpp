@@ -21,6 +21,8 @@ private:
     CadastroDeJogadores cadastroDeJogadores; /**< Objeto para gerenciamento de jogadores. */
     
 public:
+    Jogador* jogador1;
+    Jogador* jogador2;
     /**
      * @brief Construtor da classe SistemaDeJogo.
      *
