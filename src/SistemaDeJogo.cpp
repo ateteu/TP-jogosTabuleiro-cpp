@@ -4,6 +4,8 @@
 SistemaDeJogo::SistemaDeJogo() {
     cadastroDeJogadores.criarArquivoJogadores();
     cadastroDeJogadores.carregarJogadoresDeArquivo("jogadores.txt");
+    jogador1 = nullptr;
+    jogador2 = nullptr;
 }
 
 void SistemaDeJogo::escolherJogo() {
@@ -15,7 +17,7 @@ void SistemaDeJogo::escolherJogo() {
 
     switch (escolha) {
         case 1:
-            jogo = std::make_unique<Reversi>(); // Inicializa o Reversi
+            jogo = std::make_unique<Reversi>(jogador1, jogador2); // Inicializa o Reversi
             break;
         case 2:
             jogo = std::make_unique<Lig4>(); // Inicializa o Lig4
