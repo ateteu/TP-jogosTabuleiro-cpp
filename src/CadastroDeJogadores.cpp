@@ -59,7 +59,10 @@ void CadastroDeJogadores::carregarJogadoresDeArquivo(const std::string& nome_arq
         }
         
         arquivo.close();
-        std::cout << "Jogadores carregados do arquivo: "<< nome_arquivo <<"."<< std::endl;
+        std::cout << "Jogadores carregados do arquivo: " << nome_arquivo << "." << std::endl;
+        for (const auto& jogador : jogadores) {
+            std::cout << jogador.getNome() << std::endl;
+        }
     }else{
         std::cout << "Não foi possível abrir o arquivo "<< nome_arquivo <<"."<< std::endl;
     }
@@ -118,40 +121,49 @@ void CadastroDeJogadores::listarJogadoresDoArquivo() {
     
 }
 
-bool CadastroDeJogadores::buscarJogadorNoArquivo(const std::string &nome) {
+void CadastroDeJogadores::buscarJogadorNoArquivo() {
+    std::string nome;
+    std::cout << "Digite o nome do jogador que deseja buscar: ";
+    std::cin >> nome;
+
     const std::string nome_arquivo = "jogadores.txt";
     carregarJogadoresDeArquivo(nome_arquivo);
-    
-    for(const auto& jogador : jogadores){
-        if(jogador.getNome()==nome){
-            std::cout << "Jogador "<< nome <<"encontrado no arquivo." <<std::endl;
-            return true;
+
+    for (const auto& jogador : jogadores) {
+        if (jogador.getNome() == nome) {
+            std::cout << "Jogador " << nome << " encontrado no arquivo." << std::endl;
+            return;
         }
     }
     std::cout << "Jogador " << nome << " não encontrado no arquivo." << std::endl;
-    return false;
+    return;
 }
 
 void CadastroDeJogadores::removerJogadorDoArquivo(const std::string &nome){
     const std::string nome_arquivo = "jogadores.txt";
     carregarJogadoresDeArquivo(nome_arquivo);
     
+    std::string nome_jogador;
+    std::cout << "Digite o nome do jogador que deseja remover: ";
+    std::cin >> nome_jogador;
+    
     auto it = std::remove_if(jogadores.begin(), jogadores.end(),
-                                 [&nome](const Jogador& jogador) {
-                                     return jogador.getNome() == nome;
+                                 [&nome_jogador](const Jogador& jogador) {
+                                     return jogador.getNome() == nome_jogador;
                                  });
         
     if (it != jogadores.end()) {
         
         jogadores.erase(it, jogadores.end());
         atualizarArquivo();
-        std::cout << "Jogador " << nome << " foi removido com sucesso." << std::endl;
+        std::cout << "Jogador " << nome_jogador << " foi removido com sucesso." << std::endl;
     
     } else {
         
-        std::cout << "Jogador com nome " << nome << " não encontrado no arquivo." << std::endl;
+        std::cout << "Jogador com nome " << nome_jogador << " não encontrado no arquivo." << std::endl;
     }
 }
+
 void CadastroDeJogadores::atualizarArquivo() const {
     std::string nome_arquivo = "jogadores.txt";
     std::ofstream arquivo(nome_arquivo, std::ios::trunc);  
