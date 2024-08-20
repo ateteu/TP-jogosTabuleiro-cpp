@@ -38,7 +38,7 @@ int main() {
             }
 
             if (escolha == 3) {
-                cadastroDeJogadores.buscarJogadorNoArquivo();
+                cadastroDeJogadores.buscarJogadorNoArquivo(nome);
             }
 
             if(escolha == 4) {
