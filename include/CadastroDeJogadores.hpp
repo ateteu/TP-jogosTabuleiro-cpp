@@ -12,7 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include "../src/Jogador.cpp"
+#include "../include/Jogador.hpp"
 
 class CadastroDeJogadores {
 private:

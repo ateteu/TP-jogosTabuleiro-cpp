@@ -9,40 +9,56 @@ int main() {
     Jogador jogador; // Cria uma instância de Jogador
     CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
 
-    std::cout << "Escolha o que fazer: " << std::endl;
+    std::cout << "Opcoes: " << std::endl;
     std::cout << "1. Adicionar jogador" << std::endl;
     std::cout << "2. Listar jogadores" << std::endl;
     std::cout << "3. Buscar jogador" << std::endl;
     std::cout << "4. Remover jogador" << std::endl;
     std::cout << "5. Jogar" << std::endl;
-
+    std::cout << "0. Encerrar o programa" << std::endl;
+    std::cout << std::endl;
     int escolha;
-    std::cin >> escolha;
+     
     std::string nome;
 
-    switch (escolha) {
-        case 1:
-            std::cout << "Digite o nome do jogador: ";
-            std::cin >> nome;
-            cadastroDeJogadores.adicionarJogadorNoArquivo(nome);
-            break;
-        case 2:
-            cadastroDeJogadores.listarJogadoresDoArquivo();
-            break;
-        case 3:
-            cadastroDeJogadores.buscarJogadorNoArquivo("jogadores.txt");
-            break;
-        case 4:
-            cadastroDeJogadores.removerJogadorDoArquivo("jogadores.txt");
-            break;
-        case 5:
-            sistema.executarPartida();
-            break;
-        default:
-            std::cout << "Opção inválida!" << std::endl;
-            break;
-    }
+    while(true){
 
+        std::cout << "Digite sua escolha: ";
+        std::cin >> escolha;
+
+        if( escolha >= 1 && escolha <= 5) {
+            if(escolha == 1) {
+                std::cout << "Digite o nome do jogador: ";
+                std::cin >> nome;
+                cadastroDeJogadores.adicionarJogadorNoArquivo(nome);
+            }
+
+            if(escolha == 2) {
+                cadastroDeJogadores.listarJogadoresDoArquivo();
+            }
+
+            if (escolha == 3) {
+                cadastroDeJogadores.buscarJogadorNoArquivo("jogadores.txt");
+            }
+
+            if(escolha == 4) {
+                cadastroDeJogadores.removerJogadorDoArquivo("jogadores.txt");
+            }
+
+            if(escolha == 5) {
+                sistema.executarPartida();
+            }
+         }
+
+        if(escolha < 0 || escolha > 5){
+            std::cout << "Opcao inválida. Digite de novo" << std::endl;
+        }
+
+        if(escolha == 0){
+            break;
+        }
+    }
+    
     std::cout << "Obrigado por jogar!" << std::endl;
     return 0;
 }
