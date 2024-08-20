@@ -40,6 +40,7 @@ void Tabuleiro::imprimir() {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
             std::cout << matrizTabuleiro[i][j] << " ";
+            
         }
         std::cout << std::endl;
     }
