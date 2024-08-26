@@ -3,11 +3,13 @@
 #include "../include/Jogador.hpp"
 #include "../include/CadastroDeJogadores.hpp"
 #include "../include/SistemaDeJogo.hpp"
+#include "../include/Tabuleiro.hpp"
 
 int main() {
     SistemaDeJogo sistema; // Cria uma instância de SistemaDeJogo
     Jogador jogador; // Cria uma instância de Jogador
     CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
+    Tabuleiro tabuleiro;
 
     std::cout << "Opcoes: " << std::endl;
     std::cout << "1. Adicionar jogador" << std::endl;
@@ -38,7 +40,7 @@ int main() {
             }
 
             if (escolha == 3) {
-                cadastroDeJogadores.buscarJogadorNoArquivo(nome);
+                cadastroDeJogadores.buscarJogadorNoArquivo();
             }
 
             if(escolha == 4) {
