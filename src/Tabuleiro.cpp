@@ -45,7 +45,7 @@ bool Tabuleiro::posicaoValida(int _x, int _y) const {
 }
 
 void Tabuleiro::imprimir() const {
-    for (int i = 0; i < linhas - 6; i++) {
+    for (int i = 0; i < linhas - 3; i++) {
         for (int j = 0; j < colunas; j++) {
             std::cout << matrizTabuleiro[i][j] << " ";
         }
