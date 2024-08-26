@@ -8,7 +8,7 @@ Lig4::Lig4() {
 }
 
 void Lig4::inicializarTabuleiro() {
-    tabuleiro->configurarTabuleiro(altura, largura);
+    tabuleiro->configurarTabuleiro(6, 7);
 }
 
 bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador) {
