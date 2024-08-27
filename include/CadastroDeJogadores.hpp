@@ -57,7 +57,7 @@ public:
      *  @retval TRUE Exibe uma mensagem confirmando que o jogador foi encontrado.
      *  @retval FALSE Exibe uma mensagem informando que o jogador não foi encontrado.
      */
-    bool buscarJogadorNoArquivo();
+    void buscarJogadorNoArquivo();
 
     /** @brief
      *  Essa função remove um jogador específico do arquivo "jogadores.txt".
