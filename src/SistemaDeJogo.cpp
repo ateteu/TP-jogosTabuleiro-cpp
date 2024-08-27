@@ -73,11 +73,17 @@ void SistemaDeJogo::executarPartida() {
         while (condicaoVitoria == 0) {
 
             if (turnoJogador1) {
+                std::cout << "Valor de jogador1: " << jogador1 << std::endl;
+                std::cout << "Valor de jogador2: " << jogador2 << std::endl;
+                system("pause");
                 std::cout << "Vez de " << nomeJogador1 << std::endl;
-                jogo->realizarJogada(); 
+                jogador1->setPeca('W');
+                std::cout << "Peça do jogador 1: " << jogador1->minhaPeca() << std::endl;
+                system("pause");
+                jogo->realizarJogada(jogador1, jogador1->minhaPeca()); 
             } else {
                 std::cout << "Vez de " << nomeJogador2 << std::endl;
-                jogo->realizarJogada();
+                jogo->realizarJogada(jogador2, jogador2->minhaPeca());
             }
 
             turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores

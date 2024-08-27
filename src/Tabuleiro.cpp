@@ -20,17 +20,10 @@ void Tabuleiro::configurarTabuleiro(int _linhas, int _colunas) {
             matrizTabuleiro[i][j] = '.'; // Inicializa as posições com ponto
         }
     }
-
-    // Imprime o tabuleiro após a configuração
-    imprimir();
 }
 
 void Tabuleiro::definirPosicao(int _x, int _y, char _peca) {
-    if (posicaoValida(_x, _y)) {
-        matrizTabuleiro[_x][_y] = _peca;
-    } else {
-        throw std::out_of_range("Posição inválida no tabuleiro");
-    }
+    matrizTabuleiro[_x][_y] = _peca;
 }
 
 char Tabuleiro::obterPeca(int _x, int _y) const {

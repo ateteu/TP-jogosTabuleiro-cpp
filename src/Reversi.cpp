@@ -15,7 +15,7 @@ void Reversi::inicializarTabuleiro() {
     system("pause");
 }
 
-bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
+bool Reversi::validarJogada(int x, int y, Jogador* jogador, char peca) {
     // verifica se a posição está dentro do tabuleiro e está vazia
     if (!tabuleiro.posicaoValida(x, y) || tabuleiro.obterPeca(x, y) != '.') {
         return false;
@@ -28,7 +28,7 @@ bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
     };
 
     // determina as peças do jogador e do oponente
-    char pecaJogador = jogador->minhaPeca();  // 'W' ou 'B'
+    char pecaJogador = peca;  // 'W' ou 'B'
     char pecaOponente = (pecaJogador == 'B') ? 'W' : 'B';
 
     // verifica cada direção
@@ -76,10 +76,10 @@ int Reversi::verificarCondicaoVitoria() {
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
             if (tabuleiro.obterPeca(x, y) == '.') {
-                if (validarJogada(x, y, jogador1)) {
+                if (validarJogada(x, y, jogador1, jogador1->minhaPeca())) {
                     temMovimentoParaJogador1 = true;
                 }
-                if (validarJogada(x, y, jogador2)) {
+                if (validarJogada(x, y, jogador2, jogador2->minhaPeca())) {
                     temMovimentoParaJogador2 = true;
                 }
             }
@@ -115,13 +115,13 @@ int Reversi::verificarCondicaoVitoria() {
     return 0; // O jogo continua
 }
 
-void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY) {
+void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY, char peca) {
     int i = x + deltaX;
     int j = y + deltaY;
     std::vector<std::pair<int, int>> pecasParaVirar;
 
     // verifica a sequência de peças
-    while (tabuleiro.posicaoValida(i, j) && tabuleiro.obterPeca(i, j) == (jogador == jogador1 ? jogador2->minhaPeca() : jogador1->minhaPeca())) {
+    while (tabuleiro.posicaoValida(i, j) && tabuleiro.obterPeca(i, j) == (jogador->minhaPeca() == 'W' ? 'B' : 'W')) {
         pecasParaVirar.push_back({i, j});
         i += deltaX;
         j += deltaY;
@@ -135,12 +135,14 @@ void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int de
     }
 }
 
-void Reversi::realizarJogada() {
-    Jogador* jogadorAtual = (vezJogador1) ? jogador1 : jogador2; // alterna entre jogador1 e jogador2
+void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
     int x, y;
 
+    std::cout << jogadorAtual << std::endl;
+    std::cout << "Peca jogador atual: " << jogadorAtual->minhaPeca() << std::endl;
+
     while (true) {
-        std::cout << jogadorAtual->getNome() << ", digite a linha a ser jogada (0-7): ";
+        std::cout << "Digite a linha a ser jogada (0-7): ";
         std::cin >> x;
 
         if (std::cin.fail() || x < 0 || x > 7) {
@@ -150,7 +152,7 @@ void Reversi::realizarJogada() {
             continue;
         }
 
-        std::cout << jogadorAtual->getNome() << ", digite a coluna a ser jogada (0-7): ";
+        std::cout << "Digite a coluna a ser jogada (0-7): ";
         std::cin >> y;
 
         if (std::cin.fail() || y < 0 || y > 7) {
@@ -165,29 +167,38 @@ void Reversi::realizarJogada() {
     }
 
     // verifica se a jogada é válida
-    if (!validarJogada(x, y, jogadorAtual)) {
+    if (!validarJogada(x, y, jogadorAtual, peca)) {
         std::cout << "Jogada inválida. Tente novamente." << std::endl;
         return;
     }
 
+    std::cout << "Jogada válida!" << std::endl;
+    system("pause");
+
     // coloca a peça do jogador no tabuleiro
     tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
+    tabuleiro.imprimir();
+
+    std::cout << "DEU CERTO PORRA" << std::endl;
+    system("pause");
 
     // lógica para capturar as peças do oponente
-    capturarPecas(x, y, jogadorAtual);
+    capturarPecas(x, y, jogadorAtual, peca);
 
-    // alterna a vez do jogador
-    vezJogador1 = !vezJogador1;
 }
 
-void Reversi::capturarPecas(int x, int y, Jogador* jogador) {
+void Reversi::capturarPecas(int x, int y, Jogador* jogador, char peca) {
     // chama o método para capturar peças em todas as direções
-    capturarDirecao(x, y, jogador, 0, 1);  // direita
-    capturarDirecao(x, y, jogador, 0, -1); // esquerda
-    capturarDirecao(x, y, jogador, 1, 0);  // baixo
-    capturarDirecao(x, y, jogador, -1, 0); // cima
-    capturarDirecao(x, y, jogador, -1, -1); // diagonal superior esquerda
-    capturarDirecao(x, y, jogador, 1, 1);   // diagonal inferior direita
-    capturarDirecao(x, y, jogador, -1, 1);  // diagonal superior direita
-    capturarDirecao(x, y, jogador, 1, -1);  // diagonal inferior esquerda
+    capturarDirecao(x, y, jogador, 0, 1, peca);  // direita
+    capturarDirecao(x, y, jogador, 0, -1, peca); // esquerda
+    capturarDirecao(x, y, jogador, 1, 0, peca);  // baixo
+    capturarDirecao(x, y, jogador, -1, 0, peca); // cima
+    capturarDirecao(x, y, jogador, -1, -1, peca); // diagonal superior esquerda
+    capturarDirecao(x, y, jogador, 1, 1, peca);   // diagonal inferior direita
+    capturarDirecao(x, y, jogador, -1, 1, peca);  // diagonal superior direita
+    capturarDirecao(x, y, jogador, 1, -1, peca);  // diagonal inferior esquerda
+
+    tabuleiro.imprimir();
+
+    system("pause");
 }

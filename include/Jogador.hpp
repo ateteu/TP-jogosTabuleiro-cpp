@@ -62,6 +62,8 @@ public:
      */
     std::string getNome() const;
 
+    void setPeca(char _peca);
+
     /** @brief
      *  Define o nome do jogador.
      *  @param nome Novo nome a ser atribuído ao jogador.

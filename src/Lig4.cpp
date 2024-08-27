@@ -10,7 +10,7 @@ void Lig4::inicializarTabuleiro() {
     tabuleiro->imprimir();
 }
 
-bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador) {
+bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
     if (coluna < 0 || coluna >= largura) {
         std::cout << "Coluna inválida!" << std::endl;
         return false;
@@ -91,11 +91,11 @@ int Lig4::verificarCondicaoVitoria() {
     return 0;  // O jogo deve continuar
 }
 
-void Lig4::realizarJogada() {
+void Lig4::realizarJogada(Jogador* jogador, char peca) {
     int coluna;
     std::cout << "Digite a coluna a ser jogada" << std::endl;
     std::cin >> coluna;
-    if (!validarJogada(0, coluna, getJogadorAtual())) {
+    if (!validarJogada(0, coluna, getJogadorAtual(), peca)) {
         return;
     }
 
