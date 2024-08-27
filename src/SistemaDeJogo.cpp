@@ -23,7 +23,7 @@ void SistemaDeJogo::escolherJogo() {
             jogo = std::make_unique<Lig4>(jogador1, jogador2); // Inicializa o Lig4
             break;
         default:
-            std::cout << "Opção inválida!" << std::endl;
+            std::cout << "Opcao invalida!" << std::endl;
             break;
     }
 }
@@ -32,7 +32,7 @@ Jogador* verificarOuCadastrarJogador(const std::string& nome, CadastroDeJogadore
     Jogador* jogador = cadastro.getJogadorPorNome(nome);
     if (jogador == nullptr) {
         char opcao;
-        std::cout << "Jogador " << nome << " não encontrado. Deseja cadastrá-lo? (s/n): ";
+        std::cout << "Jogador " << nome << " nao encontrado. Deseja cadastra-lo? (s/n): ";
         std::cin >> opcao;
         if (opcao == 's' || opcao == 'S') {
             cadastro.adicionarJogadorNoArquivo(nome);
