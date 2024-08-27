@@ -13,7 +13,7 @@ void Lig4::inicializarTabuleiro() {
 
 bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
     if (coluna < 0 || coluna >= largura) {
-        std::cout << "Coluna inválida!" << std::endl;
+        std::cout << "Coluna invalida!" << std::endl;
         return false;
     }
     if (tabuleiro.obterPeca(0, coluna) != '.') {
@@ -79,7 +79,7 @@ int Lig4::verificarCondicaoVitoria() {
         }
     }
 
-    // Verifica se o tabuleiro está cheio
+    // Verifica se o tabuleiro esta cheio
     bool tabuleiroCheio = true;
     for (int j = 0; j < largura; j++) {
         if (tabuleiro.obterPeca(0, j) == '.') {

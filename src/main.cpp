@@ -53,7 +53,7 @@ int main() {
          }
 
         if(escolha < 0 || escolha > 5){
-            std::cout << "Opcao inválida. Digite de novo" << std::endl;
+            std::cout << "Opcao invalida. Digite de novo" << std::endl;
         }
 
         if(escolha == 0){
