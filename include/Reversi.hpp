@@ -4,6 +4,7 @@
 #include "Jogo.hpp"
 #include "Tabuleiro.hpp"
 #include "Jogador.hpp"
+#include "SistemaDeJogo.hpp"
 
 /**
  * @class Reversi

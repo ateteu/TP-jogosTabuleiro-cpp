@@ -28,65 +28,47 @@ void SistemaDeJogo::escolherJogo() {
     }
 }
 
+Jogador* verificarOuCadastrarJogador(const std::string& nome, CadastroDeJogadores& cadastro) {
+    Jogador* jogador = cadastro.getJogadorPorNome(nome);
+    if (jogador == nullptr) {
+        char opcao;
+        std::cout << "Jogador " << nome << " não encontrado. Deseja cadastrá-lo? (s/n): ";
+        std::cin >> opcao;
+        if (opcao == 's' || opcao == 'S') {
+            cadastro.adicionarJogadorNoArquivo(nome);
+            jogador = cadastro.getJogadorPorNome(nome);
+        }
+    }
+    return jogador;
+}
+
 void SistemaDeJogo::executarPartida() {
     std::string nomeJogador1, nomeJogador2;
     
     std::cout << "Digite o nome do primeiro jogador: ";
     std::cin >> nomeJogador1;
-    Jogador* jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
-
-    if (jogador1 == nullptr) {
-        char opcao;
-        std::cout << "Jogador " << nomeJogador1 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
-        std::cin >> opcao;
-        if (opcao == 's' || opcao == 'S') {
-            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador1);
-            jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
-        } else {
-            return;
-        }
-    }
+    jogador1 = verificarOuCadastrarJogador(nomeJogador1, cadastroDeJogadores);
+    if (jogador1 == nullptr) return;
 
     std::cout << "Digite o nome do segundo jogador: ";
     std::cin >> nomeJogador2;
-    Jogador* jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
+    jogador2 = verificarOuCadastrarJogador(nomeJogador2, cadastroDeJogadores);
+    if (jogador2 == nullptr) return;
 
-    if (jogador2 == nullptr) {
-        char opcao;
-        std::cout << "Jogador " << nomeJogador2 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
-        std::cin >> opcao;
-        if (opcao == 's' || opcao == 'S') {
-            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador2);
-            jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
-        } else {
-            return;
-        }
-    }
-
-    escolherJogo(); //main ?
+    escolherJogo();
 
     if (jogo) {
         jogo->inicializarTabuleiro();
-        bool turnoJogador1 = true; // Inicia com o jogador 1
+        bool turnoJogador1 = true;
         int condicaoVitoria = 0;
 
         while (condicaoVitoria == 0) {
+            Jogador* jogadorAtual = turnoJogador1 ? jogador1 : jogador2;
+            std::cout << "Vez de " << (turnoJogador1 ? nomeJogador1 : nomeJogador2) << ". ";
+            jogadorAtual->setPeca(turnoJogador1 ? 'W' : 'B');
+            jogo->realizarJogada(jogadorAtual, jogadorAtual->minhaPeca());
 
-            if (turnoJogador1) {
-                std::cout << "Valor de jogador1: " << jogador1 << std::endl;
-                std::cout << "Valor de jogador2: " << jogador2 << std::endl;
-                system("pause");
-                std::cout << "Vez de " << nomeJogador1 << std::endl;
-                jogador1->setPeca('W');
-                std::cout << "Peça do jogador 1: " << jogador1->minhaPeca() << std::endl;
-                system("pause");
-                jogo->realizarJogada(jogador1, jogador1->minhaPeca()); 
-            } else {
-                std::cout << "Vez de " << nomeJogador2 << std::endl;
-                jogo->realizarJogada(jogador2, jogador2->minhaPeca());
-            }
-
-            turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores
+            turnoJogador1 = !turnoJogador1;
             condicaoVitoria = jogo->verificarCondicaoVitoria();
         }
 
@@ -94,22 +76,14 @@ void SistemaDeJogo::executarPartida() {
         std::cout << "Fim de jogo!" << std::endl;
 
         if (condicaoVitoria == -1) {
-            std::cout << "O jogo terminou em empate!" << std::endl;
+            std::cout << "O jogo terminou em empate!";
             jogador1->registrarEmpate();
             jogador2->registrarEmpate();
-        } else if (condicaoVitoria == 1) {
-            if (turnoJogador1) {
-                std::cout << "O jogador " << nomeJogador2 << " é o campeão!" << std::endl;
-                jogador1->registrarDerrota();
-                jogador2->registrarVitoria();
-            } else {
-                std::cout << "O jogador " << nomeJogador1 << " é o campeão!" << std::endl;
-                jogador1->registrarVitoria();
-                jogador2->registrarDerrota();
-            }
         }
+        // Outras condições de vitória podem ser adicionadas aqui
     }
 }
+
 
 SistemaDeJogo::~SistemaDeJogo() {
     // Os recursos são automaticamente liberados por causa dos smart pointers

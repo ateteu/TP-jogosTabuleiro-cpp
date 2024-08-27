@@ -138,8 +138,7 @@ void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int de
 void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
     int x, y;
 
-    std::cout << jogadorAtual << std::endl;
-    std::cout << "Peca jogador atual: " << jogadorAtual->minhaPeca() << std::endl;
+    std::cout << "Peca do jogador: " << jogadorAtual->minhaPeca() << std::endl;
 
     while (true) {
         std::cout << "Digite a linha a ser jogada (0-7): ";
@@ -169,18 +168,11 @@ void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
     // verifica se a jogada é válida
     if (!validarJogada(x, y, jogadorAtual, peca)) {
         std::cout << "Jogada inválida. Tente novamente." << std::endl;
-        return;
+        realizarJogada(jogadorAtual, peca);
     }
-
-    std::cout << "Jogada válida!" << std::endl;
-    system("pause");
 
     // coloca a peça do jogador no tabuleiro
     tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
-    tabuleiro.imprimir();
-
-    std::cout << "DEU CERTO PORRA" << std::endl;
-    system("pause");
 
     // lógica para capturar as peças do oponente
     capturarPecas(x, y, jogadorAtual, peca);
@@ -198,7 +190,7 @@ void Reversi::capturarPecas(int x, int y, Jogador* jogador, char peca) {
     capturarDirecao(x, y, jogador, -1, 1, peca);  // diagonal superior direita
     capturarDirecao(x, y, jogador, 1, -1, peca);  // diagonal inferior esquerda
 
-    tabuleiro.imprimir();
+    tabuleiro.imprimir(); // imprimir o tabuleiro atualizado
 
     system("pause");
 }
