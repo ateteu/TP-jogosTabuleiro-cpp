@@ -17,6 +17,10 @@ void Jogador::setNome(const std::string& nome) {
     nome_jogador = nome;
 }
 
+void Jogador::setPeca(char _peca) {
+    peca = _peca;
+}
+
 char Jogador::minhaPeca() const {
     return peca;
 }

@@ -42,7 +42,7 @@ public:
      * @param jogador Ponteiro para o jogador que está fazendo a jogada.
      * @return true se a jogada for válida, false caso contrário.
      */
-    bool validarJogada(int x, int y, Jogador* jogador) override;
+    bool validarJogada(int x, int y, Jogador* jogador, char peca) override;
 
     /**
      * @brief Verifica a condição de vitória.
@@ -60,7 +60,7 @@ public:
     /** 
      * @brief Realiza uma jogada no tabuleiro.
      */
-    void realizarJogada() override;
+    void realizarJogada(Jogador* jogador, char peca) override;
 
     /**
      * @brief Captura as peças do oponente em todas as direções possíveis (horizontal, vertical e diagonal).
@@ -73,7 +73,7 @@ public:
      * @param y A coordenada y da peça que foi colocada.
      * @param jogador Ponteiro para o jogador que realizou a jogada.
      */
-    void capturarPecas(int x, int y, Jogador* jogador);
+    void capturarPecas(int x, int y, Jogador* jogador, char peca);
 
     /**
      * @brief Captura as peças do oponente em uma direção específica.
@@ -88,7 +88,7 @@ public:
      * @param deltaX O incremento para a coordenada x na direção.
      * @param deltaY O incremento para a coordenada y na direção.
      */
-    void capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY);
+    void capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY, char peca);
 };
 
 #endif // REVERSI_HPP

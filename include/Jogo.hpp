@@ -40,7 +40,7 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do jogo.
      */
-    virtual bool validarJogada(int _linha, int _coluna, Jogador* jogador) = 0;
+    virtual bool validarJogada(int _linha, int _coluna, Jogador* jogador, char peca) = 0;
 
     /**
      * @brief Verifica a condição de vitória.
@@ -65,7 +65,7 @@ public:
      * 
      * @param coluna A coluna onde o jogador deseja realizar a jogada.
      */
-    virtual void realizarJogada() = 0;
+    virtual void realizarJogada(Jogador* jogador, char peca) = 0;
 
     /**
      * @brief Realiza uma jogada no tabuleiro (usado por Reversi).

@@ -39,7 +39,7 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do Lig4.
      */
-    bool validarJogada(int linha, int coluna, Jogador* jogador) override; 
+    bool validarJogada(int linha, int coluna, Jogador* jogador, char peca) override; 
 
     /**
      * @brief Verifica a condição de vitória no jogo Lig4.
@@ -56,7 +56,7 @@ public:
      * Sobrescreve o método da classe base para realizar uma jogada
      * em uma coluna específica do tabuleiro.
      */
-    void realizarJogada() override;
+    void realizarJogada(Jogador* jogador, char peca) override;
 
 private:
     static const int largura = 7;  /**< Largura do tabuleiro para Lig4. */
