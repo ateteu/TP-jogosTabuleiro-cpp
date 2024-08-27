@@ -12,7 +12,6 @@ void Reversi::inicializarTabuleiro() {
     tabuleiro.definirPosicao(3, 4, 'W');
     tabuleiro.definirPosicao(4, 3, 'W');
     tabuleiro.imprimir();
-    system("pause");
 }
 
 bool Reversi::validarJogada(int x, int y, Jogador* jogador, char peca) {
@@ -147,7 +146,7 @@ void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
         if (std::cin.fail() || x < 0 || x > 7) {
             std::cin.clear(); // limpa o estado de erro
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
-            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            std::cout << "Entrada invalida. Por favor, digite um numero entre 0 e 7." << std::endl;
             continue;
         }
 
@@ -157,7 +156,7 @@ void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
         if (std::cin.fail() || y < 0 || y > 7) {
             std::cin.clear(); // limpa o estado de erro
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
-            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            std::cout << "Entrada invalida. Por favor, digite um numero entre 0 e 7." << std::endl;
             continue;
         }
 
@@ -167,7 +166,7 @@ void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
 
     // verifica se a jogada é válida
     if (!validarJogada(x, y, jogadorAtual, peca)) {
-        std::cout << "Jogada inválida. Tente novamente." << std::endl;
+        std::cout << "Jogada invalida. Tente novamente." << std::endl;
         realizarJogada(jogadorAtual, peca);
     }
 
@@ -191,6 +190,4 @@ void Reversi::capturarPecas(int x, int y, Jogador* jogador, char peca) {
     capturarDirecao(x, y, jogador, 1, -1, peca);  // diagonal inferior esquerda
 
     tabuleiro.imprimir(); // imprimir o tabuleiro atualizado
-
-    system("pause");
 }
