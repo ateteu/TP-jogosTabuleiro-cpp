@@ -38,12 +38,25 @@ bool Tabuleiro::posicaoValida(int _x, int _y) const {
 }
 
 void Tabuleiro::imprimir() const {
+    std::cout << std::endl;
+
+    // imprime os números das colunas
+    std::cout << "  ";
+    for (int j = 0; j < colunas; j++) {
+        std::cout << j << " "; 
+    }
+    std::cout << std::endl;
+
+    // imprime as linhas do tabuleiro com o número da linha à esquerda
     for (int i = 0; i < linhas; i++) {
+        std::cout << i << " ";
         for (int j = 0; j < colunas; j++) {
             std::cout << matrizTabuleiro[i][j] << " ";
         }
         std::cout << std::endl;
     }
+
+    std::cout << std::endl;
 }
 
 Tabuleiro::~Tabuleiro() = default; // Destrutor padrão
