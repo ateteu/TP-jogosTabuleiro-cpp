@@ -20,7 +20,7 @@ void SistemaDeJogo::escolherJogo() {
             jogo = std::make_unique<Reversi>(jogador1, jogador2); // Inicializa o Reversi
             break;
         case 2:
-            jogo = std::make_unique<Lig4>(); // Inicializa o Lig4
+            jogo = std::make_unique<Lig4>(jogador1, jogador2); // Inicializa o Lig4
             break;
         default:
             std::cout << "Opção inválida!" << std::endl;

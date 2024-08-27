@@ -3,11 +3,12 @@
 #include <iostream>
 
 // Construtor
-Lig4::Lig4() {}
+Lig4::Lig4(Jogador* _jogador1, Jogador* _jogador2)
+    : jogador1(_jogador1), jogador2(_jogador2), vezJogador1(true) {}
 
 void Lig4::inicializarTabuleiro() {
-    tabuleiro->configurarTabuleiro(6, 7);
-    tabuleiro->imprimir();
+    tabuleiro.configurarTabuleiro(6, 7);
+    tabuleiro.imprimir();
 }
 
 bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
@@ -15,10 +16,13 @@ bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
         std::cout << "Coluna inválida!" << std::endl;
         return false;
     }
-    if (tabuleiro->obterPeca(0, coluna) != '.') {
+    if (tabuleiro.obterPeca(0, coluna) != '.') {
         std::cout << "Coluna cheia!" << std::endl;
         return false;
     }
+
+    std::cout << "coluna: " << coluna << std::endl;
+    system("pause");
     return true;
 }
 
@@ -30,10 +34,10 @@ int Lig4::verificarCondicaoVitoria() {
     // Verifica horizontalmente
     for (int i = 0; i < altura; i++) {
         for (int j = 0; j < largura - 3; j++) {
-            if (tabuleiro->obterPeca(i, j) == jogador &&
-                tabuleiro->obterPeca(i, j+1) == jogador &&
-                tabuleiro->obterPeca(i, j+2) == jogador &&
-                tabuleiro->obterPeca(i, j+3) == jogador) {
+            if (tabuleiro.obterPeca(i, j) == jogador &&
+                tabuleiro.obterPeca(i, j+1) == jogador &&
+                tabuleiro.obterPeca(i, j+2) == jogador &&
+                tabuleiro.obterPeca(i, j+3) == jogador) {
                 return 1;  // Jogador atual venceu
             }
         }
@@ -42,10 +46,10 @@ int Lig4::verificarCondicaoVitoria() {
     // Verifica verticalmente
     for (int i = 0; i < altura - 3; i++) {
         for (int j = 0; j < largura; j++) {
-            if (tabuleiro->obterPeca(i, j) == jogador &&
-                tabuleiro->obterPeca(i+1, j) == jogador &&
-                tabuleiro->obterPeca(i+2, j) == jogador &&
-                tabuleiro->obterPeca(i+3, j) == jogador) {
+            if (tabuleiro.obterPeca(i, j) == jogador &&
+                tabuleiro.obterPeca(i+1, j) == jogador &&
+                tabuleiro.obterPeca(i+2, j) == jogador &&
+                tabuleiro.obterPeca(i+3, j) == jogador) {
                 return 1;  // Jogador atual venceu
             }
         }
@@ -54,10 +58,10 @@ int Lig4::verificarCondicaoVitoria() {
     // Verifica diagonal (cima para baixo - DIAGONAL DESCENDENTE)
     for (int i = 0; i < altura - 3; i++) {
         for (int j = 0; j < largura - 3; j++) {
-            if (tabuleiro->obterPeca(i, j) == jogador &&
-                tabuleiro->obterPeca(i+1, j+1) == jogador &&
-                tabuleiro->obterPeca(i+2, j+2) == jogador &&
-                tabuleiro->obterPeca(i+3, j+3) == jogador) {
+            if (tabuleiro.obterPeca(i, j) == jogador &&
+                tabuleiro.obterPeca(i+1, j+1) == jogador &&
+                tabuleiro.obterPeca(i+2, j+2) == jogador &&
+                tabuleiro.obterPeca(i+3, j+3) == jogador) {
                 return 1;  // Jogador atual venceu
             }
         }
@@ -66,10 +70,10 @@ int Lig4::verificarCondicaoVitoria() {
     // Verifica diagonal (baixo para cima - DIAGONAL ASCENDENTE)
     for (int i = 3; i < altura; i++) {
         for (int j = 0; j < largura - 3; j++) {
-            if (tabuleiro->obterPeca(i, j) == jogador &&
-                tabuleiro->obterPeca(i-1, j+1) == jogador &&
-                tabuleiro->obterPeca(i-2, j+2) == jogador &&
-                tabuleiro->obterPeca(i-3, j+3) == jogador) {
+            if (tabuleiro.obterPeca(i, j) == jogador &&
+                tabuleiro.obterPeca(i-1, j+1) == jogador &&
+                tabuleiro.obterPeca(i-2, j+2) == jogador &&
+                tabuleiro.obterPeca(i-3, j+3) == jogador) {
                 return 1;  // Jogador atual venceu
             }
         }
@@ -78,7 +82,7 @@ int Lig4::verificarCondicaoVitoria() {
     // Verifica se o tabuleiro está cheio
     bool tabuleiroCheio = true;
     for (int j = 0; j < largura; j++) {
-        if (tabuleiro->obterPeca(0, j) == '.') {
+        if (tabuleiro.obterPeca(0, j) == '.') {
             tabuleiroCheio = false;
             break;
         }
@@ -93,17 +97,20 @@ int Lig4::verificarCondicaoVitoria() {
 
 void Lig4::realizarJogada(Jogador* jogador, char peca) {
     int coluna;
-    std::cout << "Digite a coluna a ser jogada" << std::endl;
-    std::cin >> coluna;
-    if (!validarJogada(0, coluna, getJogadorAtual(), peca)) {
-        return;
-    }
+    while(true) {
+        std::cout << "Digite a coluna a ser jogada:" << std::endl;
+        std::cin >> coluna;
+        if (!validarJogada(0, coluna, jogador, peca)) {
+            realizarJogada(jogador, peca);
+        }
 
-    // Realiza a jogada, ou seja, coloca a peça na posição correta na coluna especificada
-    for (int i = altura - 1; i >= 0; i--) {
-        if (tabuleiro->obterPeca(i, coluna) == '.') {
-            tabuleiro->definirPosicao(i, coluna, getJogadorAtual()-> minhaPeca());
-            break;
+        // Realiza a jogada, ou seja, coloca a peça na posição correta na coluna especificada
+        for (int i = altura - 1; i >= 0; i--) {
+            if (tabuleiro.obterPeca(i, coluna) == '.') {
+                tabuleiro.definirPosicao(i, coluna, peca);
+                tabuleiro.imprimir();
+                break;
+            }
         }
     }
 
