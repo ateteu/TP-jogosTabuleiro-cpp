@@ -3,12 +3,11 @@
 #include <iostream>
 
 // Construtor
-Lig4::Lig4() {
-    inicializarTabuleiro();
-}
+Lig4::Lig4() {}
 
 void Lig4::inicializarTabuleiro() {
     tabuleiro->configurarTabuleiro(6, 7);
+    tabuleiro->imprimir();
 }
 
 bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador) {

@@ -71,7 +71,6 @@ void SistemaDeJogo::executarPartida() {
         int condicaoVitoria = 0;
 
         while (condicaoVitoria == 0) {
-            jogo->imprimirTabuleiro();
 
             if (turnoJogador1) {
                 std::cout << "Vez de " << nomeJogador1 << std::endl;

@@ -3,10 +3,7 @@
 #include <vector>
 #include <utility>
 #include <limits>
-
-void Reversi::imprimirTabuleiro() {
-    tabuleiro.imprimir();
-}
+#include <iostream>
 
 void Reversi::inicializarTabuleiro() {
     tabuleiro.configurarTabuleiro(8, 8); // configura pra ter 8 linhas e 8 colunas
@@ -14,6 +11,8 @@ void Reversi::inicializarTabuleiro() {
     tabuleiro.definirPosicao(4, 4, 'B');
     tabuleiro.definirPosicao(3, 4, 'W');
     tabuleiro.definirPosicao(4, 3, 'W');
+    tabuleiro.imprimir();
+    system("pause");
 }
 
 bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
