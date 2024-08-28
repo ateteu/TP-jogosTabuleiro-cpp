@@ -37,6 +37,10 @@ int Lig4::verificarCondicaoVitoria() {
                 tabuleiro.obterPeca(i, j+1) == jogador &&
                 tabuleiro.obterPeca(i, j+2) == jogador &&
                 tabuleiro.obterPeca(i, j+3) == jogador) {
+                score.adicionarVitorias(jogador1->getNome(), "Lig4", 1);  // Atualiza vitórias
+                score.adicionarDerrotas(jogador2->getNome(), "Lig4", 1);  // Atualiza derrotas
+                score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Lig4");
+                score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Lig4");
                 return 1;  // Jogador atual venceu
             }
         }
@@ -49,6 +53,10 @@ int Lig4::verificarCondicaoVitoria() {
                 tabuleiro.obterPeca(i+1, j) == jogador &&
                 tabuleiro.obterPeca(i+2, j) == jogador &&
                 tabuleiro.obterPeca(i+3, j) == jogador) {
+                score.adicionarVitorias(jogador1->getNome(), "Lig4", 1);  // Atualiza vitórias
+                score.adicionarDerrotas(jogador2->getNome(), "Lig4", 1);  // Atualiza derrotas
+                score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Lig4");
+                score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Lig4");
                 return 1;  // Jogador atual venceu
             }
         }
@@ -61,6 +69,10 @@ int Lig4::verificarCondicaoVitoria() {
                 tabuleiro.obterPeca(i+1, j+1) == jogador &&
                 tabuleiro.obterPeca(i+2, j+2) == jogador &&
                 tabuleiro.obterPeca(i+3, j+3) == jogador) {
+                score.adicionarVitorias(jogador1->getNome(), "Lig4", 1);  // Atualiza vitórias
+                score.adicionarDerrotas(jogador2->getNome(), "Lig4", 1);  // Atualiza derrotas
+                score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Lig4");
+                score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Lig4");
                 return 1;  // Jogador atual venceu
             }
         }
@@ -73,6 +85,10 @@ int Lig4::verificarCondicaoVitoria() {
                 tabuleiro.obterPeca(i-1, j+1) == jogador &&
                 tabuleiro.obterPeca(i-2, j+2) == jogador &&
                 tabuleiro.obterPeca(i-3, j+3) == jogador) {
+                score.adicionarVitorias(jogador1->getNome(), "Lig4", 1);  // Atualiza vitórias
+                score.adicionarDerrotas(jogador2->getNome(), "Lig4", 1);  // Atualiza derrotas
+                score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Lig4");
+                score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Lig4");
                 return 1;  // Jogador atual venceu
             }
         }
@@ -88,6 +104,10 @@ int Lig4::verificarCondicaoVitoria() {
     }
 
     if (tabuleiroCheio) {
+        score.adicionarEmpates(jogador1->getNome(), "Lig4", 1);  // Atualiza empates
+        score.adicionarEmpates(jogador2->getNome(), "Lig4", 1);  // Atualiza empates
+        score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Lig4");
+        score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Lig4");
         return -1;  // Jogo terminou em empate
     }
 
