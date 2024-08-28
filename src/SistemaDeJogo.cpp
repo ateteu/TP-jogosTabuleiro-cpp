@@ -18,25 +18,25 @@ SistemaDeJogo::SistemaDeJogo() {
 }
 
 void SistemaDeJogo::escolherJogo() {
-
-    printMenuJogos();
     int escolha;
-    std::cin >> escolha;
 
-    switch (escolha) {
-        case 1:
-            jogo = std::make_unique<Reversi>(jogador1, jogador2); // Inicializa o Reversi
-            break;
-        case 2:
-            jogo = std::make_unique<Lig4>(jogador1, jogador2); // Inicializa o Lig4
-            break;
-        case 0:
+    do {
+        printMenuJogos();
+        std::cin >> escolha;
+
+        if (escolha == 1) {
+            jogo = std::make_unique<Reversi>(jogador1, jogador2);
+        } 
+        else if (escolha == 2) {
+            jogo = std::make_unique<Lig4>(jogador1, jogador2);
+        } 
+        else if (escolha == 0) {
             std::cout << "Voltando ao menu principal..." << std::endl;
-            break;
-        default:
+        } 
+        else {
             std::cout << "Opcao invalida! Por favor, escolha novamente." << std::endl;
-            break;
-    }
+        }
+    } while (escolha != 1 && escolha != 2 && escolha != 0);
 }
 
 Jogador* verificarOuCadastrarJogador(const std::string& nome, CadastroDeJogadores& cadastro) {
