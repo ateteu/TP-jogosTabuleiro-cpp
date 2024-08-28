@@ -5,6 +5,7 @@
 #include "Tabuleiro.hpp"
 #include "Jogador.hpp"
 #include "SistemaDeJogo.hpp"
+#include "Score.hpp"
 
 /**
  * @class Lig4
@@ -70,6 +71,7 @@ private:
     Jogador* jogador1; /**< Ponteiro para o jogador 1. */
     Jogador* jogador2; /**< Ponteiro para o jogador 2. */
     bool vezJogador1; /**< Indica se é a vez do jogador 1. */
+    Score score; /**< Gerenciar as estatísticas dos jogadores. */
 };
 
 #endif // LIG4_HPP
