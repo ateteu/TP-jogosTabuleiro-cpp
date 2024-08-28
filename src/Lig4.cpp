@@ -28,7 +28,7 @@ bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
 
 int Lig4::verificarCondicaoVitoria() {
     
-    char jogador = getJogadorAtual() -> minhaPeca();
+    char jogador = jogador1->minhaPeca();
     char oponente = (jogador == jogador1Peca) ? jogador2Peca : jogador1Peca;
 
     // Verifica horizontalmente
@@ -97,21 +97,24 @@ int Lig4::verificarCondicaoVitoria() {
 
 void Lig4::realizarJogada(Jogador* jogador, char peca) {
     int coluna;
-    while(true) {
+    while (true) {
         std::cout << "Digite a coluna a ser jogada:" << std::endl;
         std::cin >> coluna;
-        if (!validarJogada(0, coluna, jogador, peca)) {
-            realizarJogada(jogador, peca);
-        }
 
-        // Realiza a jogada, ou seja, coloca a peça na posição correta na coluna especificada
-        for (int i = altura - 1; i >= 0; i--) {
-            if (tabuleiro.obterPeca(i, coluna) == '.') {
-                tabuleiro.definirPosicao(i, coluna, peca);
-                tabuleiro.imprimir();
-                break;
-            }
-        }
+        break;
     }
 
+    if(!validarJogada(0, coluna, jogador, peca)) {
+        std::cout << "Jogada invalida! Tente novamente" << std::endl;
+        realizarJogada(jogador, peca);
+    }
+
+    for (int i = altura - 1; i >= 0; i--) {
+        if (tabuleiro.obterPeca(i, coluna) == '.') {
+            tabuleiro.definirPosicao(i, coluna, peca);
+            tabuleiro.imprimir();
+            system("pause");
+            return;
+        }
+    }
 }
