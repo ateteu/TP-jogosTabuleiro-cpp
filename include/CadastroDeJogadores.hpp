@@ -69,16 +69,6 @@ public:
     void removerJogadorDoArquivo(const std::string& nome);
 
     /** @brief
-     *  Essa função atualiza o nome de um jogador específico no arquivo jogadores.txt.
-     *  Ela lê o arquivo e substitui o nome atual pelo novo nome, mantendo o restante do conteúdo inalterado.
-     *  Se o nome atual não for encontrado, uma mensagem é exibida. Após a atualização, o arquivo é salvo novamente.
-     *
-     *  @param nome_atual Nome atual do jogador que será atualizado.
-     *  @param novo_nome Novo nome que substituirá o nome atual do jogador.
-     */
-    void atualizarNomeDoJogador(const std::string& nome_atual, const std::string& novo_nome);
-
-    /** @brief
      *  Essa função lista todos os jogadores presentes no arquivo jogadores.txt.
      *  Ela lê o conteúdo do arquivo linha por linha e exibe cada nome de jogador.
      *  Se o arquivo estiver vazio, uma mensagem informando que a lista está vazia é exibida.
