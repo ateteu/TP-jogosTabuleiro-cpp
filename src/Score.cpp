@@ -4,7 +4,7 @@
 #include <sstream>
 #include <unordered_map>
 #include <iomanip>
-
+#include <vector>
 // Construtor que carrega estatísticas do arquivo score.txt
 
 Score::Score() {
@@ -15,40 +15,56 @@ Score::Score() {
         std::ofstream novoArquivo(arquivo);
         if (!novoArquivo) {
             std::cerr << "Erro ao criar o arquivo " << arquivo << std::endl;
-            // Trate o erro conforme necessário
         }
-        // Fecha o arquivo que foi criado
+
         novoArquivo.close();
     } else {
-        // Carrega as estatísticas do arquivo
+
+        // Carregar as estatísticas do arquivo
         carregar();
     }
 }
 
+void Score::inicializarEstatisticas(const std::string& jogador) {
+    // Verifica se o jogador já possui estatísticas
+    if (estatisticas.find(jogador) == estatisticas.end()) {
+        estatisticas[jogador] = {
+                {"Lig4 vitorias", 0},
+                {"Lig4 derrotas", 0},
+                {"Lig4 empates", 0},
+                {"Reverse vitorias", 0},
+                {"Reverse derrotas", 0},
+                {"Reverse empates", 0}
+        };
+    }
+}
 
-// Adiciona vitórias ao jogador para um jogo específico
+
 void Score::adicionarVitorias(const std::string& jogador, const std::string& jogo, int quantidade) {
+    inicializarEstatisticas(jogador);
     estatisticas[jogador][jogo + " vitorias"] += quantidade;
     atualizarArquivo();
 }
 
-// Adiciona derrotas ao jogador para um jogo específico
+
 void Score::adicionarDerrotas(const std::string& jogador, const std::string& jogo, int quantidade) {
+    inicializarEstatisticas(jogador);
     estatisticas[jogador][jogo + " derrotas"] += quantidade;
     atualizarArquivo();
 }
 
-// Adiciona empates ao jogador para um jogo específico
+
 void Score::adicionarEmpates(const std::string& jogador, const std::string& jogo, int quantidade) {
+    inicializarEstatisticas(jogador);
     estatisticas[jogador][jogo + " empates"] += quantidade;
     atualizarArquivo();
 }
 
 
 void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const std::string& jogo) {
-    // Verifica se as estatísticas já foram carregadas
+
     if (estatisticas.empty()) {
-        carregar(); // Carrega as estatísticas do arquivo se ainda não foram carregadas
+        carregar();
     }
     std::cout <<"------SCORE------"<<std::endl;
     // Verifica se o jogador está nas estatísticas carregadas
@@ -66,19 +82,19 @@ void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const s
         std::string jogoEmpates = jogo + " empates";
 
 
-        // Verifica e imprime vitórias, removendo o nome do jogo na impressão
+        // Verifica e imprime vitórias
         auto vit = estatisticasJogador.find(jogoVitorias);
         if (vit != estatisticasJogador.end()) {
             std::cout << "Vitórias: " << vit->second << "\n";
         }
 
-        // Verifica e imprime derrotas, removendo o nome do jogo na impressão
+        // Verifica e imprime derrotas
         auto der = estatisticasJogador.find(jogoDerrotas);
         if (der != estatisticasJogador.end()) {
             std::cout << "Derrotas: " << der->second << "\n";
         }
 
-        // Verifica e imprime empates, removendo o nome do jogo na impressão
+        // Verifica e imprime empates
         auto emp = estatisticasJogador.find(jogoEmpates);
         if (emp != estatisticasJogador.end()) {
             std::cout << "Empates: " << emp->second << "\n";
@@ -119,6 +135,7 @@ void Score::carregar() {
                 }
                 // Atualiza o jogador atual
                 jogador = linha.substr(0, linha.size() - 1);
+
                 // Inicializa ou limpa o mapa de estatísticas do jogador atual
                 estatisticasJogador = std::unordered_map<std::string, int>();
             } else {
@@ -149,6 +166,7 @@ void Score::carregar() {
 
 
 void Score::imprimirEstatisticasPorNome(const std::string& nome) const {
+
     // Verifica se as estatísticas estão carregadas
     if (estatisticas.empty()) {
         std::cerr << "Estatísticas não carregadas. Carregando agora..." << std::endl;
@@ -175,8 +193,16 @@ void Score::atualizarArquivo() {
 
     for (const auto& [jogador, jogos] : estatisticas) {
         out << jogador << ":\n";
-        for (const auto& [jogo, quantidade] : jogos) {
-            out << jogo << ": " << quantidade << "\n";
+        // Ordena as chaves para garantir a ordem desejada
+        std::vector<std::string> chaves = {
+                "Lig4 vitorias", "Lig4 derrotas", "Lig4 empates",
+                "Reverse vitorias", "Reverse derrotas", "Reverse empates"
+        };
+        for (const auto& chave : chaves) {
+            auto it = jogos.find(chave);
+            if (it != jogos.end()) {
+                out << chave << ": " << it->second << "\n";
+            }
         }
         out << "\n";
     }
@@ -198,25 +224,39 @@ void Score::limparScore(const std::string& nomeJogador) {
 }
 
 void Score::imprimirListadeScore() {
-    std::cout <<"------SCORE------"<<std::endl;
+    std::cout << "------SCORE------" << std::endl;
+
     // Verifica se as estatísticas já foram carregadas
     if (estatisticas.empty()) {
         carregar(); // Carrega as estatísticas do arquivo se ainda não foram carregadas
     }
+
+    // Lista de chaves na ordem desejada
+    std::vector<std::string> ordemDesejada = {
+            "Lig4 vitorias", "Lig4 derrotas", "Lig4 empates",
+            "Reverse vitorias", "Reverse derrotas", "Reverse empates"
+    };
 
     // Percorre todos os jogadores no mapa de estatísticas
     for (const auto& jogadorEntry : estatisticas) {
         // Imprime o nome do jogador
         std::cout << jogadorEntry.first << ":\n";
 
-        // Percorre todas as estatísticas associadas a este jogador
-        for (const auto& statEntry : jogadorEntry.second) {
-            // Imprime o tipo de estatística (vitorias, derrotas, empates) e o valor
-            std::cout << statEntry.first << ": " << statEntry.second << "\n";
+        // Percorre as chaves na ordem desejada e imprime as estatísticas
+        for (const auto& chave : ordemDesejada) {
+            auto it = jogadorEntry.second.find(chave);
+            if (it != jogadorEntry.second.end()) {
+                std::cout << it->first << ": " << it->second << "\n";
+            } else {
+                // Se a chave não for encontrada, imprime com valor 0
+                std::cout << chave << ": 0\n";
+            }
         }
 
-        // Linha em branco para separar cada jogador
+
         std::cout << "\n";
     }
-    std::cout <<"----------------"<<std::endl;
+
+    std::cout << "----------------" << std::endl;
 }
+
