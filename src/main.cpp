@@ -36,7 +36,7 @@ int main() {
                     throw std::invalid_argument("Entrada invalida. Por favor, digite um numero inteiro.");
                 }
 
-                if (escolha >= 1 && escolha <= 5) {
+                if (escolha >= 1 && escolha <= 6) {
                     if (escolha == 1) {
                         std::cout << "Digite o nome do jogador: ";
                         std::cin >> nome;
@@ -54,7 +54,7 @@ int main() {
                     if (escolha == 5) {
                         sistema.executarPartida();
                     }
-                } else if (escolha < 0 || escolha > 5) {
+                } else if (escolha < 0 || escolha > 6) {
                     std::cout << "Opcao invalida. Por favor, digite uma opcao entre 0 e 5." << std::endl;
                 }
 
