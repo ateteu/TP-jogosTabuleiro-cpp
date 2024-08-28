@@ -103,10 +103,22 @@ int Reversi::verificarCondicaoVitoria() {
 
         // Determina o resultado do jogo
         if (contagemJogador1 > contagemJogador2) {
+            score.adicionarVitorias(jogador1->getNome(),"Reverse",1);
+            score.adicionarDerrotas(jogador2->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return 1; // Jogador 1 vence
         } else if (contagemJogador2 > contagemJogador1) {
+            score.adicionarVitorias(jogador2->getNome(),"Reverse",1);
+            score.adicionarDerrotas(jogador1->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return 1; // Jogador 2 vence
         } else {
+            score.adicionarEmpates(jogador1->getNome(),"Reverse",1);
+            score.adicionarEmpates(jogador2->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return -1; // Empate
         }
     }
