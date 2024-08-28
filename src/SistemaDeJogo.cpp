@@ -72,7 +72,7 @@ void SistemaDeJogo::executarPartida() {
             condicaoVitoria = jogo->verificarCondicaoVitoria();
         }
 
-        jogo->imprimirTabuleiro();
+        //jogo->imprimirTabuleiro();
         std::cout << "Fim de jogo!" << std::endl;
 
         if (condicaoVitoria == -1) {
