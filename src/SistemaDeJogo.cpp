@@ -118,7 +118,17 @@ void SistemaDeJogo::executarPartida() {
                 jogador1->registrarEmpate();
                 jogador2->registrarEmpate();
             }
-            // Outras condições de vitória podem ser adicionadas aqui
+            if (condicaoVitoria == 1) {
+                if (turnoJogador1) {
+                    std::cout << "O jogador " << nomeJogador2 << " venceu!" << std::endl;
+                    jogador2->registrarVitoria();
+                    jogador1->registrarDerrota();
+                } else {
+                    std::cout << "O jogador " << nomeJogador1 << " venceu!" << std::endl;
+                    jogador1->registrarVitoria();
+                    jogador2->registrarDerrota();
+                }
+            }
         }
     } catch (const std::exception& e) {
         std::cerr << "Erro ao executar a partida: " << e.what() << std::endl;
