@@ -169,12 +169,14 @@ void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
         std::cout << "Jogada invalida. Tente novamente." << std::endl;
         realizarJogada(jogadorAtual, peca);
     }
+    else{
+        // coloca a peça do jogador no tabuleiro
+        tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
 
-    // coloca a peça do jogador no tabuleiro
-    tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
+        // lógica para capturar as peças do oponente
+        capturarPecas(x, y, jogadorAtual, peca);
+    }
 
-    // lógica para capturar as peças do oponente
-    capturarPecas(x, y, jogadorAtual, peca);
 
 }
 
