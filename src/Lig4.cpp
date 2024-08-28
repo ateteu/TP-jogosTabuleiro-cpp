@@ -22,7 +22,6 @@ bool Lig4::validarJogada(int linha, int coluna, Jogador* jogador, char peca) {
     }
 
     std::cout << "coluna: " << coluna << std::endl;
-    system("pause");
     return true;
 }
 
@@ -113,7 +112,6 @@ void Lig4::realizarJogada(Jogador* jogador, char peca) {
         if (tabuleiro.obterPeca(i, coluna) == '.') {
             tabuleiro.definirPosicao(i, coluna, peca);
             tabuleiro.imprimir();
-            system("pause");
             return;
         }
     }
