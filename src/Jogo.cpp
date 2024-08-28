@@ -6,7 +6,7 @@ void Jogo::inicializarTabuleiro() {
     // método virtual que deve ser implementado nas subclasses
 }
 
-int Jogo::verificarCondicaoVitoria() {
+int Jogo::verificarCondicaoVitoria(char peca) {
     // implementar nas subclasses
 }
 

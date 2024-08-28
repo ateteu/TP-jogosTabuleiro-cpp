@@ -52,7 +52,7 @@ public:
      * 
      * @return int Retorna `1` se algum jogador venceu, `-1` em caso de empate, ou `0` se o jogo deve continuar.
      */
-    int verificarCondicaoVitoria() override;
+    int verificarCondicaoVitoria(char peca) override;
 
     /**
      * @brief Realiza a jogada de um jogador em uma coluna no jogo Lig4.
