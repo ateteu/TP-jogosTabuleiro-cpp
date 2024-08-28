@@ -15,6 +15,7 @@ void printMenu() {
     std::cout << "| 3. Buscar jogador      |" << std::endl;
     std::cout << "| 4. Remover jogador     |" << std::endl;
     std::cout << "| 5. Jogar               |" << std::endl;
+    std::cout << "| 6. Score               |" << std::endl;
     std::cout << "| 0. Encerrar o programa |" << std::endl;
     std::cout << "+------------------------+" << std::endl;
 }
@@ -23,6 +24,7 @@ int main() {
     SistemaDeJogo sistema; // Cria uma instância de SistemaDeJogo
     CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
     Tabuleiro tabuleiro;
+    Score score;
     
     while (true) {
         try {
@@ -53,6 +55,9 @@ int main() {
                     }
                     if (escolha == 5) {
                         sistema.executarPartida();
+                    }
+                    if (escolha == 6){
+                        score.imprimirListadeScore();
                     }
                 } else if (escolha < 0 || escolha > 6) {
                     std::cout << "Opcao invalida. Por favor, digite uma opcao entre 0 e 5." << std::endl;
