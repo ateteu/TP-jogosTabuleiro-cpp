@@ -196,3 +196,27 @@ void Score::limparScore(const std::string& nomeJogador) {
 
     atualizarArquivo();
 }
+
+void Score::imprimirListadeScore() {
+    std::cout <<"------SCORE------"<<std::endl;
+    // Verifica se as estatísticas já foram carregadas
+    if (estatisticas.empty()) {
+        carregar(); // Carrega as estatísticas do arquivo se ainda não foram carregadas
+    }
+
+    // Percorre todos os jogadores no mapa de estatísticas
+    for (const auto& jogadorEntry : estatisticas) {
+        // Imprime o nome do jogador
+        std::cout << jogadorEntry.first << ":\n";
+
+        // Percorre todas as estatísticas associadas a este jogador
+        for (const auto& statEntry : jogadorEntry.second) {
+            // Imprime o tipo de estatística (vitorias, derrotas, empates) e o valor
+            std::cout << statEntry.first << ": " << statEntry.second << "\n";
+        }
+
+        // Linha em branco para separar cada jogador
+        std::cout << "\n";
+    }
+    std::cout <<"----------------"<<std::endl;
+}
