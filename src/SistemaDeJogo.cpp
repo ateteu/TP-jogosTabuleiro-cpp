@@ -1,6 +1,15 @@
 #include "../include/SistemaDeJogo.hpp"
 #include <iostream>
 
+void printMenuJogos() {
+    std::cout << "+-----------------+" << std::endl;
+    std::cout << "| Escolha o jogo: |" << std::endl;
+    std::cout << "| 1. Reversi      |" << std::endl;
+    std::cout << "| 2. Lig4         |" << std::endl;
+    std::cout << "| 0. Voltar       |" << std::endl;
+    std::cout << "+-----------------+" << std::endl;
+}
+
 SistemaDeJogo::SistemaDeJogo() {
     cadastroDeJogadores.criarArquivoJogadores();
     cadastroDeJogadores.carregarJogadoresDeArquivo("jogadores.txt");
@@ -9,15 +18,11 @@ SistemaDeJogo::SistemaDeJogo() {
 }
 
 void SistemaDeJogo::escolherJogo() {
-    std::cout << "+-----------------+" << std::endl;
-    std::cout << "| Escolha o jogo: |" << std::endl;
-    std::cout << "| 1. Reversi      |" << std::endl;
-    std::cout << "| 2. Lig4         |" << std::endl;
-    std::cout << "+-----------------+" << std::endl;
 
+    printMenuJogos();
     int escolha;
     std::cin >> escolha;
-    
+
     switch (escolha) {
         case 1:
             jogo = std::make_unique<Reversi>(jogador1, jogador2); // Inicializa o Reversi
@@ -25,8 +30,11 @@ void SistemaDeJogo::escolherJogo() {
         case 2:
             jogo = std::make_unique<Lig4>(jogador1, jogador2); // Inicializa o Lig4
             break;
+        case 0:
+            std::cout << "Voltando ao menu principal..." << std::endl;
+            break;
         default:
-            std::cout << "Opcao invalida!" << std::endl;
+            std::cout << "Opcao invalida! Por favor, escolha novamente." << std::endl;
             break;
     }
 }

@@ -5,14 +5,9 @@
 #include "../include/SistemaDeJogo.hpp"
 #include "../include/Tabuleiro.hpp"
 
-int main() {
-    SistemaDeJogo sistema; // Cria uma instância de SistemaDeJogo
-    Jogador jogador; // Cria uma instância de Jogador
-    CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
-    Tabuleiro tabuleiro;
-
+void printMenu() {
     std::cout << "+------------------------+" << std::endl;
-    std::cout << "| Opcoes:                |" << std::endl;
+    std::cout << "| Menu - Opcoes:         |" << std::endl;
     std::cout << "| 1. Adicionar jogador   |" << std::endl;
     std::cout << "| 2. Listar jogadores    |" << std::endl;
     std::cout << "| 3. Buscar jogador      |" << std::endl;
@@ -20,17 +15,24 @@ int main() {
     std::cout << "| 5. Jogar               |" << std::endl;
     std::cout << "| 0. Encerrar o programa |" << std::endl;
     std::cout << "+------------------------+" << std::endl;
-    std::cout << std::endl;
+}
+
+int main() {
+    SistemaDeJogo sistema; // Cria uma instância de SistemaDeJogo
+    Jogador jogador; // Cria uma instância de Jogador
+    CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
+    Tabuleiro tabuleiro;
+
     int escolha;
-     
     std::string nome;
 
-    while(true){
+    while(true) {
 
+        printMenu();
         std::cout << "Digite sua escolha: ";
         std::cin >> escolha;
 
-        if( escolha >= 1 && escolha <= 5) {
+        if(escolha >= 1 && escolha <= 5) {
             if(escolha == 1) {
                 std::cout << "Digite o nome do jogador: ";
                 std::cin >> nome;
@@ -52,10 +54,10 @@ int main() {
             if(escolha == 5) {
                 sistema.executarPartida();
             }
-         }
+        }
 
         if(escolha < 0 || escolha > 5){
-            std::cout << "Opcao invalida. Digite de novo" << std::endl;
+            std::cout << "Opcao invalida. Por favor, digite uma opcao entre 0 e 5." << std::endl;
         }
 
         if(escolha == 0){
