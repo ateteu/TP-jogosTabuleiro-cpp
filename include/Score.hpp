@@ -21,13 +21,9 @@ public:
     void adicionarEmpates(const std::string& jogador, const std::string& jogo, int quantidade);
     void imprimirEstatisticasPorNome(const std::string& nome) const;
 
-    int obterVitorias(const std::string& jogador, const std::string& jogo) const;
-    int obterDerrotas(const std::string& jogador, const std::string& jogo) const;
-    int obterEmpates(const std::string& jogador, const std::string& jogo) const;
 
-    void imprimirEstatisticas(const std::string& jogador) const;
-    void imprimirEstatisticasPorJogo(const std::string& jogador) const;
-    void salvar() const;
+    void imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const std::string& jogo) ;
+
     void limparScore( const std::string& nomeJogador);
     void carregar();
 
