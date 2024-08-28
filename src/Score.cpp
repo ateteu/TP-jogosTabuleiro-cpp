@@ -5,21 +5,19 @@
 #include <unordered_map>
 #include <iomanip>
 #include <vector>
-// Construtor que carrega estatísticas do arquivo score.txt
 
-Score::Score() {
+// Construtor que carrega estatísticas do arquivo score.txt
+Score::Score() : arquivo("score.txt") {  // Assume-se que "arquivo" é um membro da classe que armazena o nome do arquivo
     // Verifica se o arquivo existe
-    std::ifstream fileStream(arquivo);  
+    std::ifstream fileStream(arquivo);
     if (!fileStream) {
         // O arquivo não existe, cria um novo arquivo
         std::ofstream novoArquivo(arquivo);
         if (!novoArquivo) {
             std::cerr << "Erro ao criar o arquivo " << arquivo << std::endl;
         }
-
         novoArquivo.close();
     } else {
-
         // Carregar as estatísticas do arquivo
         carregar();
     }
@@ -39,13 +37,11 @@ void Score::inicializarEstatisticas(const std::string& jogador) {
     }
 }
 
-
 void Score::adicionarVitorias(const std::string& jogador, const std::string& jogo, int quantidade) {
     inicializarEstatisticas(jogador);
     estatisticas[jogador][jogo + " vitorias"] += quantidade;
     atualizarArquivo();
 }
-
 
 void Score::adicionarDerrotas(const std::string& jogador, const std::string& jogo, int quantidade) {
     inicializarEstatisticas(jogador);
@@ -53,25 +49,22 @@ void Score::adicionarDerrotas(const std::string& jogador, const std::string& jog
     atualizarArquivo();
 }
 
-
 void Score::adicionarEmpates(const std::string& jogador, const std::string& jogo, int quantidade) {
     inicializarEstatisticas(jogador);
     estatisticas[jogador][jogo + " empates"] += quantidade;
     atualizarArquivo();
 }
 
-
 void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const std::string& jogo) {
-
     if (estatisticas.empty()) {
         carregar();
     }
-    std::cout <<"------SCORE------"<<std::endl;
+    std::cout << "------SCORE------" << std::endl;
     // Verifica se o jogador está nas estatísticas carregadas
     auto it = estatisticas.find(jogador);
     if (it != estatisticas.end()) {
         // Obtém as estatísticas do jogador
-        const auto& estatisticasJogador = it->second;
+        const std::unordered_map<std::string, int>& estatisticasJogador = it->second;
 
         // Imprime o nome do jogador
         std::cout << jogador << ":\n";
@@ -80,7 +73,6 @@ void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const s
         std::string jogoVitorias = jogo + " vitorias";
         std::string jogoDerrotas = jogo + " derrotas";
         std::string jogoEmpates = jogo + " empates";
-
 
         // Verifica e imprime vitórias
         auto vit = estatisticasJogador.find(jogoVitorias);
@@ -104,9 +96,6 @@ void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const s
         std::cout << "Nenhuma estatística encontrada para o jogador " << jogador << ".\n";
     }
 }
-
-
-
 
 // Carrega as estatísticas do arquivo
 void Score::carregar() {
@@ -164,9 +153,7 @@ void Score::carregar() {
     }
 }
 
-
 void Score::imprimirEstatisticasPorNome(const std::string& nome) const {
-
     // Verifica se as estatísticas estão carregadas
     if (estatisticas.empty()) {
         std::cerr << "Estatísticas não carregadas. Carregando agora..." << std::endl;
@@ -176,8 +163,8 @@ void Score::imprimirEstatisticasPorNome(const std::string& nome) const {
     auto it = estatisticas.find(nome);
     if (it != estatisticas.end()) {
         std::cout << nome << ":\n";
-        for (const auto& [jogo, quantidade] : it->second) {
-            std::cout << jogo << ": " << quantidade << "\n";
+        for (const auto& item : it->second) {
+            std::cout << item.first << ": " << item.second << "\n";
         }
     } else {
         std::cout << "Nenhuma estatística encontrada para o jogador " << nome << ".\n";
@@ -191,7 +178,9 @@ void Score::atualizarArquivo() {
         return;
     }
 
-    for (const auto& [jogador, jogos] : estatisticas) {
+    for (const auto& item : estatisticas) {
+        const std::string& jogador = item.first;
+        const std::unordered_map<std::string, int>& jogos = item.second;
         out << jogador << ":\n";
         // Ordena as chaves para garantir a ordem desejada
         std::vector<std::string> chaves = {
@@ -237,26 +226,18 @@ void Score::imprimirListadeScore() {
             "Reverse vitorias", "Reverse derrotas", "Reverse empates"
     };
 
-    // Percorre todos os jogadores no mapa de estatísticas
-    for (const auto& jogadorEntry : estatisticas) {
-        // Imprime o nome do jogador
-        std::cout << jogadorEntry.first << ":\n";
+    // Itera sobre os jogadores e imprime suas estatísticas
+    for (const auto& item : estatisticas) {
+        const std::string& jogador = item.first;
+        const auto& estatisticasJogador = item.second;
 
-        // Percorre as chaves na ordem desejada e imprime as estatísticas
+        std::cout << jogador << ":\n";
         for (const auto& chave : ordemDesejada) {
-            auto it = jogadorEntry.second.find(chave);
-            if (it != jogadorEntry.second.end()) {
-                std::cout << it->first << ": " << it->second << "\n";
-            } else {
-                // Se a chave não for encontrada, imprime com valor 0
-                std::cout << chave << ": 0\n";
+            auto it = estatisticasJogador.find(chave);
+            if (it != estatisticasJogador.end()) {
+                std::cout << chave << ": " << it->second << "\n";
             }
         }
-
-
-        std::cout << "\n";
+        std::cout << std::endl;
     }
-
-    std::cout << "----------------" << std::endl;
 }
-
