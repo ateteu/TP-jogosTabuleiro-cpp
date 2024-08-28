@@ -11,13 +11,15 @@ int main() {
     CadastroDeJogadores cadastroDeJogadores; // Cria uma instância de CadastroDeJogadores
     Tabuleiro tabuleiro;
 
-    std::cout << "Opcoes: " << std::endl;
-    std::cout << "1. Adicionar jogador" << std::endl;
-    std::cout << "2. Listar jogadores" << std::endl;
-    std::cout << "3. Buscar jogador" << std::endl;
-    std::cout << "4. Remover jogador" << std::endl;
-    std::cout << "5. Jogar" << std::endl;
-    std::cout << "0. Encerrar o programa" << std::endl;
+    std::cout << "+------------------------+: " << std::endl;
+    std::cout << "| Opcoes:                |" << std::endl;
+    std::cout << "| 1. Adicionar jogador   |" << std::endl;
+    std::cout << "| 2. Listar jogadores    |" << std::endl;
+    std::cout << "| 3. Buscar jogador      |" << std::endl;
+    std::cout << "| 4. Remover jogador     |" << std::endl;
+    std::cout << "| 5. Jogar               |" << std::endl;
+    std::cout << "| 0. Encerrar o programa |" << std::endl;
+    std::cout << "+------------------------+" << std::endl;
     std::cout << std::endl;
     int escolha;
      
