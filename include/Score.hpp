@@ -26,7 +26,7 @@ public:
 
     void limparScore( const std::string& nomeJogador);
     void carregar();
-
+    void inicializarEstatisticas(const std::string& jogador);
 private:
     std::unordered_map<std::string, std::unordered_map<std::string, int>> estatisticas;
     std::string arquivo = "score.txt";
