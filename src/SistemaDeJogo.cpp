@@ -9,12 +9,15 @@ SistemaDeJogo::SistemaDeJogo() {
 }
 
 void SistemaDeJogo::escolherJogo() {
-    int escolha;
-    std::cout << "Escolha o jogo: " << std::endl;
-    std::cout << "1. Reversi" << std::endl;
-    std::cout << "2. Lig4" << std::endl;
-    std::cin >> escolha;
+    std::cout << "+-----------------+" << std::endl;
+    std::cout << "| Escolha o jogo: |" << std::endl;
+    std::cout << "| 1. Reversi      |" << std::endl;
+    std::cout << "| 2. Lig4         |" << std::endl;
+    std::cout << "+-----------------+" << std::endl;
 
+    int escolha;
+    std::cin >> escolha;
+    
     switch (escolha) {
         case 1:
             jogo = std::make_unique<Reversi>(jogador1, jogador2); // Inicializa o Reversi
