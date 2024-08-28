@@ -5,6 +5,7 @@
 #include "Tabuleiro.hpp"
 #include "Jogador.hpp"
 #include "SistemaDeJogo.hpp"
+#include "Score.hpp"
 
 /**
  * @class Reversi
@@ -21,7 +22,7 @@ private:
     Jogador* jogador1; ///< Ponteiro para o primeiro jogador
     Jogador* jogador2; ///< Ponteiro para o segundo jogador
     Tabuleiro tabuleiro; ///< Objeto que representa o tabuleiro do jogo Reversi.
-
+    Score score;
 public:
     /** 
      * @brief Inicializa o tabuleiro do jogo Reversi, colocando as peças iniciais.
