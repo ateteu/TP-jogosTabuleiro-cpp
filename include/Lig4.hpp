@@ -66,8 +66,6 @@ private:
     static const int largura = 7;  /**< Largura do tabuleiro para Lig4. */
     static const int altura = 6;   /**< Altura do tabuleiro para Lig4. */
     Tabuleiro tabuleiro; /**< Ponteiro para o tabuleiro do jogo Lig4. */
-    char jogador1Peca = 'X'; /**< Peça do jogador 1. */
-    char jogador2Peca = 'O'; /**< Peça do jogador 2. */
     Jogador* jogador1; /**< Ponteiro para o jogador 1. */
     Jogador* jogador2; /**< Ponteiro para o jogador 2. */
     bool vezJogador1; /**< Indica se é a vez do jogador 1. */
