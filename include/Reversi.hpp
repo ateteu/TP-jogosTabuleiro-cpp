@@ -4,6 +4,8 @@
 #include "Jogo.hpp"
 #include "Tabuleiro.hpp"
 #include "Jogador.hpp"
+#include "SistemaDeJogo.hpp"
+#include "Score.hpp"
 
 /**
  * @class Reversi
@@ -20,7 +22,7 @@ private:
     Jogador* jogador1; ///< Ponteiro para o primeiro jogador
     Jogador* jogador2; ///< Ponteiro para o segundo jogador
     Tabuleiro tabuleiro; ///< Objeto que representa o tabuleiro do jogo Reversi.
-
+    Score score;
 public:
     /** 
      * @brief Inicializa o tabuleiro do jogo Reversi, colocando as peças iniciais.
@@ -42,16 +44,16 @@ public:
      * @param jogador Ponteiro para o jogador que está fazendo a jogada.
      * @return true se a jogada for válida, false caso contrário.
      */
-    bool validarJogada(int x, int y, Jogador* jogador) override;
+    bool validarJogada(int x, int y, Jogador* jogador, char peca) override;
 
     /**
      * @brief Verifica a condição de vitória.
      * 
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
-     * @return 1 se um jogador venceu, -1 em caso de empate, 0 se o jogo continua.
+     * @param peca A peça do jogador atual.
+     * @return 1 se o jogador atual venceu, -1 em caso de empate, 0 se o jogo continua.
      */
-    virtual int verificarCondicaoVitoria();
-
+    int verificarCondicaoVitoria(char peca) override;
     /** 
      * @brief Imprime o estado atual do tabuleiro no terminal.
      */
@@ -60,7 +62,7 @@ public:
     /** 
      * @brief Realiza uma jogada no tabuleiro.
      */
-    void realizarJogada() override;
+    void realizarJogada(Jogador* jogador, char peca) override;
 
     /**
      * @brief Captura as peças do oponente em todas as direções possíveis (horizontal, vertical e diagonal).
@@ -73,7 +75,7 @@ public:
      * @param y A coordenada y da peça que foi colocada.
      * @param jogador Ponteiro para o jogador que realizou a jogada.
      */
-    void capturarPecas(int x, int y, Jogador* jogador);
+    void capturarPecas(int x, int y, Jogador* jogador, char peca);
 
     /**
      * @brief Captura as peças do oponente em uma direção específica.
@@ -88,7 +90,7 @@ public:
      * @param deltaX O incremento para a coordenada x na direção.
      * @param deltaY O incremento para a coordenada y na direção.
      */
-    void capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY);
+    void capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY, char peca);
 };
 
 #endif // REVERSI_HPP

@@ -1,106 +1,137 @@
 #include "../include/SistemaDeJogo.hpp"
 #include <iostream>
+#include <stdexcept>  
+#include <limits>
+
+void printMenuJogos() {
+    std::cout << "+-----------------+" << std::endl;
+    std::cout << "| Escolha o jogo: |" << std::endl;
+    std::cout << "| 1. Reversi      |" << std::endl;
+    std::cout << "| 2. Lig4         |" << std::endl;
+    std::cout << "| 0. Voltar       |" << std::endl;
+    std::cout << "+-----------------+" << std::endl;
+}
 
 SistemaDeJogo::SistemaDeJogo() {
-    cadastroDeJogadores.criarArquivoJogadores();
-    cadastroDeJogadores.carregarJogadoresDeArquivo("jogadores.txt");
+    try {
+        cadastroDeJogadores.criarArquivoJogadores();
+        cadastroDeJogadores.carregarJogadoresDeArquivo("jogadores.txt");
+        jogador1 = nullptr;
+        jogador2 = nullptr;
+    } catch (const std::exception& e) {
+        std::cerr << "Erro ao inicializar o sistema de jogo: " << e.what() << std::endl;
+        system("pause");
+        return;
+    }
 }
 
 void SistemaDeJogo::escolherJogo() {
     int escolha;
-    std::cout << "Escolha o jogo: " << std::endl;
-    std::cout << "1. Reversi" << std::endl;
-    std::cout << "2. Lig4" << std::endl;
-    std::cin >> escolha;
 
-    switch (escolha) {
-        case 1:
-            jogo = std::make_unique<Reversi>(); // Inicializa o Reversi
-            break;
-        case 2:
-            jogo = std::make_unique<Lig4>(); // Inicializa o Lig4
-            break;
-        default:
-            std::cout << "Opção inválida!" << std::endl;
-            break;
+    do {
+        try {
+            printMenuJogos();
+            if (!(std::cin >> escolha)) {
+                throw std::invalid_argument("Entrada invalida. Por favor, digite um numero inteiro.");
+            }
+
+            if (escolha == 1) {
+                jogo = std::make_unique<Reversi>(jogador1, jogador2);
+            } 
+            else if (escolha == 2) {
+                jogo = std::make_unique<Lig4>(jogador1, jogador2);
+            } 
+            else if (escolha == 0) {
+                std::cout << "Voltando ao menu principal..." << std::endl;
+            } 
+            else {
+                std::cout << "Opcao invalida! Por favor, escolha novamente." << std::endl;
+            }
+        } catch (const std::exception& e) {
+            std::cerr << "Erro: " << e.what() << std::endl;
+            // Limpa o estado da entrada para evitar loops infinitos devido a erros de entrada
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    } while (escolha != 1 && escolha != 2 && escolha != 0);
+}
+
+Jogador* verificarOuCadastrarJogador(const std::string& nome, CadastroDeJogadores& cadastro) {
+    try {
+        Jogador* jogador = cadastro.getJogadorPorNome(nome);
+        if (jogador == nullptr) {
+            char opcao;
+            std::cout << "Jogador " << nome << " nao encontrado. Deseja cadastra-lo? (s/n): ";
+            std::cin >> opcao;
+            if (opcao == 's' || opcao == 'S') {
+                cadastro.adicionarJogadorNoArquivo(nome);
+                jogador = cadastro.getJogadorPorNome(nome);
+            }
+        }
+        return jogador;
+    } catch (const std::exception& e) {
+        std::cerr << "Erro ao verificar ou cadastrar jogador: " << e.what() << std::endl;
+        return nullptr;  // Retorna nullptr para indicar que algo deu errado
     }
 }
 
 void SistemaDeJogo::executarPartida() {
-    std::string nomeJogador1, nomeJogador2;
-    
-    std::cout << "Digite o nome do primeiro jogador: ";
-    std::cin >> nomeJogador1;
-    Jogador* jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
+    try {
+        std::string nomeJogador1, nomeJogador2;
+        
+        std::cout << "Digite o nome do primeiro jogador: ";
+        std::cin >> nomeJogador1;
+        jogador1 = verificarOuCadastrarJogador(nomeJogador1, cadastroDeJogadores);
+        if (jogador1 == nullptr) return;
 
-    if (jogador1 == nullptr) {
-        char opcao;
-        std::cout << "Jogador " << nomeJogador1 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
-        std::cin >> opcao;
-        if (opcao == 's' || opcao == 'S') {
-            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador1);
-            jogador1 = cadastroDeJogadores.getJogadorPorNome(nomeJogador1);
-        } else {
-            return;
-        }
-    }
+        std::cout << "Digite o nome do segundo jogador: ";
+        std::cin >> nomeJogador2;
+        jogador2 = verificarOuCadastrarJogador(nomeJogador2, cadastroDeJogadores);
+        if (jogador2 == nullptr) return;
 
-    std::cout << "Digite o nome do segundo jogador: ";
-    std::cin >> nomeJogador2;
-    Jogador* jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
+        escolherJogo();
 
-    if (jogador2 == nullptr) {
-        char opcao;
-        std::cout << "Jogador " << nomeJogador2 << " não encontrado. Deseja cadastrá-lo? (s/n): ";
-        std::cin >> opcao;
-        if (opcao == 's' || opcao == 'S') {
-            cadastroDeJogadores.adicionarJogadorNoArquivo(nomeJogador2);
-            jogador2 = cadastroDeJogadores.getJogadorPorNome(nomeJogador2);
-        } else {
-            return;
-        }
-    }
+        if (jogo) {
+            jogo->inicializarTabuleiro();
+            bool turnoJogador1 = true;
+            int condicaoVitoria = 0;
 
-    escolherJogo(); //main ?
+            while (condicaoVitoria == 0) {
+                try {
+                    Jogador* jogadorAtual = turnoJogador1 ? jogador1 : jogador2;
+                    std::cout << "Vez de " << (turnoJogador1 ? nomeJogador1 : nomeJogador2) << ". ";
+                    jogadorAtual->setPeca(turnoJogador1 ? 'W' : 'B');
+                    jogo->realizarJogada(jogadorAtual, jogadorAtual->minhaPeca());
 
-    if (jogo) {
-        jogo->inicializarTabuleiro();
-        bool turnoJogador1 = true; // Inicia com o jogador 1
-        int condicaoVitoria = 0;
-
-        while (condicaoVitoria == 0) {
-            jogo->imprimirTabuleiro();
-
-            if (turnoJogador1) {
-                std::cout << "Vez de " << nomeJogador1 << std::endl;
-                jogo->realizarJogada(); 
-            } else {
-                std::cout << "Vez de " << nomeJogador2 << std::endl;
-                jogo->realizarJogada();
+                    turnoJogador1 = !turnoJogador1;
+                    condicaoVitoria = jogo->verificarCondicaoVitoria(jogadorAtual->minhaPeca());
+                } catch (const std::exception& e) {
+                    std::cerr << "Erro durante a jogada: " << e.what() << std::endl;
+                    return;  // Encerra a partida se ocorrer um erro crítico
+                }
             }
 
-            turnoJogador1 = !turnoJogador1; // Alterna o turno entre os jogadores
-            condicaoVitoria = jogo->verificarCondicaoVitoria();
-        }
+            std::cout << "Fim de jogo!" << std::endl;
 
-        jogo->imprimirTabuleiro();
-        std::cout << "Fim de jogo!" << std::endl;
-
-        if (condicaoVitoria == -1) {
-            std::cout << "O jogo terminou em empate!" << std::endl;
-            jogador1->registrarEmpate();
-            jogador2->registrarEmpate();
-        } else if (condicaoVitoria == 1) {
-            if (turnoJogador1) {
-                std::cout << "O jogador " << nomeJogador2 << " é o campeão!" << std::endl;
-                jogador1->registrarDerrota();
-                jogador2->registrarVitoria();
-            } else {
-                std::cout << "O jogador " << nomeJogador1 << " é o campeão!" << std::endl;
-                jogador1->registrarVitoria();
-                jogador2->registrarDerrota();
+            if (condicaoVitoria == -1) {
+                std::cout << "O jogo terminou em empate!" << std::endl;
+                jogador1->registrarEmpate();
+                jogador2->registrarEmpate();
+            }
+            if (condicaoVitoria == 1) {
+                if (turnoJogador1) {
+                    std::cout << "O jogador " << nomeJogador2 << " venceu!" << std::endl;
+                    jogador2->registrarVitoria();
+                    jogador1->registrarDerrota();
+                } else {
+                    std::cout << "O jogador " << nomeJogador1 << " venceu!" << std::endl;
+                    jogador1->registrarVitoria();
+                    jogador2->registrarDerrota();
+                }
             }
         }
+    } catch (const std::exception& e) {
+        std::cerr << "Erro ao executar a partida: " << e.what() << std::endl;
     }
 }
 

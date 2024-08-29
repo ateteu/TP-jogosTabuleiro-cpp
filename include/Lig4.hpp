@@ -3,6 +3,9 @@
 
 #include "Jogo.hpp"
 #include "Tabuleiro.hpp"
+#include "Jogador.hpp"
+#include "SistemaDeJogo.hpp"
+#include "Score.hpp"
 
 /**
  * @class Lig4
@@ -13,6 +16,7 @@
  * condições de vitória e a realização das jogadas.
  */
 class Lig4 : public Jogo {
+
 public:
     /**
      * @brief Construtor da classe Lig4.
@@ -20,7 +24,7 @@ public:
      * Inicializa o tabuleiro com as dimensões específicas de Lig4 e define
      * as peças dos jogadores.
      */
-    Lig4();
+    Lig4(Jogador* _jogador1, Jogador* _jogador2);
 
     /**
      * @brief Inicializa o tabuleiro do jogo Lig4.
@@ -39,7 +43,7 @@ public:
      *
      * Verifica se a jogada feita é válida com base nas regras do Lig4.
      */
-    bool validarJogada(int linha, int coluna, Jogador* jogador) override; 
+    bool validarJogada(int linha, int coluna, Jogador* jogador, char peca) override; 
 
     /**
      * @brief Verifica a condição de vitória no jogo Lig4.
@@ -48,7 +52,7 @@ public:
      * 
      * @return int Retorna `1` se algum jogador venceu, `-1` em caso de empate, ou `0` se o jogo deve continuar.
      */
-    int verificarCondicaoVitoria() override;
+    int verificarCondicaoVitoria(char peca) override;
 
     /**
      * @brief Realiza a jogada de um jogador em uma coluna no jogo Lig4.
@@ -56,14 +60,16 @@ public:
      * Sobrescreve o método da classe base para realizar uma jogada
      * em uma coluna específica do tabuleiro.
      */
-    void realizarJogada() override;
+    void realizarJogada(Jogador* jogador, char peca) override;
 
 private:
     static const int largura = 7;  /**< Largura do tabuleiro para Lig4. */
     static const int altura = 6;   /**< Altura do tabuleiro para Lig4. */
-    Tabuleiro* tabuleiro = new Tabuleiro(); /**< Ponteiro para o tabuleiro do jogo Lig4. */
-    char jogador1Peca = 'X'; /**< Peça do jogador 1. */
-    char jogador2Peca = 'O'; /**< Peça do jogador 2. */
+    Tabuleiro tabuleiro; /**< Ponteiro para o tabuleiro do jogo Lig4. */
+    Jogador* jogador1; /**< Ponteiro para o jogador 1. */
+    Jogador* jogador2; /**< Ponteiro para o jogador 2. */
+    bool vezJogador1; /**< Indica se é a vez do jogador 1. */
+    Score score; /**< Gerenciar as estatísticas dos jogadores. */
 };
 
 #endif // LIG4_HPP

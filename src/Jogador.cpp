@@ -17,6 +17,10 @@ void Jogador::setNome(const std::string& nome) {
     nome_jogador = nome;
 }
 
+void Jogador::setPeca(char _peca) {
+    peca = _peca;
+}
+
 char Jogador::minhaPeca() const {
     return peca;
 }
@@ -47,7 +51,7 @@ void Jogador::registrarDerrota() {
 
 void Jogador::imprimirJogador() const {
     std::cout << "Nome: " << nome_jogador << std::endl;
-    std::cout << "Vitórias: " << vitorias << std::endl;
+    std::cout << "Vitorias: " << vitorias << std::endl;
     std::cout << "Empates: " << empates << std::endl;
     std::cout << "Derrotas: " << derrotas << std::endl;
 }

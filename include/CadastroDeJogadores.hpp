@@ -12,7 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
-#include "../src/Jogador.cpp"
+#include "../include/Jogador.hpp"
 
 class CadastroDeJogadores {
 private:
@@ -57,7 +57,7 @@ public:
      *  @retval TRUE Exibe uma mensagem confirmando que o jogador foi encontrado.
      *  @retval FALSE Exibe uma mensagem informando que o jogador não foi encontrado.
      */
-    bool buscarJogadorNoArquivo(const std::string& nome);
+    void buscarJogadorNoArquivo();
 
     /** @brief
      *  Essa função remove um jogador específico do arquivo "jogadores.txt".
@@ -66,17 +66,7 @@ public:
      *
      *  @param nome Nome do jogador a ser removido do arquivo.
      */
-    void removerJogadorDoArquivo(const std::string& nome);
-
-    /** @brief
-     *  Essa função atualiza o nome de um jogador específico no arquivo jogadores.txt.
-     *  Ela lê o arquivo e substitui o nome atual pelo novo nome, mantendo o restante do conteúdo inalterado.
-     *  Se o nome atual não for encontrado, uma mensagem é exibida. Após a atualização, o arquivo é salvo novamente.
-     *
-     *  @param nome_atual Nome atual do jogador que será atualizado.
-     *  @param novo_nome Novo nome que substituirá o nome atual do jogador.
-     */
-    void atualizarNomeDoJogador(const std::string& nome_atual, const std::string& novo_nome);
+    void removerJogadorDoArquivo();
 
     /** @brief
      *  Essa função lista todos os jogadores presentes no arquivo jogadores.txt.

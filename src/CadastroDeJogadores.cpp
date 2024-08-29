@@ -15,7 +15,7 @@ void CadastroDeJogadores::criarArquivoJogadores()const{
 
     std::ifstream ifile(nome_arquivo.c_str());
     if (ifile) {
-        std::cout << "O arquivo " << nome_arquivo << " já existe." << std::endl;
+        std::cout << "O arquivo " << nome_arquivo << " ja existe." << std::endl;
     } else {
         std::ofstream arquivo(nome_arquivo);
         if(!arquivo){
@@ -36,7 +36,7 @@ void CadastroDeJogadores::adicionarJogadorNoArquivo(const Jogador &jogador) {
         [&jogador](const Jogador& j) { return j.getNome() == jogador.getNome(); });
     
     if (jogador_existe) {
-        std::cout << "O jogador " << jogador.getNome() << " já existe." << std::endl;
+        std::cout << "O jogador " << jogador.getNome() << " ja existe." << std::endl;
         return;
     }
     
@@ -59,9 +59,8 @@ void CadastroDeJogadores::carregarJogadoresDeArquivo(const std::string& nome_arq
         }
         
         arquivo.close();
-        std::cout << "Jogadores carregados do arquivo: "<< nome_arquivo <<"."<< std::endl;
     }else{
-        std::cout << "Não foi possível abrir o arquivo "<< nome_arquivo <<"."<< std::endl;
+        std::cout << "Nao foi possivel abrir o arquivo "<< nome_arquivo <<"."<< std::endl;
     }
 }
 
@@ -113,45 +112,54 @@ void CadastroDeJogadores::listarJogadoresDoArquivo() {
     arquivo.close();
     
     if(lista_vazia){
-        std::cout << "A lista de jogadores está vazia." << std::endl;
+        std::cout << "A lista de jogadores esta vazia." << std::endl;
     }
     
 }
 
-bool CadastroDeJogadores::buscarJogadorNoArquivo(const std::string &nome) {
+void CadastroDeJogadores::buscarJogadorNoArquivo() {
+    std::string nome;
+    std::cout << "Digite o nome do jogador que deseja buscar: ";
+    std::cin >> nome;
+
     const std::string nome_arquivo = "jogadores.txt";
     carregarJogadoresDeArquivo(nome_arquivo);
-    
-    for(const auto& jogador : jogadores){
-        if(jogador.getNome()==nome){
-            std::cout << "Jogador "<< nome <<"encontrado no arquivo." <<std::endl;
-            return true;
+
+    for (const auto& jogador : jogadores) {
+        if (jogador.getNome() == nome) {
+            std::cout << "Jogador " << nome << " encontrado no arquivo." << std::endl;
+            return;
         }
     }
-    std::cout << "Jogador " << nome << " não encontrado no arquivo." << std::endl;
-    return false;
+    std::cout << "Jogador " << nome << " nao encontrado no arquivo." << std::endl;
+    return;
 }
 
-void CadastroDeJogadores::removerJogadorDoArquivo(const std::string &nome){
+void CadastroDeJogadores::removerJogadorDoArquivo(){
     const std::string nome_arquivo = "jogadores.txt";
     carregarJogadoresDeArquivo(nome_arquivo);
     
+    std::string nome_jogador;
+    std::cout << "Digite o nome do jogador que deseja remover: ";
+    std::cin >> nome_jogador;
+    
     auto it = std::remove_if(jogadores.begin(), jogadores.end(),
-                                 [&nome](const Jogador& jogador) {
-                                     return jogador.getNome() == nome;
+                                 [&nome_jogador](const Jogador& jogador) {
+                                     return jogador.getNome() == nome_jogador;
                                  });
         
     if (it != jogadores.end()) {
         
         jogadores.erase(it, jogadores.end());
         atualizarArquivo();
-        std::cout << "Jogador " << nome << " foi removido com sucesso." << std::endl;
+        std::cout << "Jogador " << nome_jogador << " foi removido com sucesso." << std::endl;
     
     } else {
         
-        std::cout << "Jogador com nome " << nome << " não encontrado no arquivo." << std::endl;
+        std::cout << "Jogador com nome " << nome_jogador << " nao encontrado no arquivo." << std::endl;
     }
 }
+
 void CadastroDeJogadores::atualizarArquivo() const {
     std::string nome_arquivo = "jogadores.txt";
     std::ofstream arquivo(nome_arquivo, std::ios::trunc);  
@@ -162,55 +170,8 @@ void CadastroDeJogadores::atualizarArquivo() const {
         arquivo.close();
         std::cout << "Arquivo " << nome_arquivo << " atualizado com sucesso." << std::endl;
     } else {
-        std::cout << "Não foi possível abrir o arquivo " << nome_arquivo << " para atualizar." << std::endl;
+        std::cout << "Nao foi possivel abrir o arquivo " << nome_arquivo << " para atualizar." << std::endl;
     }
-}
-
-void CadastroDeJogadores::atualizarNomeDoJogador(const std::string &nome_atual, const std::string &novo_nome) {
-    std::string nome_arquivo = "jogadores.txt";
-
-    std::ifstream arquivo(nome_arquivo);
-
-    if (!arquivo) {
-        std::cerr << "Erro ao abrir o arquivo " << nome_arquivo << " para leitura." << std::endl;
-        return;
-    }
-
-    std::string conteudo_atualizado;
-    std::string linha;
-
-    bool encontrado = false;
-
-    while (std::getline(arquivo, linha)) {
-
-        if (!linha.empty() && linha.front() == '\"' && linha.back() == '\"') {
-            linha = linha.substr(1, linha.length() - 2);
-        }
-
-        if (linha == nome_atual) {
-            conteudo_atualizado = novo_nome ;
-            encontrado = true;
-        } else {
-            conteudo_atualizado = linha;
-        }
-    }
-    arquivo.close();
-
-    if (!encontrado) {
-        std::cout << "Nome atual não encontrado no arquivo." << std::endl;
-        return;
-    }
-
-    std::ofstream arquivo_atualizado(nome_arquivo, std::ios::trunc);
-    if (!arquivo_atualizado) {
-        std::cerr << "Erro ao abrir o arquivo " << nome_arquivo << " para escrita." << std::endl;
-        return;
-    }
-
-    arquivo_atualizado << conteudo_atualizado;
-    arquivo_atualizado.close();
-
-    std::cout << "Nome do jogador atualizado com sucesso." << std::endl;
 }
 
 Jogador* CadastroDeJogadores::getJogadorPorNome(const std::string &nome) {

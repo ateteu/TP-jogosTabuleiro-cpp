@@ -3,10 +3,7 @@
 #include <vector>
 #include <utility>
 #include <limits>
-
-void Reversi::imprimirTabuleiro() {
-    tabuleiro.imprimir();
-}
+#include <iostream>
 
 void Reversi::inicializarTabuleiro() {
     tabuleiro.configurarTabuleiro(8, 8); // configura pra ter 8 linhas e 8 colunas
@@ -14,9 +11,10 @@ void Reversi::inicializarTabuleiro() {
     tabuleiro.definirPosicao(4, 4, 'B');
     tabuleiro.definirPosicao(3, 4, 'W');
     tabuleiro.definirPosicao(4, 3, 'W');
+    tabuleiro.imprimir();
 }
 
-bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
+bool Reversi::validarJogada(int x, int y, Jogador* jogador, char peca) {
     // verifica se a posição está dentro do tabuleiro e está vazia
     if (!tabuleiro.posicaoValida(x, y) || tabuleiro.obterPeca(x, y) != '.') {
         return false;
@@ -29,7 +27,7 @@ bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
     };
 
     // determina as peças do jogador e do oponente
-    char pecaJogador = jogador->minhaPeca();  // 'W' ou 'B'
+    char pecaJogador = peca;  // 'W' ou 'B'
     char pecaOponente = (pecaJogador == 'B') ? 'W' : 'B';
 
     // verifica cada direção
@@ -69,7 +67,7 @@ bool Reversi::validarJogada(int x, int y, Jogador* jogador) {
 Reversi::Reversi(Jogador* _jogador1, Jogador* _jogador2)
     : jogador1(_jogador1), jogador2(_jogador2), vezJogador1(true) {}  // Inicializa vezJogador1 como true
 
-int Reversi::verificarCondicaoVitoria() {
+int Reversi::verificarCondicaoVitoria(char peca) {
     bool temMovimentoParaJogador1 = false;
     bool temMovimentoParaJogador2 = false;
 
@@ -77,10 +75,10 @@ int Reversi::verificarCondicaoVitoria() {
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
             if (tabuleiro.obterPeca(x, y) == '.') {
-                if (validarJogada(x, y, jogador1)) {
+                if (validarJogada(x, y, jogador1, jogador1->minhaPeca())) {
                     temMovimentoParaJogador1 = true;
                 }
-                if (validarJogada(x, y, jogador2)) {
+                if (validarJogada(x, y, jogador2, jogador2->minhaPeca())) {
                     temMovimentoParaJogador2 = true;
                 }
             }
@@ -105,10 +103,22 @@ int Reversi::verificarCondicaoVitoria() {
 
         // Determina o resultado do jogo
         if (contagemJogador1 > contagemJogador2) {
+            score.adicionarVitorias(jogador1->getNome(),"Reverse",1);
+            score.adicionarDerrotas(jogador2->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return 1; // Jogador 1 vence
         } else if (contagemJogador2 > contagemJogador1) {
+            score.adicionarVitorias(jogador2->getNome(),"Reverse",1);
+            score.adicionarDerrotas(jogador1->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return 1; // Jogador 2 vence
         } else {
+            score.adicionarEmpates(jogador1->getNome(),"Reverse",1);
+            score.adicionarEmpates(jogador2->getNome(),"Reverse",1);
+            score.imprimirEstatisticasPorNomeEJogo(jogador1->getNome(),"Reverse");
+            score.imprimirEstatisticasPorNomeEJogo(jogador2->getNome(),"Reverse");
             return -1; // Empate
         }
     }
@@ -116,13 +126,13 @@ int Reversi::verificarCondicaoVitoria() {
     return 0; // O jogo continua
 }
 
-void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY) {
+void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int deltaY, char peca) {
     int i = x + deltaX;
     int j = y + deltaY;
     std::vector<std::pair<int, int>> pecasParaVirar;
 
     // verifica a sequência de peças
-    while (tabuleiro.posicaoValida(i, j) && tabuleiro.obterPeca(i, j) == (jogador == jogador1 ? jogador2->minhaPeca() : jogador1->minhaPeca())) {
+    while (tabuleiro.posicaoValida(i, j) && tabuleiro.obterPeca(i, j) == (jogador->minhaPeca() == 'W' ? 'B' : 'W')) {
         pecasParaVirar.push_back({i, j});
         i += deltaX;
         j += deltaY;
@@ -136,28 +146,29 @@ void Reversi::capturarDirecao(int x, int y, Jogador* jogador, int deltaX, int de
     }
 }
 
-void Reversi::realizarJogada() {
-    Jogador* jogadorAtual = (vezJogador1) ? jogador1 : jogador2; // alterna entre jogador1 e jogador2
+void Reversi::realizarJogada(Jogador* jogadorAtual, char peca) {
     int x, y;
 
+    std::cout << "Peca do jogador: " << jogadorAtual->minhaPeca() << std::endl;
+
     while (true) {
-        std::cout << jogadorAtual->getNome() << ", digite a linha a ser jogada (0-7): ";
+        std::cout << "Digite a linha a ser jogada (0-7): ";
         std::cin >> x;
 
         if (std::cin.fail() || x < 0 || x > 7) {
             std::cin.clear(); // limpa o estado de erro
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
-            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            std::cout << "Entrada invalida. Por favor, digite um numero entre 0 e 7." << std::endl;
             continue;
         }
 
-        std::cout << jogadorAtual->getNome() << ", digite a coluna a ser jogada (0-7): ";
+        std::cout << "Digite a coluna a ser jogada (0-7): ";
         std::cin >> y;
 
         if (std::cin.fail() || y < 0 || y > 7) {
             std::cin.clear(); // limpa o estado de erro
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // descarta a entrada inválida
-            std::cout << "Entrada inválida. Por favor, digite um número entre 0 e 7." << std::endl;
+            std::cout << "Entrada invalida. Por favor, digite um numero entre 0 e 7." << std::endl;
             continue;
         }
 
@@ -166,29 +177,31 @@ void Reversi::realizarJogada() {
     }
 
     // verifica se a jogada é válida
-    if (!validarJogada(x, y, jogadorAtual)) {
-        std::cout << "Jogada inválida. Tente novamente." << std::endl;
-        return;
+    if (!validarJogada(x, y, jogadorAtual, peca)) {
+        std::cout << "Jogada invalida. Tente novamente." << std::endl;
+        realizarJogada(jogadorAtual, peca);
+    }
+    else{
+        // coloca a peça do jogador no tabuleiro
+        tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
+
+        // lógica para capturar as peças do oponente
+        capturarPecas(x, y, jogadorAtual, peca);
     }
 
-    // coloca a peça do jogador no tabuleiro
-    tabuleiro.definirPosicao(x, y, jogadorAtual->minhaPeca());
 
-    // lógica para capturar as peças do oponente
-    capturarPecas(x, y, jogadorAtual);
-
-    // alterna a vez do jogador
-    vezJogador1 = !vezJogador1;
 }
 
-void Reversi::capturarPecas(int x, int y, Jogador* jogador) {
+void Reversi::capturarPecas(int x, int y, Jogador* jogador, char peca) {
     // chama o método para capturar peças em todas as direções
-    capturarDirecao(x, y, jogador, 0, 1);  // direita
-    capturarDirecao(x, y, jogador, 0, -1); // esquerda
-    capturarDirecao(x, y, jogador, 1, 0);  // baixo
-    capturarDirecao(x, y, jogador, -1, 0); // cima
-    capturarDirecao(x, y, jogador, -1, -1); // diagonal superior esquerda
-    capturarDirecao(x, y, jogador, 1, 1);   // diagonal inferior direita
-    capturarDirecao(x, y, jogador, -1, 1);  // diagonal superior direita
-    capturarDirecao(x, y, jogador, 1, -1);  // diagonal inferior esquerda
+    capturarDirecao(x, y, jogador, 0, 1, peca);  // direita
+    capturarDirecao(x, y, jogador, 0, -1, peca); // esquerda
+    capturarDirecao(x, y, jogador, 1, 0, peca);  // baixo
+    capturarDirecao(x, y, jogador, -1, 0, peca); // cima
+    capturarDirecao(x, y, jogador, -1, -1, peca); // diagonal superior esquerda
+    capturarDirecao(x, y, jogador, 1, 1, peca);   // diagonal inferior direita
+    capturarDirecao(x, y, jogador, -1, 1, peca);  // diagonal superior direita
+    capturarDirecao(x, y, jogador, 1, -1, peca);  // diagonal inferior esquerda
+
+    tabuleiro.imprimir(); // imprimir o tabuleiro atualizado
 }
