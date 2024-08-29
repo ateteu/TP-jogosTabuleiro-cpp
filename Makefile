@@ -11,7 +11,7 @@ INCLUDE_DIR = include
 BIN_DIR = .
 
 # Nome do executável
-TARGET = $(BIN_DIR)/TP-jogosTabuleiro.exe
+TARGET = $(BIN_DIR)/jogo.exe
 
 # Coleta todos os arquivos .cpp em SRC_DIR
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
