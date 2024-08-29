@@ -51,7 +51,7 @@ int main() {
                         cadastroDeJogadores.buscarJogadorNoArquivo();
                     }
                     if (escolha == 4) {
-                        cadastroDeJogadores.removerJogadorDoArquivo("jogadores.txt");
+                        cadastroDeJogadores.removerJogadorDoArquivo();
                     }
                     if (escolha == 5) {
                         sistema.executarPartida();
