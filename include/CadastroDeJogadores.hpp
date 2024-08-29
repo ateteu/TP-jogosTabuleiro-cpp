@@ -66,7 +66,7 @@ public:
      *
      *  @param nome Nome do jogador a ser removido do arquivo.
      */
-    void removerJogadorDoArquivo(const std::string& nome);
+    void removerJogadorDoArquivo();
 
     /** @brief
      *  Essa função lista todos os jogadores presentes no arquivo jogadores.txt.

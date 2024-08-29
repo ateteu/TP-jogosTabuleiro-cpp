@@ -135,7 +135,7 @@ void CadastroDeJogadores::buscarJogadorNoArquivo() {
     return;
 }
 
-void CadastroDeJogadores::removerJogadorDoArquivo(const std::string &nome){
+void CadastroDeJogadores::removerJogadorDoArquivo(){
     const std::string nome_arquivo = "jogadores.txt";
     carregarJogadoresDeArquivo(nome_arquivo);
     
