@@ -50,10 +50,10 @@ public:
      * @brief Verifica a condição de vitória.
      * 
      * Analisa o tabuleiro para determinar se algum jogador cumpriu as condições de vitória.
-     * @return 1 se um jogador venceu, -1 em caso de empate, 0 se o jogo continua.
+     * @param peca A peça do jogador atual.
+     * @return 1 se o jogador atual venceu, -1 em caso de empate, 0 se o jogo continua.
      */
-    virtual int verificarCondicaoVitoria();
-
+    int verificarCondicaoVitoria(char peca) override;
     /** 
      * @brief Imprime o estado atual do tabuleiro no terminal.
      */

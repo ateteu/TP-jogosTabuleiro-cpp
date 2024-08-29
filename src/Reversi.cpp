@@ -67,7 +67,7 @@ bool Reversi::validarJogada(int x, int y, Jogador* jogador, char peca) {
 Reversi::Reversi(Jogador* _jogador1, Jogador* _jogador2)
     : jogador1(_jogador1), jogador2(_jogador2), vezJogador1(true) {}  // Inicializa vezJogador1 como true
 
-int Reversi::verificarCondicaoVitoria() {
+int Reversi::verificarCondicaoVitoria(char peca) {
     bool temMovimentoParaJogador1 = false;
     bool temMovimentoParaJogador2 = false;
 

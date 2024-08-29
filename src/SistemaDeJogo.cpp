@@ -104,7 +104,7 @@ void SistemaDeJogo::executarPartida() {
                     jogo->realizarJogada(jogadorAtual, jogadorAtual->minhaPeca());
 
                     turnoJogador1 = !turnoJogador1;
-                    condicaoVitoria = jogo->verificarCondicaoVitoria();
+                    condicaoVitoria = jogo->verificarCondicaoVitoria(jogadorAtual->minhaPeca());
                 } catch (const std::exception& e) {
                     std::cerr << "Erro durante a jogada: " << e.what() << std::endl;
                     return;  // Encerra a partida se ocorrer um erro crítico
