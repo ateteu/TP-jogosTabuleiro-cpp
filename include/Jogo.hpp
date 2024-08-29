@@ -49,7 +49,7 @@ public:
      * 
      * @return int Retorna `1` se algum jogador venceu, `-1` em caso de empate, ou `0` se o jogo deve continuar.
      */
-    virtual int verificarCondicaoVitoria();
+    virtual int verificarCondicaoVitoria(char peca);
     
     /**
      * @brief Imprime o estado atual do jogo.
