@@ -77,7 +77,7 @@ void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const s
         // Verifica e imprime vitórias
         auto vit = estatisticasJogador.find(jogoVitorias);
         if (vit != estatisticasJogador.end()) {
-            std::cout << "Vitórias: " << vit->second << "\n";
+            std::cout << "Vitorias: " << vit->second << "\n";
         }
 
         // Verifica e imprime derrotas
@@ -93,7 +93,7 @@ void Score::imprimirEstatisticasPorNomeEJogo(const std::string& jogador, const s
         }
 
     } else {
-        std::cout << "Nenhuma estatística encontrada para o jogador " << jogador << ".\n";
+        std::cout << "Nenhuma estatistica encontrada para o jogador " << jogador << ".\n";
     }
 }
 
@@ -136,7 +136,7 @@ void Score::carregar() {
                     int quantidade = std::stoi(quantidadeStr);
                     estatisticasJogador[jogo] = quantidade;
                 } catch (const std::invalid_argument& e) {
-                    std::cerr << "Erro: Quantidade inválida na linha: " << linha << std::endl;
+                    std::cerr << "Erro: Quantidade invalida na linha: " << linha << std::endl;
                 }
             }
         }
@@ -147,16 +147,16 @@ void Score::carregar() {
         }
 
         arquivoStream.close();
-        std::cout << "Estatísticas carregadas do arquivo: " << arquivo << "." << std::endl;
+        std::cout << "Estatisticas carregadas do arquivo: " << arquivo << "." << std::endl;
     } else {
-        std::cerr << "Não foi possível abrir o arquivo " << arquivo << "." << std::endl;
+        std::cerr << "Nao foi possível abrir o arquivo " << arquivo << "." << std::endl;
     }
 }
 
 void Score::imprimirEstatisticasPorNome(const std::string& nome) const {
     // Verifica se as estatísticas estão carregadas
     if (estatisticas.empty()) {
-        std::cerr << "Estatísticas não carregadas. Carregando agora..." << std::endl;
+        std::cerr << "Estatisticas nao carregadas. Carregando agora..." << std::endl;
         const_cast<Score*>(this)->carregar();
     }
 
@@ -167,7 +167,7 @@ void Score::imprimirEstatisticasPorNome(const std::string& nome) const {
             std::cout << item.first << ": " << item.second << "\n";
         }
     } else {
-        std::cout << "Nenhuma estatística encontrada para o jogador " << nome << ".\n";
+        std::cout << "Nenhuma estatistica encontrada para o jogador " << nome << ".\n";
     }
 }
 
@@ -206,7 +206,7 @@ void Score::limparScore(const std::string& nomeJogador) {
         estatisticas.erase(it);
         std::cout << "Score do jogador " << nomeJogador << " foi limpo." << std::endl;
     } else {
-        std::cout << "Jogador " << nomeJogador << " não encontrado no score." << std::endl;
+        std::cout << "Jogador " << nomeJogador << " nao encontrado no score." << std::endl;
     }
 
     atualizarArquivo();
