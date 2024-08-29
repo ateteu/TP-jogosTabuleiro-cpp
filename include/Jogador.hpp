@@ -13,8 +13,7 @@ private:
 
     /**
      * @brief Armazena a peça do jogador. 
-     *        Pode ser 'W' (branco) ou 'B' (preto) para Reversi, 
-     *        ou 'X' ou 'O' para Lig4.
+     *        Pode ser 'W' (branco) ou 'B' (preto) para ambos os jogos.
      */
     char peca;
 
@@ -62,6 +61,11 @@ public:
      */
     std::string getNome() const;
 
+    /**
+     * @brief Define a peça do jogador.
+     * 
+     * @param _peca A peça associada ao jogador ('W' ou 'B').
+     */
     void setPeca(char _peca);
 
     /** @brief
